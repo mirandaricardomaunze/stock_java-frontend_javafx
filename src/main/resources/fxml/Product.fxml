@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.ProductController"
+           prefHeight="800.0" prefWidth="1200.0"
+           stylesheets="@../css/product.css">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+        <content>
+            <VBox spacing="25" alignment="TOP_CENTER" styleClass="container">
+                <padding>
+                    <Insets top="25" bottom="25" left="30" right="30"/>
+                </padding>
+
+                <!-- Header -->
+                <VBox spacing="15" styleClass="header-section">
+                    <Label  text="Gestão de Produtos" styleClass="title-label"/>
+                    <Label text="Gerencie seu inventário de forma eficiente" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- Search Bar -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="search-bar">
+                    <TextField fx:id="txtSearch" minHeight="38"  styleClass="search-field" promptText="Pesquisar produtos..." HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnSearch" minHeight="38" text="Pesquisar" onAction="#handleSearchProduct" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SEARCH" size="14" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Exportar"  minHeight="38" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="DOWNLOAD" size="14" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Products Table -->
+                <VBox spacing="10" styleClass="table-section">
+                    <TableView fx:id="productsTable" prefHeight="350" minHeight="400" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
+                            <TableColumn fx:id="colReference" text="Referência" prefWidth="110"/>
+                            <TableColumn fx:id="colBarcode" text="Código Barras" prefWidth="140"/>
+                            <TableColumn fx:id="colName" text="Nome" prefWidth="180"/>
+                            <TableColumn fx:id="colCategory" text="Categoria" prefWidth="130"/>
+                            <TableColumn fx:id="colSellingPrice" text="Preço Venda" prefWidth="110"/>
+                            <TableColumn fx:id="colCostPrice" text="Preço Custo" prefWidth="110"/>
+                            <TableColumn fx:id="colQuantity" text="Qtd. Stock" prefWidth="100"/>
+                            <TableColumn fx:id="colMinStock" text="Stock Min." prefWidth="100"/>
+                            <TableColumn fx:id="colSupplier" text="Fornecedor" prefWidth="130"/>
+                            <TableColumn fx:id="colUnit" text="Unidade" prefWidth="100"/>
+                            <TableColumn fx:id="colCompany" text="Empresa" prefWidth="120"/>
+                            <TableColumn fx:id="colWarehouse" text="Armazém" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+                <VBox spacing="20">
+                    <HBox alignment="TOP_RIGHT"  spacing="10">
+                        <Button fx:id="btnOpenModal" minHeight="38" text="Novo produto" onAction="#openProductForm" styleClass="primary-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="PLUS" styleClass="icon-button"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnDel"  minHeight="38" text="Remover" onAction="#handleDeleteProduct" styleClass="danger-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="TRASH" styleClass="icon-button"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnUpdat" minHeight="38" text="Atualizar" onAction="#updateOpenProductForm" styleClass="button-success">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="REFRESH" styleClass="icon-button"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>

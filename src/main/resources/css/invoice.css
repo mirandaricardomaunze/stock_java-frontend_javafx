@@ -1,0 +1,243 @@
+/* ===========================
+   🎨 Tema principal
+   =========================== */
+.root-container {
+    -fx-background-color: #f4f6f8;
+}
+
+.scroll-pane {
+    -fx-background: #f4f6f8;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ===========================
+   🏷️ Cabeçalho e seções
+   =========================== */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.section-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+.form-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #777777;
+}
+
+/* ===========================
+   🔍 Barra de pesquisa
+   =========================== */
+.search-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 10 18;
+    -fx-background-radius: 8;
+    -fx-background-color: #1976d2;
+}
+
+.search-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.search-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+}
+
+.search-field:focused {
+    -fx-border-color: #1976d2;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* ===========================
+   📋 Tabela (fundo completo)
+   =========================== */
+.table-view {
+    -fx-background-color: #ffffff; /* fundo branco dentro da tabela */
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-table-cell-border-color: #e0e0e0;
+    -fx-font-size: 13px;
+}
+
+/* Cabeçalho (header das colunas) */
+.table-view .column-header-background {
+    -fx-background-color: #1976d2; /* azul primário */
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 4px;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #1976d2;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER;
+}
+
+/* Linhas */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9fafb; /* linhas alternadas */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(#1976d2, 35%);
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* Células */
+.table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10;
+}
+
+/* Scrollbars dentro da tabela */
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   🧾 Campos do Formulário
+   =========================== */
+.form-field, .form-combo, .form-textarea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+    -fx-prompt-text-fill: #666666;
+    -fx-pref-height: 38;
+}
+
+.form-field:focused, .form-combo:focused, .form-textarea:focused {
+    -fx-border-color: #1976d2;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+.form-combo .arrow {
+    -fx-background-color: #1976d2;
+}
+
+.form-combo .list-view {
+    -fx-background-color: #ffffff;
+}
+
+/* ===========================
+   🧭 Botões
+   =========================== */
+.primary-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 10 18;
+    -fx-background-radius: 8;
+    -fx-background-color: #1976d2;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.success-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #2e7d32;
+    -fx-padding: 10 18;
+    -fx-background-radius: 8;
+}
+
+.success-button:hover {
+    -fx-background-color: derive(#2e7d32, -10%);
+}
+
+.danger-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #d32f2f;
+    -fx-padding: 10 18;
+    -fx-background-radius: 8;
+}
+
+.danger-button:hover {
+    -fx-background-color: derive(#d32f2f, -10%);
+}
+
+.warning-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+    -fx-background-color: #e0e0e0;
+    -fx-padding: 10 18;
+    -fx-background-radius: 8;
+}
+
+.warning-button:hover {
+    -fx-background-color: #d5d5d5;
+}
+
+/* ===========================
+   📜 Scrollbar moderna
+   =========================== */
+.scroll-bar .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   🧩 Ícones
+   =========================== */
+.icon {
+    -fx-fill: white;
+    -fx-font-size: 15px;
+    -fx-padding: 0 8 0 0;
+}
+
+.icon:hover {
+    -fx-fill: white;
+}

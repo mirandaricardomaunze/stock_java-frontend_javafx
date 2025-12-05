@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.WarehouseFormController"
+           prefHeight="600" prefWidth="900"
+           stylesheets="@../css/product-form.css"
+           styleClass="form-background">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+        <StackPane>
+            <VBox alignment="CENTER" spacing="25" maxWidth="800">
+                <padding>
+                    <Insets top="30" bottom="30" left="20" right="20"/>
+                </padding>
+
+                <!-- Title Bar -->
+                <HBox styleClass="title-bar" alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="titleModal" styleClass="title-bar-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="✕" onAction="#handleCancel" styleClass="btn-close"/>
+                </HBox>
+
+                <!-- Form Title (opcional) -->
+                <Label fx:id="formTitle" styleClass="form-title"/>
+
+                <!-- Form Grid -->
+                <GridPane hgap="15" vgap="15" styleClass="form-grid">
+                    <padding>
+                        <Insets top="20" left="30" right="30" bottom="20"/>
+                    </padding>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Campos do formulário -->
+                    <TextField fx:id="nameField" promptText="Nome do Armazém *"
+                               GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+                    <TextField fx:id="locationField" promptText="Localização"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="capacityField" promptText="Capacidade"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <TextField fx:id="descriptionField" promptText="Descrição"
+                               GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="emailField" promptText="Email *"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <TextField fx:id="phoneField" promptText="Telefone *"
+                               GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="managerField" promptText="Gerente *"
+                               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    <ComboBox fx:id="companyComboBox" promptText="Selecione a Empresa"
+                              styleClass="text-field" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+
+                    <!-- CheckBoxes lado a lado com Label e Tooltip -->
+                    <HBox spacing="5" alignment="CENTER_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                        <CheckBox fx:id="activeCheckBox"/>
+                        <Label text="Ativo"/>
+                    </HBox>
+
+                    <HBox spacing="5" alignment="CENTER_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                        <CheckBox fx:id="principalCheckBox"/>
+                        <Label text="Principal"/>
+                     </HBox>
+
+                </GridPane>
+
+                <!-- Botões -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Cancelar" onAction="#handleCancel" styleClass="btn-secondary"/>
+                    <Button fx:id="btnUpdateAndCreate" text="Cadastrar"
+                            onAction="#updateWarehouse" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

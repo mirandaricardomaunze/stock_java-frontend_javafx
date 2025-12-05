@@ -1,0 +1,197 @@
+/* ===========================
+   🎨 Tema principal
+   =========================== */
+.main-container {
+    -fx-background-color: #f4f6f8;
+    -fx-padding: 0;
+}
+
+.scroll-pane {
+    -fx-background: #f4f6f8;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ===========================
+   🏷️ Cabeçalho
+   =========================== */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+}
+
+.section-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+/* ===========================
+   🔍 Campo de pesquisa
+   =========================== */
+.search-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 13px;
+    -fx-pref-height: 36px; /* altura uniforme */
+}
+
+.search-field:focused {
+    -fx-border-color: #1976d2;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* ===========================
+   🧾 Botões com cores individuais
+   =========================== */
+
+/* Gerar Fatura */
+.btn-invoice {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #1e88e5; /* Azul vibrante */
+    -fx-background-radius: 8;
+    -fx-padding: 6 16;
+    -fx-pref-height: 36px;
+}
+
+.btn-invoice:hover {
+    -fx-background-color: #1565c0;
+}
+
+/* Excel */
+.btn-export{
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #43a047; /* Verde vibrante */
+    -fx-background-radius: 8;
+    -fx-padding: 6 16;
+    -fx-pref-height: 36px;
+}
+
+.btn-export:hover {
+    -fx-background-color: #2e7d32;
+}
+
+/* PDF */
+.btn-pdf {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #e53935; /* Vermelho vibrante */
+    -fx-background-radius: 8;
+    -fx-padding: 6 16;
+    -fx-pref-height: 36px;
+}
+
+.btn-pdf:hover {
+    -fx-background-color: #b71c1c;
+}
+
+/* Imprimir */
+.btn-print {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #f9a825; /* Amarelo vibrante */
+    -fx-background-radius: 8;
+    -fx-padding: 6 16;
+    -fx-pref-height: 36px;
+}
+
+.btn-print:hover {
+    -fx-background-color: #f57f17;
+}
+
+/* Novas encomendas */
+.btn-new-order {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #8e24aa; /* Roxo vibrante */
+    -fx-background-radius: 8;
+    -fx-padding: 6 16;
+    -fx-pref-height: 36px;
+}
+
+.btn-new-order:hover {
+    -fx-background-color: #6a1b9a;
+}
+
+/* Ícones dentro dos botões */
+.icon-button {
+    -fx-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 0 8 0 0;
+}
+
+/* ===========================
+   🏷️ Tabela de pedidos
+   =========================== */
+/* Cabeçalho */
+.table-view .column-header-background {
+    -fx-background-color: #1e88e5;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 4px;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #1e88e5;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER;
+}
+
+/* Linhas */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9fafb;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(#1e88e5, 35%);
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* Células */
+.table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10;
+}
+
+/* Scrollbars */
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #1e88e5;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   🧰 HBox botões + pesquisa
+   =========================== */
+.search-filter-bar {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5 0 5 0;
+}

@@ -1,0 +1,278 @@
+/* Reset e estilos base */
+.root {
+    -fx-background-color: #f8fafc;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: #e2e8f0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+/* Text styles */
+.dashboard-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.dashboard-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #64748b;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-padding: 0 0 5 0;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #334155;
+}
+
+/* Filter */
+.filter-container {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-padding: 12 20;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.1), 12, 0, 0, 4);
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.filter-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+.filter-combobox {
+    -fx-background-color: white;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+}
+
+.filter-combobox:hover {
+    -fx-border-color: #3b82f6;
+}
+
+.filter-combobox:focused {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 10, 0, 0, 0);
+}
+
+/* CARD STYLES - FUNDOS COLORIDOS */
+.card-primary {
+    -fx-background-color: linear-gradient(to bottom right, #3b82f6, #2563eb);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+.card-success {
+    -fx-background-color: linear-gradient(to bottom right, #10b981, #059669);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+.card-warning {
+    -fx-background-color: linear-gradient(to bottom right, #f59e0b, #d97706);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+.card-info {
+    -fx-background-color: linear-gradient(to bottom right, #06b6d4, #0891b2);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(6, 182, 212, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+.card-danger {
+    -fx-background-color: linear-gradient(to bottom right, #ef4444, #dc2626);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+.card-profit {
+    -fx-background-color: linear-gradient(to bottom right, #8b5cf6, #7c3aed);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+.card-sales {
+    -fx-background-color: linear-gradient(to bottom right, #6366f1, #4f46e5);
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.3), 20, 0, 0, 8);
+    -fx-border-radius: 16;
+    -fx-cursor: hand;
+}
+
+/* Hover effects */
+.card-primary:hover, .card-success:hover, .card-warning:hover,
+.card-info:hover, .card-danger:hover, .card-profit:hover, .card-sales:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 25, 0, 0, 12);
+    -fx-translate-y: -4;
+}
+
+/* Icon containers */
+.icon-primary, .icon-success, .icon-warning,
+.icon-info, .icon-danger, .icon-profit, .icon-sales {
+    -fx-padding: 14;
+    -fx-background-radius: 12;
+    -fx-min-width: 48;
+    -fx-min-height: 48;
+    -fx-alignment: center;
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+/* Card text styles */
+.card-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-font-weight: 600;
+}
+
+.card-value {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.card-icon {
+    -fx-fill: white;
+    -fx-glyph-size: 22;
+}
+
+/* Chart containers */
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.1), 15, 0, 0, 6);
+    -fx-border-radius: 16;
+    -fx-border-color: #f1f5f9;
+    -fx-border-width: 1;
+}
+
+/* Chart styling */
+.line-chart {
+    -fx-background-color: transparent;
+}
+
+.line-chart .chart-plot-background {
+    -fx-background-color: #f8fafc;
+}
+
+.line-chart .chart-vertical-grid-lines {
+    -fx-stroke: #e2e8f0;
+}
+
+.line-chart .chart-horizontal-grid-lines {
+    -fx-stroke: #e2e8f0;
+}
+
+.pie-chart {
+    -fx-background-color: transparent;
+}
+
+.pie-chart .chart-pie-label {
+    -fx-fill: #1e293b;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.chart-axis {
+    -fx-tick-label-fill: #64748b;
+    -fx-font-size: 12px;
+}
+
+.chart-axis .axis-label {
+    -fx-text-fill: #475569;
+    -fx-font-weight: bold;
+}
+
+/* Series colors */
+.default-color0.chart-series-line {
+    -fx-stroke: #3b82f6;
+    -fx-stroke-width: 2.5;
+}
+
+.default-color1.chart-series-line {
+    -fx-stroke: #10b981;
+    -fx-stroke-width: 2.5;
+}
+
+.default-color2.chart-series-line {
+    -fx-stroke: #f59e0b;
+    -fx-stroke-width: 2.5;
+}
+
+.default-color0.chart-line-symbol {
+    -fx-background-color: #3b82f6, white;
+}
+
+.default-color1.chart-line-symbol {
+    -fx-background-color: #10b981, white;
+}
+
+.default-color2.chart-line-symbol {
+    -fx-background-color: #f59e0b, white;
+}
+
+/* Pie chart colors */
+.data0.chart-pie { -fx-pie-color: #3b82f6; }
+.data1.chart-pie { -fx-pie-color: #10b981; }
+.data2.chart-pie { -fx-pie-color: #f59e0b; }
+.data3.chart-pie { -fx-pie-color: #ef4444; }
+.data4.chart-pie { -fx-pie-color: #8b5cf6; }
+.data5.chart-pie { -fx-pie-color: #06b6d4; }

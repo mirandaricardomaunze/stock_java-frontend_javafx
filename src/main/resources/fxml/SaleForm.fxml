@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.SaleFormController"
+           prefWidth="900" prefHeight="650"
+           stylesheets="@../css/sale-form.css"
+           styleClass="main-container">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+
+        <VBox spacing="18">
+
+            <padding>
+                <Insets top="20" left="20" right="20" bottom="20"/>
+            </padding>
+
+            <!-- =================== DADOS DO CLIENTE =================== -->
+            <TitledPane text="Dados do Cliente" expanded="true" styleClass="titled-pane">
+                <content>
+                    <GridPane hgap="15" vgap="12">
+                        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+
+                        <!-- Linha 0 -->
+                        <Label text="Cliente:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="clientNameField" styleClass="form-field"
+                                   promptText="Nome do cliente"
+                                   GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                   minHeight="38"/>
+
+                        <Label text="Método Pagamento:" GridPane.rowIndex="0"  GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="paymentMethodComboBox"  styleClass="form-combo"
+                                  promptText="Selecione o método"
+                                  GridPane.rowIndex="0" GridPane.columnIndex="3"
+                                  minHeight="38"/>
+
+                        <!-- Linha 1 -->
+                        <Label text="Desconto:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="discountField" styleClass="form-field"
+                                   promptText="Ex: 0 ou 10%"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="1"
+                                   minHeight="38"/>
+
+                        <Label text="Valor Pago:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField fx:id="amountPaidField" styleClass="form-field"
+                                   promptText="Montante entregue pelo cliente"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="3"
+                                   minHeight="38"/>
+                    </GridPane>
+                </content>
+            </TitledPane>
+
+
+            <!-- =================== TABELA DE PRODUTOS =================== -->
+            <TitledPane text="Itens da Venda" expanded="true" styleClass="titled-pane">
+                <content>
+                    <VBox spacing="12">
+                        <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+
+                        <!-- TABELA -->
+                        <TableView fx:id="itemsTable" prefHeight="250" minHeight="250" styleClass="table-view">
+                            <columns>
+                                <TableColumn fx:id="productColumn" text="Produto" prefWidth="200"/>
+                                <TableColumn fx:id="quantityColumn" text="Quantidade" prefWidth="90"/>
+                                <TableColumn fx:id="priceColumn" text="Preço" prefWidth="100"/>
+                                <TableColumn fx:id="subtotalColumn" text="Subtotal" prefWidth="120"/>
+                            </columns>
+                        </TableView>
+
+                        <HBox spacing="10">
+                            <Label text="Produto:"/>
+                            <ComboBox fx:id="productComboBox" prefWidth="200" value="Seleciona produto" styleClass="form-combo" minHeight="38"/>
+                            <Label text="Qtd:"/>
+                            <TextField fx:id="quantityField" prefWidth="80" styleClass="form-field" minHeight="38"/>
+                            <Button fx:id="addItemButton" onAction="#addItem" styleClass="primary-button" minHeight="38">
+                                <graphic><FontAwesomeIconView glyphName="PLUS" size="16" styleClass="icon-button"/></graphic>
+                                <text>Adicionar</text>
+                            </Button>
+                            <Button fx:id="removeItemButton" onAction="#removeSelectedItem"
+                                    text="Remover" styleClass="danger-button" minHeight="38">
+                                <graphic><FontAwesomeIconView glyphName="TRASH" size="16" styleClass="icon-button"/></graphic>
+                            </Button>
+                        </HBox>
+                    </VBox>
+                </content>
+            </TitledPane>
+
+            <!-- =================== TOTAL E TROCO =================== -->
+            <GridPane hgap="15" vgap="12">
+                <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+
+                <Label text="Total:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="totalLabel" text="0.00" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                       styleClass="section-label"/>
+
+                <Label text="Troco:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="changeLabel" text="0.00" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                       styleClass="section-label"/>
+            </GridPane>
+
+            <!-- =================== AÇÕES =================== -->
+            <HBox spacing="10">
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="cancelButton" text="Cancelar" onAction="#handleCancel" styleClass="danger-button" minHeight="38">
+                    <graphic><FontAwesomeIconView glyphName="CLOSE" size="16" styleClass="icon-button"/></graphic>
+                </Button>
+                <Button fx:id="submitButton" text="Salvar Venda" onAction="#submitSale" styleClass="primary-button" minHeight="38">
+                    <graphic><FontAwesomeIconView glyphName="SAVE" size="16" styleClass="icon-button"/></graphic>
+                </Button>
+            </HBox>
+
+        </VBox>
+    </ScrollPane>
+
+</StackPane>

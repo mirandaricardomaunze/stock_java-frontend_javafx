@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.CompanyFormController"
+           prefHeight="550.0" prefWidth="800.0"
+           stylesheets="@../css/company-form.css"
+           styleClass="form-background">
+
+    <!-- Scroll principal -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+        <StackPane>
+            <VBox alignment="CENTER" spacing="25" maxWidth="800">
+                <padding>
+                    <Insets top="30" bottom="30" left="20" right="20"/>
+                </padding>
+
+                <!-- Barra de título -->
+                <HBox fx:id="titleBar" alignment="CENTER_RIGHT" spacing="10" >
+                    <Button onAction="#handleCancel" styleClass="btn-close">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TIMES" size="16" styleClass="icon-close"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Cabeçalho -->
+                <Label fx:id="titleModal" text="" styleClass="form-title"/>
+
+                <!-- Campos -->
+                <GridPane hgap="15" vgap="15" styleClass="form-grid">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="300"/>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="300"/>
+                    </columnConstraints>
+
+                    <!-- Linha 1 -->
+                    <TextField fx:id="nameField" promptText="Nome" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="addressField" promptText="Endereço" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 2 -->
+                    <TextField fx:id="emailField" promptText="Email" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="phoneField" promptText="Telefone" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 3 -->
+                    <TextField fx:id="nuitField" promptText="NUIT" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="websiteField" promptText="Website" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 4 -->
+                    <TextArea fx:id="descriptionField" promptText="Descrição" prefRowCount="3" wrapText="true"
+                              GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                    <!-- Linha 5 -->
+                    <TextField fx:id="registrationField" promptText="Nº de Registo" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <TextField fx:id="logoField" promptText="Logo URL" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 6 -->
+                    <TextField fx:id="countryField" promptText="País" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    <TextField fx:id="cityField" promptText="Cidade" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 7 -->
+                    <TextField fx:id="postalCodeField" promptText="Código Postal" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                    <TextField fx:id="industryField" promptText="Indústria" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 8 -->
+                    <TextField fx:id="companyContactEmailField" promptText="Email de Contacto" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                    <TextField fx:id="companyContactPhoneField" promptText="Telefone de Contacto" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                </GridPane>
+
+                <!-- Botões -->
+                <HBox spacing="20" alignment="CENTER">
+                    <!-- Botão Cancelar -->
+                    <Button text="Cancelar" onAction="#handleCancel" styleClass="btn-secondary">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TIMES_CIRCLE" size="14" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+
+                    <!-- Botão Cadastrar / Atualizar -->
+                    <Button fx:id="btnUpdateAndCreate" text="Cadastrar" onAction="#handleUpdateAndCreate" styleClass="btn-primary">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SAVE" size="14" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

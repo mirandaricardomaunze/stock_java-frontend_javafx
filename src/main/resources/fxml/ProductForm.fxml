@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.ProductFormController"
+           prefHeight="700.0" prefWidth="900.0"
+           stylesheets="@../css/product-form.css"
+           styleClass="form-background">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+        <StackPane>
+            <VBox alignment="CENTER" spacing="25" maxWidth="800">
+                <padding>
+                    <Insets top="30" bottom="30" left="20" right="20"/>
+                </padding>
+
+                <HBox fx:id="titleBar" alignment="CENTER_LEFT" spacing="10" >
+                    <Button text="✕" onAction="#handleCancel" styleClass="btn-close"/>
+                </HBox>
+
+                <Label fx:id="titleModal" text="" styleClass="form-title"/>
+
+                <GridPane hgap="15" vgap="15" styleClass="form-grid">
+                    <padding>
+                        <Insets top="20" left="30" right="30" bottom="20"/>
+                    </padding>
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Linha 0 -->
+                    <TextField fx:id="txtName" promptText="Nome do Produto *" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                    <!-- Linha 1 -->
+                    <ComboBox fx:id="comboBoxCategory" promptText="Categoria *" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtSku" promptText="SKU" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 2 -->
+                    <TextField fx:id="txtBarcode" promptText="Código de Barras" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtReference" promptText="Referência" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 3 -->
+                    <TextField fx:id="txtSellingPrice" promptText="Preço Venda *" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtCostPrice" promptText="Preço Custo *" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 4 -->
+                    <TextField fx:id="txtQuantity" promptText="Quantidade Stock *" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtMinStock" promptText="Stock Mínimo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 5 -->
+                    <ComboBox fx:id="comboBoxSupplier" promptText="Fornecedor" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtUnit" promptText="Unidade" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 6 -->
+                    <ComboBox fx:id="comboBoxCompany" promptText="Empresa *" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="comboBoxWarehouse" promptText="Armazém *" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 7 -->
+                    <TextField fx:id="txtBoxes" promptText="Nº de Caixas" GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                    <!-- Linha 8 -->
+                    <TextField fx:id="txtLocationCode" promptText="Código Localização" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtWeight" promptText="Peso (kg)" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 9 -->
+                    <TextField fx:id="txtVolume" promptText="Volume (m³)" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                    <DatePicker fx:id="txtExpirationDate" promptText="Data Validade" GridPane.rowIndex="9" styleClass="date-filter" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 10 -->
+                    <TextField fx:id="txtBatchNumber" promptText="Número de Lote" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtTaxPercentage" promptText=" % Imposto" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 11 -->
+                    <CheckBox fx:id="checkTaxIncluded" text="Imposto Incluído" GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtAccountingCode" promptText="Código Contabilístico" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 12 -->
+                    <TextField fx:id="txtBrand" promptText="Marca" GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtModel" promptText="Modelo" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 13 -->
+                    <TextField fx:id="txtTags" promptText="Tags" GridPane.rowIndex="13" GridPane.columnIndex="0"/>
+                    <TextField fx:id="txtImageUrl" promptText="URL Imagem" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 14 -->
+                    <TextArea fx:id="txtDescription" promptText="Descrição do produto..." GridPane.rowIndex="14" GridPane.columnIndex="0" GridPane.columnSpan="2" prefRowCount="3"/>
+                </GridPane>
+
+                <!-- Botões -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Cancelar" onAction="#handleCancel" styleClass="btn-secondary"/>
+                    <Button fx:id="btnUpdateAndCreate" text="Cadastrar" onAction="#upadateAndCreate" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

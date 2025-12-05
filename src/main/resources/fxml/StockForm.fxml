@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.StockFormController"
+           prefHeight="500" prefWidth="600"
+           stylesheets="@../css/stock-form.css"
+           styleClass="form-background">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+        <StackPane>
+            <VBox alignment="CENTER" spacing="25" maxWidth="500">
+                <padding>
+                    <Insets top="30" bottom="30" left="20" right="20"/>
+                </padding>
+
+                <!-- Título e fechar -->
+                <HBox styleClass="title-bar" alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="titleModal" styleClass="title-bar-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="✕" onAction="#handleCancel" styleClass="btn-close"/>
+                </HBox>
+
+                <Label fx:id="formTitle" text="Gestão de Stock" styleClass="form-title"/>
+
+                <!-- Formulário -->
+                <GridPane hgap="15" vgap="15" styleClass="form-grid">
+                    <padding>
+                        <Insets top="20" left="20" right="20" bottom="20"/>
+                    </padding>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Produto -->
+                    <ComboBox fx:id="comboBoxProduct" promptText="Selecione o Produto *"
+                              GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                    <!-- Armazém -->
+                    <ComboBox fx:id="comboBoxWarehouse" promptText="Selecione o Armazém *"
+                              GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                    <!-- Quantidade -->
+                    <TextField fx:id="txtQuantity" promptText="Quantidade *"
+                               GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+                </GridPane>
+
+                <!-- Botões -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Cancelar" onAction="#handleCancel" styleClass="btn-secondary"/>
+                    <Button fx:id="btnUpdateAndCreate" text="Cadastrar"
+                            onAction="#updateAndCreate" styleClass="btn-primary"/>
+                </HBox>
+
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

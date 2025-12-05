@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.InvoiceTableController"
+           prefHeight="800.0" prefWidth="1200.0"
+           stylesheets="@../css/invoiceTable.css">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+        <content>
+            <VBox spacing="25" alignment="TOP_CENTER" styleClass="container">
+                <padding>
+                    <Insets top="25" bottom="25" left="30" right="30"/>
+                </padding>
+
+                <!-- Header -->
+                <VBox spacing="15" styleClass="header-section">
+                    <Label text="Gestão de Faturas" styleClass="title-label"/>
+                    <Label text="Gerencie as faturas de forma eficiente" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- Search Bar -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="search-bar">
+                    <TextField fx:id="searchInvoiceField"
+                               styleClass="search-field"
+                               promptText="Pesquisar faturas..."
+                               HBox.hgrow="ALWAYS"/>
+                    <Button text="Limpar" onAction="#clearSearch" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView styleClass="icon"  glyphName="TIMES"/>
+                        </graphic>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Voltar" onAction="#goToInvoices" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView styleClass="icon"  glyphName="ARROW_LEFT"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Invoices Table -->
+                <VBox spacing="10" styleClass="table-section">
+                    <Label text="Lista de Faturas" styleClass="section-label"/>
+                    <TableView fx:id="invoiceTable" prefHeight="350" minHeight="400" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colInvOrderNumber" text="Número da fatura" prefWidth="200"/>
+                            <TableColumn fx:id="colInvCustomer" text="Cliente" prefWidth="200"/>
+                            <TableColumn fx:id="colInvDate" text="Data" prefWidth="200"/>
+                            <TableColumn fx:id="colInvTotal" text="Total da fatura" prefWidth="200"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Action Buttons -->
+                <VBox spacing="20">
+                    <HBox alignment="TOP_RIGHT" spacing="10">
+                        <Button fx:id="btnPDF" text="Exportar PDF" onAction="#exportInvoiceFilePdf" styleClass="primary-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="btnExcel" text="Exportar Excel" onAction="#exportInvoiceFileExcel" styleClass="primary-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+
+                        <Button fx:id="btnUpdat" text="Imprimir" onAction="#printInvoice" styleClass="success-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="PRINT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>

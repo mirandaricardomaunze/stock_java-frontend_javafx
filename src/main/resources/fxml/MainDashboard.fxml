@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            fx:id="root"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.manager.controller.MainDashboardController"
+            prefHeight="800.0"
+            prefWidth="1200.0"
+            stylesheets="@../css/mainDashboard.css">
+
+    <top>
+        <VBox spacing="15" style="-fx-padding: 20 20 0 20;">
+            <!-- Header Section -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <VBox spacing="5">
+                    <Label text="Dashboard de Estoque" styleClass="dashboard-title"/>
+                    <Label text="Visão geral do seu inventário" styleClass="dashboard-subtitle"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="filter-container">
+                    <Label text="Período:" styleClass="filter-label"/>
+                    <ComboBox fx:id="filterComboBox" value="Último Mês" prefWidth="180" styleClass="filter-combobox">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String  fx:value="Último Mês"/>
+                                <String fx:value="Últimos 3 Meses"/>
+                                <String fx:value="Últimos 6 Meses"/>
+                                <String fx:value="Último Ano"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="25" style="-fx-padding: 20;">
+                <!-- Cards de Métricas Principais -->
+                <VBox spacing="15">
+                    <Label text="Métricas Principais" styleClass="section-title"/>
+                    <HBox spacing="20" style="-fx-alignment: CENTER;">
+                        <!-- Total de Produtos -->
+                        <VBox styleClass="card-primary" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-primary">
+                                    <FontAwesomeIconView glyphName="CUBES" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Total de Produtos" styleClass="card-title"/>
+                                    <Label fx:id="totalProductsLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Baixo Estoque -->
+                        <VBox styleClass="card-warning" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-warning">
+                                    <FontAwesomeIconView glyphName="EXCLAMATION_TRIANGLE" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Baixo Estoque" styleClass="card-title"/>
+                                    <Label fx:id="lowStockProductsLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Valor em Estoque -->
+                        <VBox styleClass="card-success" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-success">
+                                    <FontAwesomeIconView glyphName="DOLLAR" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Valor em Estoque" styleClass="card-title"/>
+                                    <Label fx:id="totalValueLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Categorias -->
+                        <VBox styleClass="card-info" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-info">
+                                    <FontAwesomeIconView glyphName="TAGS" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Total Categorias" styleClass="card-title"/>
+                                    <Label fx:id="totalCategoriesLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Cards Financeiros -->
+                <VBox spacing="15">
+                    <Label text="Indicadores Financeiros" styleClass="section-title"/>
+                    <HBox spacing="20" style="-fx-alignment: CENTER;">
+                        <!-- Lucros -->
+                        <VBox styleClass="card-profit" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-profit">
+                                    <FontAwesomeIconView glyphName="LINE_CHART" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Lucro Líquido" styleClass="card-title"/>
+                                    <Label fx:id="profitLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Vendas -->
+                        <VBox styleClass="card-sales" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-sales">
+                                    <FontAwesomeIconView glyphName="SHOPPING_CART" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Total de Vendas" styleClass="card-title"/>
+                                    <Label fx:id="salesLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Despesas -->
+                        <VBox styleClass="card-danger" prefWidth="280">
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <StackPane styleClass="icon-danger">
+                                    <FontAwesomeIconView glyphName="CREDIT_CARD" styleClass="card-icon"/>
+                                </StackPane>
+                                <VBox spacing="2">
+                                    <Label text="Despesas Operacionais" styleClass="card-title"/>
+                                    <Label fx:id="expensesLabel" styleClass="card-value"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Seção de Gráficos -->
+                <VBox spacing="15">
+                    <Label text="Análises e Relatórios" styleClass="section-title"/>
+                    <HBox spacing="25" alignment="TOP_CENTER">
+                        <!-- Gráfico de Linha -->
+                        <VBox spacing="10" prefWidth="700" styleClass="chart-container">
+                            <Label text="Movimentação de Estoque" styleClass="chart-title"/>
+                            <LineChart fx:id="movimentacaoChart" prefHeight="350" styleClass="line-chart">
+                                <xAxis>
+                                    <CategoryAxis label="Meses" styleClass="chart-axis"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Quantidade" styleClass="chart-axis"/>
+                                </yAxis>
+                            </LineChart>
+                        </VBox>
+
+                        <!-- Gráfico de Pizza -->
+                        <VBox spacing="10" prefWidth="400" styleClass="chart-container">
+                            <Label text="Distribuição por Categoria" styleClass="chart-title"/>
+                            <PieChart fx:id="categoriasChart" prefHeight="350" styleClass="pie-chart"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

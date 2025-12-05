@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.WarehouseController"
+           prefHeight="650.0" prefWidth="900.0"
+           stylesheets="@../css/warehouse.css">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true">
+        <content>
+            <VBox spacing="20" alignment="TOP_CENTER">
+                <padding>
+                    <Insets top="20" bottom="20" left="20" right="20"/>
+                </padding>
+
+                <!-- Header -->
+                <VBox spacing="15" styleClass="header-section">
+                    <Label text="Gestão de armazéns" styleClass="title-label"/>
+                    <Label text="Gerencie seus armazéns de forma eficiente" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- Search Bar -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="search-bar">
+                    <TextField fx:id="txtSearch" styleClass="search-field" promptText="Pesquisar produtos..." HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnSearch" text="Pesquisar" onAction="#handleSearch" styleClass="search-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SEARCH" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Exportar" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- TableView -->
+                <TableView fx:id="warehouseTable" prefHeight="400" maxHeight="400" minHeight="400" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="80" styleClass="table-column"/>
+                        <TableColumn fx:id="nameColumn" text="Nome" prefWidth="120" styleClass="table-column"/>
+                        <TableColumn fx:id="locationColumn" text="Localização" prefWidth="120" styleClass="table-column"/>
+                        <TableColumn fx:id="capacityColumn" text="Capacidade" prefWidth="100" styleClass="table-column"/>
+                        <TableColumn fx:id="statusColumn" text="Ativo" prefWidth="80" styleClass="table-column"/>
+                        <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="150" styleClass="table-column"/>
+                        <TableColumn fx:id="emailColumn" text="Email" prefWidth="150" styleClass="table-column"/>
+                        <TableColumn fx:id="phoneColumn" text="Telefone" prefWidth="120" styleClass="table-column"/>
+                        <TableColumn fx:id="managerColumn" text="Gestor" prefWidth="120" styleClass="table-column"/>
+                        <TableColumn fx:id="companyColumn" text="Empresa" prefWidth="120" styleClass="table-column"/>
+                    </columns>
+                </TableView>
+
+                <Separator/>
+
+                <!-- Action Buttons -->
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button fx:id="createButton" text="Adicionar"
+                            onAction="#handleOpenFormCreateWarehouse"
+                            styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PLUS" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="updateButton" text="Atualizar"
+                            onAction="#handleOpenFormUpdateWarehouse"
+                            styleClass="success-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="REFRESH" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="removeButton" text="Remover"
+                            onAction="#handleDeleteWarehouse"
+                            styleClass="danger-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>

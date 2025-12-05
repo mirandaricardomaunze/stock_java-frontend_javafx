@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.manager.controller.MainController"
+            stylesheets="@/css/main.css"
+            prefWidth="1400" prefHeight="900"
+            styleClass="border-pane">
+
+    <!-- Header -->
+    <top>
+        <VBox spacing="0" styleClass="header-container">
+            <!-- Top Bar -->
+            <HBox styleClass="top-bar" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" spacing="12" styleClass="logo-container">
+                    <Label text="MIRASOFT" styleClass="app-title"/>
+                    <Separator orientation="VERTICAL" styleClass="top-separator"/>
+                    <Label text="Management Suite" styleClass="app-subtitle"/>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- User Area -->
+                <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="user-area">
+                    <HBox alignment="CENTER_RIGHT" spacing="8">
+                        <VBox alignment="CENTER_RIGHT" spacing="2">
+                            <Label fx:id="userLabel" text="Administrador" styleClass="user-name"/>
+                        </VBox>
+                        <FontAwesomeIconView glyphName="USER_CIRCLE" styleClass="user-icon"/>
+                    </HBox>
+                </HBox>
+            </HBox>
+
+            <!-- Main Navigation -->
+            <HBox styleClass="main-navigation" alignment="CENTER_LEFT">
+                <!-- Menu -->
+                <HBox alignment="CENTER_LEFT" spacing="0" styleClass="nav-menu">
+                    <Button text="Dashboard" styleClass="primary-nav" onAction="#loadMainDashboard">
+                        <graphic><FontAwesomeIconView glyphName="DASHBOARD" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Operacional" styleClass="primary-nav" onAction="#loadMainLinks">
+                        <graphic><FontAwesomeIconView glyphName="LINK" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Produtos" styleClass="primary-nav" onAction="#loadProductRegister">
+                        <graphic><FontAwesomeIconView glyphName="SHOPPING_BAG" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Faturas" styleClass="primary-nav" onAction="#loadInvoice">
+                        <graphic><FontAwesomeIconView glyphName="FILE_TEXT_ALT" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Clientes" styleClass="primary-nav" >
+                        <graphic><FontAwesomeIconView glyphName="USERS" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Empresa" styleClass="primary-nav" onAction="#loadCompanyRegister">
+                        <graphic><FontAwesomeIconView glyphName="BUILDING" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Armazém" styleClass="primary-nav" onAction="#loadWarehouse">
+                        <graphic><FontAwesomeIconView glyphName="HOME" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Categorias" styleClass="primary-nav" onAction="#loadCategory">
+                        <graphic><FontAwesomeIconView glyphName="TAGS" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Fornecedores" styleClass="primary-nav" onAction="#loadSupplier">
+                        <graphic><FontAwesomeIconView glyphName="TRUCK" styleClass="nav-icon"/></graphic>
+                    </Button>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Utility -->
+                <HBox alignment="CENTER_RIGHT" spacing="0" styleClass="utility-menu">
+                    <Button text="Movimentos" styleClass="primary-nav" onAction="#loadMovements">
+                        <graphic><FontAwesomeIconView glyphName="EXCHANGE" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <Button text="Relatórios" styleClass="primary-nav" >
+                        <graphic><FontAwesomeIconView glyphName="BAR_CHART" styleClass="nav-icon"/></graphic>
+                    </Button>
+                    <MenuButton text="Mais" styleClass="more-menu-button ">
+                        <graphic><FontAwesomeIconView glyphName="ELLIPSIS_H" styleClass="nav-item-icon"/></graphic>
+                        <items>
+                            <MenuItem text="Cadastrar Usuário" styleClass="context-menu-item logout" onAction="#loadUserRegister">
+                                <graphic><FontAwesomeIconView glyphName="USER_PLUS" styleClass="nav-item-icon"/></graphic>
+                            </MenuItem>
+                            <MenuItem text="Configurações" styleClass="context-menu-item logout"  >
+                                <graphic><FontAwesomeIconView glyphName="COGS" styleClass="nav-item-icon"/></graphic>
+                            </MenuItem>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Sair" styleClass="context-menu-item logout" >
+                                <graphic><FontAwesomeIconView glyphName="SIGN_OUT" styleClass="nav-item-icon"/></graphic>
+                            </MenuItem>
+                        </items>
+                    </MenuButton>
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center: Creative, modular dashboard -->
+    <center>
+        <StackPane fx:id="mainContainer" alignment="CENTER" styleClass="main-container">
+            <!-- Loading overlay -->
+            <StackPane fx:id="loadingOverlay" visible="false" styleClass="loading-overlay">
+                <ProgressIndicator fx:id="loadingIndicator" styleClass="loading-spinner"/>
+            </StackPane>
+
+            <!-- Scrollable content -->
+            <ScrollPane fitToWidth="true" styleClass="content-scroll">
+                <VBox styleClass="content-wrapper">
+                    <padding><Insets right="24" top="24" left="24" bottom="24"/></padding>
+
+                    <!-- Hero banner -->
+                    <HBox styleClass="hero-banner" alignment="CENTER_LEFT" spacing="24">
+                        <VBox alignment="CENTER_LEFT" spacing="8">
+                            <Label text="Bem-vindo ao MIRASOFT" styleClass="hero-title"/>
+                            <Label text="Gerencie operações, produtos e relatórios com rapidez e clareza." styleClass="hero-subtitle"/>
+                            <HBox spacing="12">
+                                <Button text="Novo Produto" styleClass="cta-button" onAction="#loadProductRegister">
+                                    <graphic><FontAwesomeIconView glyphName="PLUS" styleClass="cta-icon"/></graphic>
+                                </Button>
+                                <Button text="Ver Relatórios" styleClass="secondary-button" >
+                                    <graphic><FontAwesomeIconView glyphName="BAR_CHART" styleClass="cta-icon"/></graphic>
+                                </Button>
+                            </HBox>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </HBox>
+
+                    <!-- Quick actions and modules -->
+                    <HBox spacing="24" alignment="CENTER_LEFT">
+                        <!-- Quick actions -->
+                        <VBox spacing="16" styleClass="section">
+                            <Label text="Ações rápidas" styleClass="section-title"/>
+                            <HBox spacing="16">
+                                <VBox styleClass="action-card" alignment="CENTER" spacing="10" onMouseClicked="#loadInvoice">
+                                    <FontAwesomeIconView glyphName="FILE_TEXT_ALT" styleClass="action-icon"/>
+                                    <Label text="Emitir Fatura" styleClass="action-title"/>
+                                </VBox>
+                                <VBox styleClass="action-card" alignment="CENTER" spacing="10" onMouseClicked="#loadWarehouse">
+                                    <FontAwesomeIconView glyphName="HOME" styleClass="action-icon"/>
+                                    <Label text="Estoque" styleClass="action-title"/>
+                                </VBox>
+                                <VBox styleClass="action-card" alignment="CENTER" spacing="10" onMouseClicked="#loadSupplier">
+                                    <FontAwesomeIconView glyphName="TRUCK" styleClass="action-icon"/>
+                                    <Label text="Fornecedores" styleClass="action-title"/>
+                                </VBox>
+                                <VBox styleClass="action-card" alignment="CENTER" spacing="10" onMouseClicked="#loadCategory">
+                                    <FontAwesomeIconView glyphName="TAGS" styleClass="action-icon"/>
+                                    <Label text="Categorias" styleClass="action-title"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Content grid -->
+                    <GridPane hgap="24" vgap="24" styleClass="grid-section">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+                        <!-- Shortcuts -->
+
+                    </GridPane>
+                </VBox>
+            </ScrollPane>
+        </StackPane>
+    </center>
+
+    <!-- Status Bar -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="status-right">
+                <Separator orientation="VERTICAL" styleClass="status-separator"/>
+                <HBox alignment="CENTER_RIGHT" spacing="15" styleClass="footer-links">
+                    <Hyperlink text="Suporte" styleClass="footer-link"/>
+                    <Hyperlink text="Documentação" styleClass="footer-link"/>
+                    <Hyperlink text="Política" styleClass="footer-link"/>
+                </HBox>
+                <Separator orientation="VERTICAL" styleClass="status-separator"/>
+                <Label text="v2.1.0 © 2025 MIRASOFT" styleClass="copyright"/>
+            </HBox>
+        </HBox>
+    </bottom>
+
+</BorderPane>

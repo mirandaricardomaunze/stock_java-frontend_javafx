@@ -1,0 +1,154 @@
+/* ===== Fundo da aplicação ===== */
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+    -fx-padding: 15;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ===== Caixa do formulário ===== */
+.form-container {
+    -fx-padding: 30;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 5);
+    -fx-spacing: 20;
+}
+
+/* ===== Título ===== */
+.form-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-alignment: center;
+}
+
+/* ===== Labels ===== */
+.label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #444;
+    -fx-font-size: 14px;
+}
+
+/* ===== Campos de entrada ===== */
+.text-field, .password-field, .combo-box {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #c0c4cc;
+    -fx-padding: 10 12;
+    -fx-font-size: 14px;
+    -fx-background-color: #fff;
+    -fx-focus-color: #4e54c8;
+    -fx-faint-focus-color: rgba(78,84,200,0.2);
+    -fx-effect: none;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: #4e54c8;
+    -fx-effect: dropshadow(three-pass-box, rgba(78,84,200,0.25), 6, 0, 0, 0);
+}
+
+/* ===== CheckBox ===== */
+.check-box {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #4e54c8;
+    -fx-border-color: #4e54c8;
+}
+
+/* ===== Botões ===== */
+.form-button, .table-button {
+    -fx-background-radius: 8px;
+    -fx-padding: 10 20;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+/* Botão cadastrar */
+.form-button {
+    -fx-background-color: #4e54c8;
+}
+.form-button:hover {
+    -fx-background-color: #2575fc;
+}
+
+/* Botão cancelar */
+.cancel-button {
+     -fx-background-color: #e74c3c;
+     -fx-background-radius: 8px;
+     -fx-padding: 10 20;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
+      -fx-text-fill: white;
+}
+.cancel-button:hover {
+    -fx-background-color: #f95959;
+}
+
+
+.delete-button {
+     -fx-background-color:#C20C36;
+     -fx-background-radius: 8px;
+     -fx-padding: 10 20;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
+      -fx-text-fill: white;
+}
+.delete-button:hover{
+  -fx-background-color:#E30538;
+}
+
+.update-button {
+     -fx-background-color: #2EC76E;
+     -fx-background-radius: 8px;
+     -fx-padding: 10 20;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
+      -fx-text-fill: white;
+}
+.update-button:hover {
+  -fx-background-color:#57C785;
+}
+
+
+
+
+
+/* ===== Tabela ===== */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-font-size: 13px;
+    -fx-table-cell-border-color: #e0e0e0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #4e54c8, #8f94fb);
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f5f7fa;
+}
+.table-row-cell:even {
+    -fx-background-color: #ffffff;
+}
+.table-view:focused .table-row-cell:selected,
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d0d6f8;
+}
+
+/* ===== ScrollPane ===== */
+.scroll-pane {
+    -fx-background-color: transparent;
+}

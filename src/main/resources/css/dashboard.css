@@ -1,0 +1,132 @@
+/* dashboard.css */
+
+/* Definições de cores */
+:root {
+    --primary-color: #4CAF50; /* Verde */
+    --secondary-color: #FFC107; /* Amarelo */
+    --warning-color: #FF5722; /* Vermelho */
+    --background-color: #F5F5F5; /* Cinza claro */
+    --card-bg-color: white; /* Cor de fundo dos cartões */
+    --text-color: #333; /* Cor principal do texto */
+    --label-color: #757575; /* Cor dos rótulos e descrições */
+}
+
+/* Estilo do BorderPane */
+#root {
+    -fx-background-color: var(--background-color);
+}
+
+/* Estilo dos Títulos */
+.title {
+    -fx-font-size: 26px;
+    -fx-text-fill: var(--primary-color);
+    -fx-font-weight: bold;
+}
+
+/* Estilo dos Cards */
+.card {
+    -fx-background-color: var(--card-bg-color);
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+/* Títulos dos Cards */
+.card-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--text-color);
+}
+
+/* Valores nos Cards */
+.card-value {
+    -fx-font-size: 24px;
+    -fx-text-fill: var(--primary-color);
+    -fx-font-weight: bold;
+}
+
+/* Descrições nos Cards */
+.card-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: var(--label-color);
+}
+
+/* Estilos para tendências */
+.positive-trend {
+    -fx-text-fill: var(--primary-color);
+}
+
+.negative-trend {
+    -fx-text-fill: var(--warning-color);
+}
+
+/* Estilo do gráfico */
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-axis {
+    -fx-label-fill: var(--label-color);
+}
+
+/* Estilo da Tabela */
+.data-table {
+    -fx-background-color: var(--card-bg-color);
+    -fx-border-color: var(--label-color);
+    -fx-border-radius: 5px;
+}
+
+/* Colunas da Tabela */
+.table-column {
+    -fx-font-size: 16px;
+    -fx-background-color: transparent;
+}
+
+/* Estilo dos Botões */
+.action-button {
+    -fx-background-color: var(--primary-color);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10 15;
+}
+
+.action-button:hover {
+    -fx-background-color: derive(var(--primary-color), -10%);
+}
+
+/* Estilos Específicos para Ações Rápidas */
+.primary-action {
+    -fx-background-color: var(--primary-color);
+}
+
+.secondary-action {
+    -fx-background-color: var(--secondary-color);
+}
+
+.tertiary-action {
+    -fx-background-color: #2196F3; /* Azul */
+}
+
+/* Estilos de ícones */
+.card-icon {
+    -fx-fill: var(--primary-color);
+    -fx-font-size: 28px;
+}
+
+.warning-icon {
+    -fx-fill: var(--warning-color);
+}
+
+/* Subtítulos */
+.subtitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(--text-color);
+}
+
+/* Espaçamentos gerais */
+HBox, VBox {
+    -fx-spacing: 10;
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.CompanyController"
+           prefHeight="700.0" prefWidth="1200.0"
+           stylesheets="@../css/company.css"
+           styleClass="container">
+
+    <!-- Scroll principal -->
+    <ScrollPane fitToWidth="true"
+                fitToHeight="true"
+                styleClass="scroll-pane"
+                >
+
+        <content>
+            <VBox spacing="25">
+                <padding>
+                    <Insets left="10" right="10" bottom="10" top="10"/>
+                </padding>
+                <!-- 🏷️ Cabeçalho -->
+                <VBox alignment="CENTER_LEFT" spacing="5" styleClass="header-section">
+                    <Label text="Lista de Empresas" styleClass="title-label"/>
+                    <Label text="Gestão de empresas cadastradas" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- 🔍 Barra de Pesquisa -->
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-bar">
+                    <TextField fx:id="searchField"
+                               promptText="Pesquisar empresa..."
+                               HBox.hgrow="ALWAYS"
+                               styleClass="search-field"/>
+                    <Button fx:id="searchButton"
+                            text="Pesquisar"
+                            onAction="#handleSearchCompanies"
+                            styleClass="btn-primary">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SEARCH" size="14" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- 📋 Tabela de Empresas -->
+                <VBox styleClass="table-section">
+                    <TableView fx:id="companiesTable"
+                               prefHeight="350"
+                               minHeight="350"
+                               styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="idColumn" text="ID" prefWidth="80"/>
+                            <TableColumn fx:id="nameColumn" text="Nome" prefWidth="160"/>
+                            <TableColumn fx:id="addressColumn" text="Endereço" prefWidth="160"/>
+                            <TableColumn fx:id="emailColumn" text="Email" prefWidth="160"/>
+                            <TableColumn fx:id="phoneColumn" text="Telefone" prefWidth="130"/>
+                            <TableColumn fx:id="nuitColumn" text="NUIT" prefWidth="130"/>
+                            <TableColumn fx:id="websiteColumn" text="Website" prefWidth="160"/>
+                            <TableColumn fx:id="descriptionColumn" text="Descrição" prefWidth="200"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- 🔘 Botões de Ação -->
+                <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 10 0;">
+                    <Button fx:id="createButton"
+                            text="Cadastrar"
+                            onAction="#handleOpenFormCreateCompany"
+                            styleClass="btn-success">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PLUS_CIRCLE" size="14" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="updateButton"
+                            text="Atualizar"
+                            onAction="#handleOpenFormUpdateCompany"
+                            styleClass="btn-primary">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PENCIL" size="14" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="deleteButton"
+                            text="Apagar"
+                            onAction="#handleDeleteCompany"
+                            styleClass="btn-danger">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" size="14" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>

@@ -1,0 +1,152 @@
+/* ===========================
+   🎨 Fundo e container principal
+   =========================== */
+.form-background {
+    -fx-background-color: #f4f6f8;
+}
+
+/* ===========================
+   🏷️ Título do formulário
+   =========================== */
+.form-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+}
+
+/* ===========================
+   📋 Container do formulário
+   =========================== */
+.form-grid {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 12;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-padding: 20;
+}
+
+/* ===========================
+   🧾 Campos do formulário
+   =========================== */
+.form-grid TextField,
+.form-grid ComboBox,
+.form-grid TextArea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+    -fx-prompt-text-fill: #777777;
+}
+
+.form-grid TextField:focused,
+.form-grid ComboBox:focused,
+.form-grid TextArea:focused {
+    -fx-border-color: #1976d2;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* ===========================
+   📦 Botões
+   =========================== */
+.btn-primary {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-background-color: #1976d2;
+}
+.btn-primary:hover {
+    -fx-background-color: #1565c0;
+}
+
+.btn-secondary {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+    -fx-background-color: #e0e0e0;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+}
+.btn-secondary:hover {
+    -fx-background-color: #d5d5d5;
+}
+
+/* ===========================
+   📜 Scrollbar
+   =========================== */
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   🌟 TextArea específica
+   =========================== */
+.form-grid TextArea {
+    -fx-pref-height: 80px;
+    -fx-wrap-text: true;
+}
+
+/* ===========================
+   🔹 ComboBoxes dropdown
+   =========================== */
+.form-grid ComboBox .list-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #222222;
+}
+
+/* ===========================
+   🔵 Barra de título
+   =========================== */
+.title-bar {
+    -fx-background-color: #007bff;
+    -fx-padding: 5 10 5 10;
+    -fx-alignment: center-left;
+}
+
+/* Título */
+.title-bar-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Botão de fechar */
+.btn-close {
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+.btn-close:hover {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
+.icon-close{
+ -fx-fill: red;
+ }
+ .icon-close:hover{
+  -fx-fill: white;
+  }
+
+.icon {
+    -fx-fill: white;
+}
+
+.btn-secondary .icon {
+    -fx-fill: #222;
+}

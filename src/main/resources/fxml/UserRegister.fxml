@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.UserRegisterController"
+           stylesheets="@../css/userregister.css"
+           styleClass="root-pane"
+           prefWidth="800" prefHeight="900">
+
+    <children>
+        <!-- ScrollPane para rolagem -->
+        <ScrollPane fitToWidth="true"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    styleClass="scroll-pane">
+
+            <VBox alignment="TOP_CENTER" spacing="20">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <!-- ===== Tabela de Usuários ===== -->
+                <TableView fx:id="userTable" prefHeight="300" minHeight="300"
+                           maxHeight="300" prefWidth="750" styleClass="table-view">
+                    <columns>
+                        <TableColumn fx:id="idColumn"   text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="usernameColumn" text="Usuário" prefWidth="300"/>
+                        <TableColumn fx:id="emailColumn" text="Email" prefWidth="300"/>
+                        <TableColumn fx:id="roleColumn" text="Perfil" prefWidth="150"/>
+                        <TableColumn fx:id="activeColumn" text="Ativo" prefWidth="160"/>
+                        <TableColumn fx:id="companyColumn" text="Empresa" prefWidth="200"/>
+                    </columns>
+                </TableView>
+
+                <!-- ===== Formulário ===== -->
+                <VBox styleClass="form-container" alignment="CENTER" spacing="5" >
+                    <Label text="Cadastro de Usuário"  styleClass="form-title"/>
+
+                    <GridPane hgap="20" vgap="18" alignment="CENTER">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <!-- Primeira Coluna -->
+                        <Label text="Usuário" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="usernameField" promptText="Digite o usuário"
+                                   maxWidth="400" styleClass="text-field"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+                        <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="emailField" promptText="Digite o email"
+                                   maxWidth="400" styleClass="text-field"
+                                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+
+                        <Label text="Senha" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <PasswordField fx:id="passwordField" promptText="Digite a senha"
+                                       maxWidth="400" styleClass="password-field"
+                                       GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+
+                        <!-- Segunda Coluna -->
+                        <Label text="Perfil" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <ComboBox fx:id="roleComboBox" promptText="Selecione o perfil"
+                                  maxWidth="400" styleClass="combo-box"
+                                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Estado" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <CheckBox fx:id="activeCheckBox" text="Usuário ativo"
+                                  selected="true" maxWidth="400" styleClass="check-box"
+                                  GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="Empresa" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        <ComboBox fx:id="companyComboBox" promptText="Selecione a empresa"
+                                  maxWidth="400" styleClass="combo-box"
+                                  GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                    </GridPane>
+
+                    <!-- Botões -->
+                    <HBox spacing="20" alignment="CENTER" styleClass="btn-container">
+                        <Button text="Cadastrar" fx:id="registerButton"
+                                onAction="#createUser" styleClass="form-button"/>
+                        <Button text="Cancelar" fx:id="clearButton"
+                                onAction="#cancel" styleClass="cancel-button"/>
+                        <Button text="Excluir" fx:id="deleteButton"
+                                onAction="#deleteUserAction" styleClass="delete-button"/>
+                        <Button text="Atualizar" fx:id="updateButton"
+                                onAction="#updateUserAction" styleClass="update-button"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </children>
+</StackPane>

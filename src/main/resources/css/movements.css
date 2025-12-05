@@ -1,0 +1,224 @@
+/* ===========================
+   🎨 Tema principal
+   =========================== */
+.main-container {
+    -fx-background-color: #f4f6f8;
+    -fx-padding: 0;
+}
+
+.scroll-pane {
+    -fx-background: #f4f6f8;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ===========================
+   🏷️ Cabeçalho
+   =========================== */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+/* ===========================
+   🔍 Campo de pesquisa
+   =========================== */
+.search-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 13px;
+}
+
+.search-field:focused {
+    -fx-border-color: #1976d2;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* ===========================
+   📅 DatePicker Estilizado
+   =========================== */
+.date-filter {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+    -fx-font-size: 13px;
+}
+
+.date-filter:focused {
+    -fx-border-color: #1976d2;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* Estilizando o botão interno do DatePicker (seta de calendário) */
+.date-filter .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-filter .arrow {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 4;
+}
+
+/* Popup do calendário */
+.date-picker-popup {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8;
+}
+
+.button-clear{
+    -fx-font-size: 13px;
+     -fx-font-weight: bold;
+     -fx-text-fill: white;
+     -fx-background-color: #ef233c;
+     -fx-background-radius: 8;
+     -fx-padding: 0 12;
+}
+.button-clear:hover {
+  -fx-background-color: #d90429;
+}
+
+
+
+/* ===========================
+   🧾 ComboBox
+   =========================== */
+.form-combo {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 0 5 0 5;
+    -fx-font-size: 13px;
+}
+
+.form-combo:focused {
+    -fx-border-color: #1976d2;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* ===========================
+   🧾 Botões
+   =========================== */
+.primary-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+    -fx-padding: 0 12;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.secondary-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 8;
+    -fx-padding: 0 12;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #bdbdbd;
+}
+
+.danger-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #d32f2f;
+    -fx-background-radius: 8;
+    -fx-padding: 0 12;
+}
+
+.danger-button:hover {
+    -fx-background-color: #b71c1c;
+}
+
+/* Ícones nos botões */
+.icon-button {
+    -fx-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 0 6 0 0;
+}
+
+/* ===========================
+   🏷️ Tabela de Movimentos
+   =========================== */
+/* Cabeçalho */
+.table-view .column-header-background {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 4px;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #1976d2;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER;
+}
+
+/* Linhas */
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9fafb;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(#1976d2, 35%);
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+/* Células */
+.table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10;
+}
+
+/* Scrollbars */
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   🧰 Filtro Search + Datas
+   =========================== */
+.search-filter-bar {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 5 0 5 0;
+}

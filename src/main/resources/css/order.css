@@ -1,0 +1,283 @@
+/* ===========================
+   🎨 Tema principal
+   =========================== */
+.root-container {
+    -fx-background-color: #f4f6f8;
+}
+
+.scroll-pane {
+    -fx-background: #f4f6f8;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ===========================
+   🏷️ Cabeçalho e seções
+   =========================== */
+.title-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1976d2;
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.section-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+.form-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #777777;
+}
+
+/* ===========================
+   🔍 Campos do Formulário
+   =========================== */
+.form-field, .form-textarea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+    -fx-prompt-text-fill: #666666;
+    -fx-pref-height: 36;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.form-field:focused, .form-combo:focused, .form-textarea:focused {
+    -fx-border-color: #1976d2;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
+}
+
+/* ===========================
+   🧭 ComboBox (ajuste fino)
+   =========================== */
+.form-combo {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+    -fx-pref-height: 36;
+}
+
+.combo-box-base {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 0; /* remove padding extra interno */
+    -fx-background-insets: 0;
+}
+
+.combo-box .arrow-button {
+    -fx-padding: 0 6; /* reduz o botão da seta */
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #1976d2;
+}
+
+.combo-box .list-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10; /* igual aos TextFields */
+    -fx-pref-height: 36; /* força igual altura */
+}
+
+.form-combo .list-view {
+    -fx-background-color: #ffffff;
+}
+
+/* ===========================
+   🧭 Botões (altura igualada)
+   =========================== */
+.primary-button, .success-button, .danger-button, .warning-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10; /* igual aos campos */
+    -fx-pref-height: 36; /* mesma altura dos TextFields */
+    -fx-alignment: CENTER;
+    -fx-cursor: hand;
+    -fx-border-width: 1.5px;
+    -fx-border-color: transparent;
+}
+
+/* 🎯 Botão principal */
+.primary-button {
+    -fx-text-fill: white;
+    -fx-background-color: #1976d2;
+}
+.primary-button:hover {
+    -fx-background-color: #1565c0;
+}
+
+/* ✅ Botão sucesso */
+.success-button {
+    -fx-text-fill: white;
+    -fx-background-color: #2e7d32;
+}
+.success-button:hover {
+    -fx-background-color: derive(#2e7d32, -10%);
+}
+
+/* ❌ Botão perigo */
+.danger-button {
+    -fx-text-fill: white;
+    -fx-background-color: #d32f2f;
+}
+.danger-button:hover {
+    -fx-background-color: derive(#d32f2f, -10%);
+}
+
+/* ⚠️ Botão neutro/aviso */
+.warning-button {
+    -fx-text-fill: #222222;
+    -fx-background-color: #e0e0e0;
+}
+.warning-button:hover {
+    -fx-background-color: #d5d5d5;
+}
+
+/* ===========================
+   📋 Tabela (TableView)
+   =========================== */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-table-cell-border-color: #e0e0e0;
+    -fx-font-size: 13px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 4px;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #1976d2;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9fafb;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(#1976d2, 35%);
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #e3f2fd;
+}
+
+.table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10;
+}
+
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   📜 Scrollbar moderna
+   =========================== */
+.scroll-bar .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   🏷️ Labels e TitledPane
+   =========================== */
+.titled-pane > .title {
+    -fx-background-color: #f0f3f7;
+    -fx-text-fill: #1976d2;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-padding: 8 12;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.titled-pane > .content {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12;
+}
+
+.total-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+}
+
+/* ===========================
+   🔗 Ícones
+   =========================== */
+.icon {
+    -fx-fill: white;
+    -fx-font-size: 15px;
+    -fx-padding: 0 8 0 0;
+}
+
+.icon:hover {
+    -fx-fill: white;
+    -fx-font-size: 15px;
+    -fx-padding: 0 8 0 0;
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 4;
+}
+
+.icon-button:hover .ikonli-font-icon,
+.icon-button:hover .fontawesome-icon {
+    -fx-fill: #b71c1c; /* tom mais escuro no hover */
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}

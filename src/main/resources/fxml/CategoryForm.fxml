@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.CategoryFormController"
+           prefHeight="500.0" prefWidth="600.0"
+           stylesheets="@../css/category-form.css"
+           styleClass="form-background">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+        <StackPane>
+            <VBox alignment="CENTER" spacing="25" maxWidth="800">
+                <padding>
+                    <Insets top="20" bottom="20" left="20" right="20"/>
+                </padding>
+
+                <!-- =====================================================
+                     🟦 Barra de Título
+                ===================================================== -->
+                <HBox styleClass="title-bar" alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="titleModal" styleClass="title-bar-title"
+                           text="Gestão de Categorias"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button onAction="#handleCancel" styleClass="btn-close">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TIMES" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- =====================================================
+                     📋 Formulário de Cadastro
+                ===================================================== -->
+                <GridPane hgap="15" vgap="15" styleClass="form-grid">
+                    <padding>
+                        <Insets top="20" left="30" right="30" bottom="20"/>
+                    </padding>
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Campo Nome -->
+                    <TextField fx:id="nameField"
+                               promptText="Nome da categoria *"
+                               GridPane.columnIndex="0"
+                               GridPane.columnSpan="2"/>
+
+                    <!-- ComboBox Empresa -->
+                    <ComboBox fx:id="companyComboBox"
+                              promptText="Selecione a Empresa"
+                              GridPane.rowIndex="1"
+                              GridPane.columnIndex="0"
+                              GridPane.columnSpan="2"/>
+                </GridPane>
+
+                <!-- =====================================================
+                     🔘 Botões de Ação
+                ===================================================== -->
+                <HBox spacing="20" alignment="CENTER">
+
+                    <!-- Botão Cancelar -->
+                    <Button text="Cancelar"
+                            onAction="#handleCancel"
+                            styleClass="btn-secondary">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TIMES" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                    <!-- Botão Cadastrar -->
+                    <Button fx:id="btnUpdateAndCreate"
+                            text="Cadastrar"
+                            onAction="#handleUpdateAndCreate"
+                            styleClass="btn-primary">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SAVE" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+
+                </HBox>
+
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

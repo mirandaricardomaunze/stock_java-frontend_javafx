@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.MovementController"
+           prefHeight="800.0" prefWidth="1200.0"
+           stylesheets="@../css/movements.css"
+           styleClass="main-container">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+        <content>
+            <VBox spacing="25" alignment="TOP_CENTER" styleClass="container">
+                <padding>
+                    <Insets top="25" bottom="25" left="30" right="30"/>
+                </padding>
+
+                <!-- Header -->
+                <VBox spacing="15" styleClass="header-section">
+                    <Label text="Gestão de Movimentos" styleClass="title-label"/>
+                    <Label text="Controle entradas, saídas e transferências" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- Search + Filtro por Datas -->
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-filter-bar">
+                    <!-- Campo de pesquisa -->
+                    <TextField fx:id="txtSearch"
+                               promptText="Pesquisar movimentos..."
+                               minHeight="38"
+                               HBox.hgrow="ALWAYS"
+                               styleClass="search-field"/>
+
+                    <!-- Data Início -->
+                    <DatePicker fx:id="dateStart"
+                                promptText="Data inicial"
+                                minHeight="38"
+                                styleClass="date-filter"/>
+
+                    <!-- Data Fim -->
+                    <DatePicker fx:id="dateEnd"
+                                promptText="Data final"
+                                minHeight="38"
+                                styleClass="date-filter"/>
+
+                    <!-- Botão Filtrar -->
+                    <Button text="Filtrar"
+                            minHeight="38"
+                            onAction="#filterByDate"
+                            styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="FILTER" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+
+                    <!-- Botão Limpar -->
+                    <Button text="Limpar"
+                            minHeight="38"
+                            onAction="#clearFilter"
+                            styleClass="button-clear">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="REFRESH" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Movements Table -->
+                <VBox spacing="10" styleClass="table-section">
+                    <TableView fx:id="movementTable"
+                               prefHeight="350"
+                               minHeight="400"
+                               styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="colId" text="ID" prefWidth="70"/>
+                            <TableColumn fx:id="colDescription" text="Descrição" prefWidth="250"/>
+                            <TableColumn fx:id="colUsername" text="Utilizador" prefWidth="250"/>
+                            <TableColumn fx:id="colType" text="Tipo" prefWidth="120"/>
+                            <TableColumn fx:id="colOrigin" text="Origem" prefWidth="120"/>
+                            <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                            <TableColumn fx:id="colQuantity" text="Quantidade" prefWidth="70"/>
+                            <TableColumn fx:id="colDate" text="Data" prefWidth="140"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Botão Deletar -->
+                <HBox alignment="TOP_RIGHT" spacing="10">
+                    <Button fx:id="btnDelete"
+                            minHeight="38"
+                            text="Deletar"
+                            onAction="#deleteMovement"
+                            styleClass="danger-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>

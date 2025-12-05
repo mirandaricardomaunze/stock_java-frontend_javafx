@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.SupplierController"
+           prefHeight="650.0" prefWidth="900.0"
+           styleClass="form-background"
+           stylesheets="@../css/supplier.css">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true">
+        <content>
+            <VBox spacing="20" alignment="TOP_CENTER">
+                <padding>
+                    <Insets top="20" bottom="20" left="20" right="20"/>
+                </padding>
+
+                <!-- 🔹 Título -->
+                <VBox spacing="5" alignment="CENTER">
+                    <Label text="Gestão de Fornecedores" styleClass="title-label "/>
+                    <Label text="Gerencie seus fornecedores de forma eficiente" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- 🔍 Barra de Pesquisa -->
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="form-grid">
+                    <TextField fx:id="txtSearch" styleClass="search-field" promptText="Pesquisar fornecedores..." HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnSearch" onAction="#handleSearchButton" styleClass="search-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SEARCH" styleClass="icon"/>
+                        </graphic>
+                        <text>PESQUISAR</text>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Exportar" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- 📋 Tabela de Fornecedores -->
+                <TableView fx:id="supplierTable" prefHeight="350" styleClass="form-grid">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="nameColumn" text="Nome" prefWidth="150"/>
+                        <TableColumn fx:id="emailColumn" text="Email" prefWidth="180"/>
+                        <TableColumn fx:id="phoneColumn" text="Telefone" prefWidth="120"/>
+                        <TableColumn fx:id="nuitColumn" text="NUIT" prefWidth="100"/>
+                        <TableColumn fx:id="addressColumn" text="Endereço" prefWidth="200"/>
+                        <TableColumn fx:id="websiteColumn" text="Website" prefWidth="150"/>
+                        <TableColumn fx:id="notesColumn" text="Notas" prefWidth="200"/>
+                        <TableColumn fx:id="companyColumn" text="Empresa" prefWidth="150"/>
+                    </columns>
+                </TableView>
+
+                <!-- 🔘 Botões de Ação -->
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button fx:id="addButton" text="Adicionar" onAction="#openCreateSupplierForm" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PLUS" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="editButton" text="Atualizar" onAction="#openUpdateSupplierForm" styleClass="success-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="EDIT" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="deleteButton" text="Eliminar" onAction="#handleDeleteSupplier" styleClass="danger-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>

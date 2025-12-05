@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane styleClass="root-pane" stylesheets="@/css/login.css"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="org.manager.controller.LoginController"
+           prefWidth="1000" prefHeight="600">
+
+    <children>
+        <!-- Container principal com dois painéis visíveis -->
+        <HBox styleClass="main-container" alignment="CENTER">
+
+            <!-- Painel esquerdo - Branding (AGORA VISÍVEL) -->
+            <VBox styleClass="brand-panel" prefWidth="500" alignment="CENTER" spacing="40">
+                <VBox alignment="CENTER" spacing="20">
+                    <Label styleClass="brand-title" text="MIRASOFT" />
+                    <Label styleClass="brand-subtitle" text="Sistema de Gestão" />
+                    <Label styleClass="brand-description" text="Gestão completa para seu negócio"
+                           wrapText="true" textAlignment="CENTER" />
+                </VBox>
+
+                <!-- Recursos do sistema -->
+                <VBox styleClass="features-box" spacing="20" alignment="CENTER_LEFT">
+                    <Label styleClass="feature-item" text="✓ Gestão de Produtos e Estoque" />
+                    <Label styleClass="feature-item" text="✓ Controle de Faturas" />
+                    <Label styleClass="feature-item" text="✓ Relatórios Avançados" />
+                    <Label styleClass="feature-item" text="✓ Multi-empresas" />
+                </VBox>
+
+                <!-- Informação adicional -->
+                <Label styleClass="brand-footer" text="Sistema profissional de gestão empresarial"
+                       wrapText="true" textAlignment="CENTER" />
+            </VBox>
+
+            <!-- Painel direito - Login -->
+            <VBox styleClass="login-panel" prefWidth="500" alignment="CENTER" spacing="30">
+                <VBox alignment="CENTER" spacing="25" styleClass="login-form">
+                    <VBox alignment="CENTER" spacing="10">
+                        <Label styleClass="login-title" text="Bem-vindo" />
+                        <Label styleClass="login-subtitle" text="Faça login na sua conta" />
+                    </VBox>
+
+                    <!-- Campos de entrada -->
+                    <VBox spacing="25" styleClass="fields-container">
+                        <TextField fx:id="emailField" promptText="Seu email" styleClass="login-field" />
+                        <PasswordField fx:id="passwordField" promptText="Sua senha" styleClass="login-field" />
+
+                        <!-- Botão de ‘login’ -->
+                        <Button fx:id="loginButton" onAction="#handleLogin" styleClass="login-button"
+                                text="Entrar na conta" />
+                    </VBox>
+
+                    <!-- Rodapé -->
+                    <Label styleClass="login-footer" text="© 2025 MIRASOFT. Todos os direitos reservados." />
+                </VBox>
+            </VBox>
+        </HBox>
+    </children>
+</StackPane>

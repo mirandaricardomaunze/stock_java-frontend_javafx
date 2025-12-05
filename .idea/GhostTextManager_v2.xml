@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GhostTextManager">
+    <option name="inputs">
+      <map>
+        <entry key="=== INICIALIZANDO PRODUCT CONTROLLER ===&#10;Token atual no SessionManager: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;=== INICIALIZAÇÃO CONCLUÍDA ===&#10;ERRO na operação 'carregar produtos': java.lang.RuntimeException: Falha na conexão com o servidor: java.lang.RuntimeException: Erro no servidor: Código HTTP 403 - &#10;java.util.concurrent.CompletionException: java.lang.RuntimeException: Falha na conexão com o servidor: java.lang.RuntimeException: Erro no servidor: Código HTTP 403 - &#10;&#9;at java.base/java.util.concurrent.CompletableFuture.wrapInCompletionException(CompletableFuture.java:325)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:361)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:366)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:1040)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:1020)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:556)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:660)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:890)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:529)&#10;&#9;at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)&#10;&#9;at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1394)&#10;&#9;at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1970)&#10;&#9;at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758565034424" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="For the following code:&#10;```&#10;&#10;                return new SaleItem(selected, qty, selected.getSellingPrice());&#10;            }&#10;```&#10;We have the error: 'SaleItem(org.manager.model.Product, int, java.math.BigDecimal)' in 'org.manager.model.SaleItem' cannot be applied to '(org.manager.model.Product, int, java.lang.Double)'&#10;Please fix this. If needed, you can use the get_errors tool on this file.">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1763297839234" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="I found this error === INICIALIZANDO PRODUCT CONTROLLER ===&#10;Token atual no SessionManager: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;Token de sessão válido: eyJhbGciOi...&#10;=== INICIALIZAÇÃO CONCLUÍDA ===&#10;ERRO na operação 'carregar produtos': java.lang.RuntimeException: Falha na conexão com o servidor: java.lang.RuntimeException: Erro no servidor: Código HTTP 403 - &#10;java.util.concurrent.CompletionException: java.lang.RuntimeException: Falha na conexão com o servidor: java.lang.RuntimeException: Erro no servidor: Código HTTP 403 - &#10;&#9;at java.base/java.util.concurrent.CompletableFuture.wrapInCompletionException(CompletableFuture.java:325)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:361)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:366)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:1040)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:1020)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:556)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:660)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:890)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:529)&#10;&#9;at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)&#10;&#9;at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1394)&#10;&#9;at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1970)&#10;&#9;at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758559733031" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="I'm facing this error java.util.concurrent.CompletionException: java.lang.RuntimeException: Falha na conexão com o servidor: java.lang.RuntimeException: Erro no servidor: Código HTTP 403 - &#10;&#9;at java.base/java.util.concurrent.CompletableFuture.wrapInCompletionException(CompletableFuture.java:325)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:361)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:366)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.uniExceptionally(CompletableFuture.java:1040)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(CompletableFuture.java:1020)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:556)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture.postFire(CompletableFuture.java:660)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(CompletableFuture.java:890)&#10;&#9;at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:529)&#10;&#9;at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:507)&#10;&#9;at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1394)&#10;&#9;at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1970)&#10;&#9;at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758559264805" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="Please rebuild theses service and controller to become clean and funcional and compatibility">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758560023866" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="add token to all parameters of crud method">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758558737064" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="create complete controller">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758562483203" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+        <entry key="why does not laoding categories and supliers">
+          <value>
+            <GhostTextMetaData>
+              <option name="count" value="1.0" />
+              <option name="timestamps">
+                <list>
+                  <option value="1758558973417" />
+                </list>
+              </option>
+            </GhostTextMetaData>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

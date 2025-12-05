@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.OrderTableController"
+           stylesheets="@../css/orderTable.css"
+           prefHeight="400.0" prefWidth="600.0">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true">
+        <VBox spacing="24" styleClass="content-box root">
+            <padding>
+                <Insets top="24" right="24" bottom="24" left="24"/>
+            </padding>
+
+            <!-- Títulos -->
+            <Label text="Gestão de encomendas" styleClass="title-label"/>
+            <Label text="Encomendas" styleClass="section-label"/>
+
+            <!-- Barra de pesquisa -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <TextField fx:id="searchOrderField"
+                           HBox.hgrow="ALWAYS"
+                           promptText="Pesquisar pedidos por nº ou cliente..."
+                           styleClass="search-field"
+                           prefHeight="36"/>
+                <Button text="Buscar"
+                        onAction="#searchOrders"
+                        styleClass="btn-invoice"
+                        prefHeight="36">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="SEARCH" styleClass="icon-button"/>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <!-- Tabela de pedidos -->
+            <TableView fx:id="orderTable" prefHeight="320" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="colOrderNumber" text="Nº Pedido" prefWidth="180"/>
+                    <TableColumn fx:id="colCustomer" text="Cliente" prefWidth="180"/>
+                    <TableColumn fx:id="colDate" text="Data" prefWidth="160"/>
+                    <TableColumn fx:id="colTotal" text="Total (MT)" prefWidth="160"/>
+                </columns>
+            </TableView>
+
+            <!-- Botões principais -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+
+                <Button fx:id="btnCreateInvoice" text="Gerar Fatura"
+                        styleClass="btn-invoice"
+                        prefHeight="36">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="FILE_TEXT" styleClass="icon-button"/>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnOrderExportExcel" text="Excel"
+                        onAction="#exportOrderToExcel"
+                        styleClass="btn-export"
+                        prefHeight="36">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="icon-button"/>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnOrderExportPdf" text="PDF"
+                        onAction="#exportOrderToPdf"
+                        styleClass="btn-export"
+                        prefHeight="36">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="DOWNLOAD" styleClass="icon-button"/>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="btnOrderPrintInvoice" text="Imprimir"
+                        onAction="#printOrder"
+                        styleClass="btn-print"
+                        prefHeight="36">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PRINT" styleClass="icon-button"/>
+                    </graphic>
+                </Button>
+
+                <Button text="Novas encomendas"
+                        onAction="#goToOrder"
+                        styleClass="btn-invoice"
+                        prefHeight="36">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" styleClass="icon-button"/>
+                    </graphic>
+                </Button>
+
+            </HBox>
+
+        </VBox>
+    </ScrollPane>
+
+</StackPane>

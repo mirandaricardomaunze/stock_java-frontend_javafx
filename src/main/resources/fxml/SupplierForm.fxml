@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.SupplierFormController"
+           prefHeight="600" prefWidth="900"
+           stylesheets="@../css/supplier-form.css"
+           styleClass="form-background">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+        <StackPane>
+            <VBox alignment="CENTER" spacing="25" maxWidth="800">
+                <padding>
+                    <Insets top="30" bottom="30" left="20" right="20"/>
+                </padding>
+
+                <!-- ===================== 🟦 Barra de título ===================== -->
+                <HBox styleClass="title-bar" alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="titleModal" styleClass="title-bar-title" text="Gestão de Fornecedores"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="✕" onAction="#handleCancel" styleClass="btn-close"/>
+                </HBox>
+
+                <!-- ===================== 📋 Formulário ===================== -->
+                <GridPane hgap="15" vgap="15" styleClass="form-grid">
+                    <padding>
+                        <Insets top="20" left="30" right="30" bottom="20"/>
+                    </padding>
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Linha 0 -->
+                    <TextField fx:id="nameField" promptText="Nome do fornecedor *"
+                               GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                    <!-- Linha 1 -->
+                    <TextField fx:id="emailField" promptText="Email"
+                               GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextField fx:id="phoneField" promptText="Telefone"
+                               GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 2 -->
+                    <TextField fx:id="nuitField" promptText="NUIT"
+                               GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="addressField" promptText="Endereço *"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 3 -->
+                    <TextField fx:id="websiteField" promptText="Site *"
+                               GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="notesField" promptText="Nota *"
+                               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <!-- Linha 4 -->
+                    <ComboBox fx:id="companyComboBox" promptText="Selecione a Empresa"
+                              styleClass="text-field"
+                              GridPane.rowIndex="4" GridPane.columnIndex="0"
+                              GridPane.columnSpan="2"/>
+                </GridPane>
+
+                <!-- ===================== 🔘 Botões ===================== -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Cancelar"  onAction="#handleCancel" styleClass="btn-secondary"/>
+                    <Button fx:id="btnUpdateAndCreate" onAction="#handleUpdateAndCreate" text="Cadastrar" styleClass="btn-primary"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</StackPane>

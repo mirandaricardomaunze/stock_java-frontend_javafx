@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            fx:id="root"
+            stylesheets="@../css/dashboard.css"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.manager.controller.DashboardController"
+            prefHeight="800.0"
+            prefWidth="1200.0"
+            >
+    <center>
+        <VBox spacing="25" style="-fx-padding: 20;">
+
+            <!-- Título -->
+            <Label text="Visão Geral do Estoque" styleClass="title"/>
+
+            <!-- Cards de resumo -->
+            <HBox spacing="20">
+                <!-- Cada Card -->
+                <VBox styleClass="card products-card" prefWidth="230">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <StackPane styleClass="card-icon-container products-icon">
+                            <FontAwesomeIconView glyphName="CUBES" styleClass="card-icon"/>
+                        </StackPane>
+                        <Label text="Total de Produtos" styleClass="card-title"/>
+                    </HBox>
+                    <Label fx:id="totalProductsLabel" styleClass="card-value"/>
+                    <HBox spacing="5" style="-fx-alignment: center-left;">
+                        <Label text="+2.3%" styleClass="positive-trend"/>
+                        <Label text="desde o mês passado" styleClass="card-description"/>
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="card low-stock-card" prefWidth="230">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <StackPane styleClass="card-icon-container low-stock-icon">
+                            <FontAwesomeIconView glyphName="EXCLAMATION_TRIANGLE" styleClass="card-icon"/>
+                        </StackPane>
+                        <Label text="Produtos com Baixo Estoque" styleClass="card-title"/>
+                    </HBox>
+                    <Label fx:id="lowStockProductsLabel" styleClass="card-value low-stock-value"/>
+                    <Label text="Necessitam de reposição" styleClass="card-description"/>
+                </VBox>
+
+                <VBox styleClass="card value-card" prefWidth="230">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <StackPane styleClass="card-icon-container value-icon">
+                            <FontAwesomeIconView glyphName="DOLLAR" styleClass="card-icon"/>
+                        </StackPane>
+                        <Label text="Valor Total em Estoque" styleClass="card-title"/>
+                    </HBox>
+                    <Label fx:id="totalValueLabel" styleClass="card-value"/>
+                    <HBox spacing="5" style="-fx-alignment: center-left;">
+                        <Label text="+5.7%" styleClass="positive-trend"/>
+                        <Label text="desde o mês passado" styleClass="card-description"/>
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="card categories-card" prefWidth="230">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <StackPane styleClass="card-icon-container categories-icon">
+                            <FontAwesomeIconView glyphName="TAGS" styleClass="card-icon"/>
+                        </StackPane>
+                        <Label text="Categorias" styleClass="card-title"/>
+                    </HBox>
+                    <Label fx:id="totalCategoriesLabel" styleClass="card-value"/>
+                    <Label text="Categorias ativas" styleClass="card-description"/>
+                </VBox>
+            </HBox>
+
+            <!-- Gráficos e Tabela -->
+            <HBox spacing="25">
+                <VBox spacing="15" prefWidth="700">
+                    <Label text="Movimentação de Estoque (Últimos 6 Meses)" styleClass="subtitle"/>
+                    <LineChart fx:id="movimentacaoChart" prefHeight="350" prefWidth="700" styleClass="chart">
+                        <xAxis>
+                            <CategoryAxis label="Meses" styleClass="chart-axis"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Quantidade" styleClass="chart-axis"/>
+                        </yAxis>
+                    </LineChart>
+                </VBox>
+
+                <VBox spacing="15" prefWidth="400">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <FontAwesomeIconView glyphName="EXCLAMATION_TRIANGLE" styleClass="warning-icon"/>
+                        <Label text="Produtos com Baixo Estoque" styleClass="subtitle"/>
+                    </HBox>
+                    <TableView fx:id="produtosBaixoEstoqueTable" prefHeight="350" styleClass="data-table">
+                        <columns>
+                            <TableColumn text="Produto" prefWidth="180" styleClass="table-column"/>
+                            <TableColumn text="Estoque" prefWidth="100" styleClass="table-column"/>
+                            <TableColumn text="Mínimo" prefWidth="100" styleClass="table-column"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+
+            <!-- Ações rápidas -->
+            <VBox spacing="12">
+                <Label text="Ações Rápidas" styleClass="subtitle"/>
+                <HBox spacing="15">
+                    <Button text="Adicionar Produto" onAction="#goToProductRegister" styleClass="action-button primary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PLUS" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Entrada de Estoque" onAction="#goToWarehouse" styleClass="action-button secondary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="ARROW_DOWN" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Saída de Estoque" onAction="#goToWarehouse" styleClass="action-button secondary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="ARROW_UP" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Relatórios" onAction="#goToDashboard" styleClass="action-button tertiary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="BAR_CHART" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Categorias" onAction="#goToCategory" styleClass="action-button tertiary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TAGS" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Encomendas" onAction="#goToOrder" styleClass="action-button tertiary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="SHOPPING_CART" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                    <Button text="Operacional" onAction="#goToMainLinks" styleClass="action-button tertiary-action">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="GEARS" styleClass="button-icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

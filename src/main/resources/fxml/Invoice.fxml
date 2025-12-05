@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.manager.controller.InvoiceController"
+           prefHeight="800.0" prefWidth="1200.0"
+           styleClass="root-container"
+           stylesheets="@../css/invoice.css">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
+        <content>
+            <VBox spacing="25" alignment="TOP_CENTER" styleClass="container">
+                <padding>
+                    <Insets top="25" bottom="25" left="30" right="30"/>
+                </padding>
+
+                <!-- 🧾 Cabeçalho -->
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Gestão de Faturas" styleClass="title-label"/>
+                    <Label text="Gerencie seus pedidos e faturas de forma eficiente" styleClass="subtitle-label"/>
+                </VBox>
+
+                <!-- 🔍 Seção de Pedidos -->
+                <VBox spacing="15" styleClass="section-box">
+                    <Label text="Pedidos" styleClass="section-label"/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-bar">
+                        <TextField fx:id="searchOrderField"
+                                   promptText="Pesquisar pedidos por nº ou cliente..."
+                                   styleClass="search-field"
+                                   HBox.hgrow="ALWAYS"/>
+                        <Button onAction="#filterOrders" text="Pesquisar" styleClass="search-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="SEARCH" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+
+                    <VBox spacing="10" styleClass="table-section">
+                        <Label text="Lista de Pedidos" styleClass="section-label"/>
+                        <TableView fx:id="orderTable" prefHeight="300" minHeight="300" styleClass="table-view">
+                            <columns>
+                                <TableColumn fx:id="colOrderNumber" text="Nº Pedido" prefWidth="200"/>
+                                <TableColumn fx:id="colCustomer" text="Cliente" prefWidth="250"/>
+                                <TableColumn fx:id="colDate" text="Data" prefWidth="200"/>
+                                <TableColumn fx:id="colTotal" text="Total (MT)" prefWidth="150"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="button-bar">
+                        <Button fx:id="btnCreateInvoice" text="Gerar Fatura" styleClass="primary-button"
+                                onAction="#createInvoiceFromSelectedOrder">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FILE_TEXT_ALT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnOrderExportExcel" text="Exportar Excel" styleClass="success-button"
+                                onAction="#exportOrderFileExcel">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FILE_EXCEL_ALT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnOrderExportPdf" text="Exportar PDF" styleClass="danger-button"
+                                onAction="#exportOrderFilePdf">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FILE_PDF_ALT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnOrderPrintInvoice" text="Imprimir" styleClass="warning-button"
+                                onAction="#printInvoice">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="PRINT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+
+                <!-- 📄 Seção de Faturas -->
+                <VBox spacing="15" styleClass="section-box">
+                    <Label text="Faturas" styleClass="section-label"/>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-bar">
+                        <TextField fx:id="searchInvoiceField"
+                                   promptText="Pesquisar faturas por nº ou cliente..."
+                                   styleClass="search-field"
+                                   HBox.hgrow="ALWAYS"/>
+                        <Button onAction="#filterInvoices" text="Pesquisar" styleClass="search-button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="SEARCH" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+
+                    <VBox spacing="10" styleClass="table-section">
+                        <Label text="Lista de Faturas" styleClass="section-label"/>
+                        <TableView fx:id="invoiceTable" prefHeight="300" minHeight="300" styleClass="table-view">
+                            <columns>
+                                <TableColumn fx:id="colInvOrderNumber" text="Nº Pedido" prefWidth="200"/>
+                                <TableColumn fx:id="colInvCustomer" text="Cliente" prefWidth="250"/>
+                                <TableColumn fx:id="colInvDate" text="Data" prefWidth="200"/>
+                                <TableColumn fx:id="colInvTotal" text="Total (MT)" prefWidth="150"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <HBox spacing="10" alignment="CENTER_RIGHT" styleClass="button-bar">
+                        <Button fx:id="btnExportPdf" text="Exportar PDF" styleClass="danger-button"
+                                onAction="#exportInvoiceFilePdf">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FILE_PDF_ALT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnExportExcel" text="Exportar Excel" styleClass="success-button"
+                                onAction="#exportInvoiceFileExcel">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="FILE_EXCEL_ALT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="btnPrintInvoice" text="Imprimir" styleClass="warning-button"
+                                onAction="#printInvoice">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="PRINT" styleClass="icon"/>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</StackPane>
