@@ -32,7 +32,6 @@ public class MovementController {
 
     @FXML private TextField txtSearch;
 
-    // estes são DatePicker no FXML
     @FXML private DatePicker dateStart;
     @FXML private DatePicker dateEnd;
 
@@ -41,6 +40,7 @@ public class MovementController {
     private final ObservableList<MovementResponseDTO> allMovementsData = FXCollections.observableArrayList();
 
     private String token = SessionManager.getToken();
+    Long companyId = SessionManager.getCurrentCompanyId();
     private MovementResponseDTO selectedMovement;
 
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -52,7 +52,7 @@ public class MovementController {
         loadMovements();
     }
 
-    /** Configura tabela **/
+    /** Configura a tabela **/
     private void setupTable() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -78,11 +78,16 @@ public class MovementController {
         );
     }
 
-    /** Carregar todos **/
+    /** Carrega todos os movimentos da empresa da sessão **/
     private void loadMovements() {
         if (token == null) return;
 
-        movementService.fetchAllAsync(token)
+        if (companyId == null) {
+            AlertUtil.showError("Erro", "Empresa não encontrada na sessão.");
+            return;
+        }
+
+        movementService.fetchByCompanyAsync(companyId, token)
                 .thenAccept(list -> Platform.runLater(() -> {
                     allMovementsData.setAll(list);
                     movementData.setAll(list);
@@ -118,6 +123,7 @@ public class MovementController {
         });
     }
 
+    /** Filtra por data, respeitando a empresa da sessão **/
     @FXML
     private void filterByDate() {
         if (dateStart.getValue() == null || dateEnd.getValue() == null) {
@@ -136,7 +142,12 @@ public class MovementController {
             return;
         }
 
-        movementService.filterByDateAsync(start, end, token)
+        if (companyId == null) {
+            AlertUtil.showError("Erro", "Empresa não encontrada na sessão.");
+            return;
+        }
+
+        movementService.fetchByCompanyAndDateAsync(companyId, start, end, token)
                 .thenAccept(list -> Platform.runLater(() -> movementData.setAll(list)))
                 .exceptionally(ex -> {
                     Platform.runLater(() -> {
@@ -148,7 +159,7 @@ public class MovementController {
                 });
     }
 
-    /** Limpar Filtro **/
+    /** Limpar filtro **/
     @FXML
     private void clearFilter() {
         dateStart.setValue(null);
@@ -156,7 +167,7 @@ public class MovementController {
         movementData.setAll(allMovementsData);
     }
 
-    /** Deletar **/
+    /** Deletar movimento **/
     @FXML
     private void deleteMovement() {
         if (selectedMovement == null) {

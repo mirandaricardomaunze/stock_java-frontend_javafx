@@ -16,69 +16,64 @@ import java.util.concurrent.CompletionException;
 
 public class WarehouseService {
 
+    private static final String BASE_URL = "http://localhost:8080/warehouses";
+
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final String BASE_URL = "http://localhost:8080/warehouses";
 
     public WarehouseService() {
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
     }
 
-    // ===== CREATE =====
-    public CompletableFuture<WarehouseResponseDTO> createWarehouse(WarehouseRequestDTO warehouseDTO, String token) {
+    // =====================================================
+    // CREATE
+    // =====================================================
+    public CompletableFuture<WarehouseResponseDTO> createWarehouse(
+            WarehouseRequestDTO dto,
+            String token) {
+
         try {
-            String requestBody = objectMapper.writeValueAsString(warehouseDTO);
+            String json = objectMapper.writeValueAsString(dto);
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL))
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer " + token)
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(response -> {
-                        if (response.statusCode() == 200 || response.statusCode() == 201) {
-                            try {
-                                return objectMapper.readValue(response.body(), WarehouseResponseDTO.class);
-                            } catch (JsonProcessingException e) {
-                                throw new CompletionException("Erro ao converter resposta JSON", e);
-                            }
-                        } else {
-                            throw new CompletionException("Erro ao criar armazém: " + response.statusCode() + " - " + response.body(), null);
-                        }
-                    });
+            return sendRequest(request, WarehouseResponseDTO.class);
 
         } catch (JsonProcessingException e) {
-            throw new CompletionException("Erro ao serializar WarehouseRequestDTO para JSON", e);
+            throw new CompletionException("Erro ao serializar WarehouseRequestDTO", e);
         }
     }
 
-    // ===== READ ALL =====
-    public CompletableFuture<List<WarehouseResponseDTO>> getAllWarehouses(String token) {
+    // =====================================================
+    // READ
+    // =====================================================
+
+    /** 🔥 USAR NO COMBOBOX (somente ativos) */
+    public CompletableFuture<List<WarehouseResponseDTO>> getActiveWarehousesByCompany(
+            Long companyId,
+            String token) {
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL))
+                .uri(URI.create(BASE_URL + "/company/" + companyId + "/active"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
                 .GET()
                 .build();
 
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
-                    if (response.statusCode() == 200 || response.statusCode() == 201) {
-                        try {
-                            return objectMapper.readValue(response.body(), new TypeReference<List<WarehouseResponseDTO>>() {});
-                        } catch (JsonProcessingException e) {
-                            throw new CompletionException("Erro ao converter JSON em List<WarehouseResponseDTO>", e);
-                        }
-                    } else {
-                        throw new CompletionException("Erro HTTP ao listar armazéns: " + response.statusCode(), null);
-                    }
-                });
+        return sendListRequest(request, new TypeReference<>() {});
     }
 
-    // ===== READ BY COMPANY =====
-    public CompletableFuture<List<WarehouseResponseDTO>> getWarehousesByCompany(Long companyId, String token) {
+    /** Todos os armazéns da empresa (admin / gestão) */
+    public CompletableFuture<List<WarehouseResponseDTO>> getAllWarehousesByCompany(
+            Long companyId,
+            String token) {
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + "/company/" + companyId))
                 .header("Content-Type", "application/json")
@@ -86,69 +81,133 @@ public class WarehouseService {
                 .GET()
                 .build();
 
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
-                    if (response.statusCode() == 200) {
-                        try {
-                            return objectMapper.readValue(response.body(), new TypeReference<List<WarehouseResponseDTO>>() {});
-                        } catch (JsonProcessingException e) {
-                            throw new CompletionException("Erro ao converter JSON em List<WarehouseResponseDTO>", e);
-                        }
-                    } else {
-                        throw new CompletionException("Erro HTTP ao listar armazéns por empresa: " + response.statusCode(), null);
-                    }
-                });
+        return sendListRequest(request, new TypeReference<>() {});
     }
 
-    // ===== UPDATE =====
-    public CompletableFuture<WarehouseResponseDTO> updateWarehouse(Long id, WarehouseRequestDTO warehouseDTO, String token) {
+    /** Armazém principal */
+    public CompletableFuture<WarehouseResponseDTO> getPrincipalWarehouseByCompany(
+            Long companyId,
+            String token) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/company/" + companyId + "/principal"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+
+        return sendRequest(request, WarehouseResponseDTO.class);
+    }
+
+    /** Buscar por ID */
+    public CompletableFuture<WarehouseResponseDTO> getWarehouseById(
+            Long id,
+            String token) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/" + id))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+
+        return sendRequest(request, WarehouseResponseDTO.class);
+    }
+
+    // =====================================================
+    // UPDATE
+    // =====================================================
+    public CompletableFuture<WarehouseResponseDTO> updateWarehouse(
+            Long id,
+            WarehouseRequestDTO dto,
+            String token) {
+
         try {
-            String requestBody = objectMapper.writeValueAsString(warehouseDTO);
+            String json = objectMapper.writeValueAsString(dto);
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL + "/" + id))
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer " + token)
-                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .PUT(HttpRequest.BodyPublishers.ofString(json))
                     .build();
 
-            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                    .thenApply(response -> {
-                        if (response.statusCode() == 200) {
-                            try {
-                                return objectMapper.readValue(response.body(), WarehouseResponseDTO.class);
-                            } catch (JsonProcessingException e) {
-                                throw new CompletionException("Erro ao converter JSON em WarehouseResponseDTO", e);
-                            }
-                        } else {
-                            throw new CompletionException("Erro ao atualizar armazém: " + response.statusCode(), null);
-                        }
-                    });
+            return sendRequest(request, WarehouseResponseDTO.class);
 
         } catch (JsonProcessingException e) {
-            throw new CompletionException("Erro ao serializar WarehouseRequestDTO para JSON", e);
+            throw new CompletionException("Erro ao serializar WarehouseRequestDTO", e);
         }
     }
 
-    // ===== DELETE =====
-    public CompletableFuture<WarehouseResponseDTO> deleteWarehouse(Long id, String token) {
+    // =====================================================
+    // DELETE
+    // =====================================================
+    public CompletableFuture<Void> deleteWarehouse(Long id, String token) {
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + "/" + id))
-                .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
                 .DELETE()
                 .build();
 
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> {
+                    if (response.statusCode() != 204) {
+                        throw new CompletionException(
+                                new RuntimeException("Erro ao deletar warehouse: " + response.body())
+                        );
+                    }
+                });
+    }
+
+    // =====================================================
+    // PRINCIPAL
+    // =====================================================
+    public CompletableFuture<WarehouseResponseDTO> setPrincipalWarehouse(
+            Long warehouseId,
+            String token) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL + "/" + warehouseId + "/set-principal"))
+                .header("Authorization", "Bearer " + token)
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        return sendRequest(request, WarehouseResponseDTO.class);
+    }
+
+    // =====================================================
+    // HELPERS
+    // =====================================================
+    private <T> CompletableFuture<T> sendRequest(HttpRequest request, Class<T> responseType) {
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    if (response.statusCode() == 200 || response.statusCode() == 201) {
+                        try {
+                            return objectMapper.readValue(response.body(), responseType);
+                        } catch (Exception e) {
+                            throw new CompletionException("Erro ao converter resposta JSON", e);
+                        }
+                    }
+                    throw new CompletionException(
+                            new RuntimeException("Erro HTTP " + response.statusCode() + ": " + response.body())
+                    );
+                });
+    }
+
+    private <T> CompletableFuture<T> sendListRequest(HttpRequest request, TypeReference<T> typeRef) {
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     if (response.statusCode() == 200) {
                         try {
-                            return objectMapper.readValue(response.body(), WarehouseResponseDTO.class);
-                        } catch (JsonProcessingException e) {
-                            throw new CompletionException("Erro ao converter JSON em WarehouseResponseDTO", e);
+                            return objectMapper.readValue(response.body(), typeRef);
+                        } catch (Exception e) {
+                            throw new CompletionException("Erro ao converter lista JSON", e);
                         }
-                    } else {
-                        throw new CompletionException("Erro ao deletar armazém: " + response.statusCode() + " - " + response.body(), null);
                     }
+                    throw new CompletionException(
+                            new RuntimeException("Erro HTTP " + response.statusCode() + ": " + response.body())
+                    );
                 });
     }
 }

@@ -16,12 +16,14 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.manager.dto.TranferRequestDTO;
 import org.manager.dto.TransferResponseDTO;
 import org.manager.service.TransferService;
 import org.manager.service.WarehouseService;
 import org.manager.service.ProductService;
 import org.manager.session.SessionManager;
 import org.manager.util.AlertUtil;
+import org.manager.util.DateTimeUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,7 +38,6 @@ public class TransferController {
     @FXML private TableColumn<TransferResponseDTO, Integer> colQuantity;
     @FXML private TableColumn<TransferResponseDTO, String> colDate;
     @FXML private TableColumn<TransferResponseDTO, String> colUser;
-
     @FXML private TextField txtSearch;
 
     private final TransferService transferService = new TransferService();
@@ -48,6 +49,7 @@ public class TransferController {
     private SortedList<TransferResponseDTO> sortedData;
 
     private final String token = SessionManager.getToken();
+    private final Long userId = SessionManager.getCurrentUserId();
 
     @FXML
     private void initialize() {
@@ -63,22 +65,21 @@ public class TransferController {
         colTargetWarehouse.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDestinationWarehouse()));
         colQuantity.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getQuantity()).asObject());
         colDate.setCellValueFactory(data -> new SimpleStringProperty(
-                data.getValue().getTransferDate() != null ? data.getValue().getTransferDate().toString() : ""
+                DateTimeUtil.format(data.getValue().getTransferDate())
         ));
         colUser.setCellValueFactory(data -> new SimpleStringProperty(
                 data.getValue().getUser() != null ? data.getValue().getUser() : ""
         ));
     }
 
-
     private void loadTransfers() {
-        transferService.getAllAsync().thenAccept(list ->
-                Platform.runLater(() -> allTransfersData.setAll(list))
-        ).exceptionally(ex -> {
-            ex.printStackTrace();
-            Platform.runLater(() -> AlertUtil.showError("Erro", "Falha ao carregar transferências"));
-            return null;
-        });
+        transferService.getAllAsync(token)
+                .thenAccept(list -> Platform.runLater(() -> allTransfersData.setAll(list)))
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    Platform.runLater(() -> AlertUtil.showError("Erro", "Falha ao carregar transferências"));
+                    return null;
+                });
     }
 
     private void setupSearch() {
@@ -163,7 +164,7 @@ public class TransferController {
         boolean confirm = AlertUtil.showConfirmation("Confirmação", "Deseja realmente remover esta transferência?");
         if (!confirm) return;
 
-        transferService.deleteAsync(selected.getId())
+        transferService.deleteAsync(selected.getId(), token)
                 .thenRun(() -> Platform.runLater(() -> {
                     allTransfersData.remove(selected);
                     AlertUtil.showInfo("Sucesso", "Transferência removida com sucesso!");
@@ -177,11 +178,37 @@ public class TransferController {
 
     @FXML
     private void handleExportTransfer() {
-        // Aqui você pode implementar a exportação para Excel, CSV ou PDF
         AlertUtil.showInfo("Exportar", "Funcionalidade de exportação ainda não implementada.");
     }
 
     public void refreshTable() {
         loadTransfers();
+    }
+
+    // ===================== MÉTODOS PARA CRIAR/ATUALIZAR =====================
+    public void createTransfer(TranferRequestDTO dto) {
+        transferService.createAsync(dto, token,userId)
+                .thenAccept(response -> Platform.runLater(() -> {
+                    AlertUtil.showInfo("Sucesso", "Transferência criada com sucesso!");
+                    refreshTable();
+                }))
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    Platform.runLater(() -> AlertUtil.showError("Erro", "Falha ao criar transferência"));
+                    return null;
+                });
+    }
+
+    public void updateTransfer(Long id, TranferRequestDTO dto) {
+        transferService.updateAsync(id, dto, token,userId)
+                .thenAccept(response -> Platform.runLater(() -> {
+                    AlertUtil.showInfo("Sucesso", "Transferência atualizada com sucesso!");
+                    refreshTable();
+                }))
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    Platform.runLater(() -> AlertUtil.showError("Erro", "Falha ao atualizar transferência"));
+                    return null;
+                });
     }
 }

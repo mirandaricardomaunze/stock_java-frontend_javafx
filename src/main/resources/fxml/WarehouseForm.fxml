@@ -72,7 +72,7 @@
                 <HBox spacing="20" alignment="CENTER">
                     <Button text="Cancelar" onAction="#handleCancel" styleClass="btn-secondary"/>
                     <Button fx:id="btnUpdateAndCreate" text="Cadastrar"
-                            onAction="#updateWarehouse" styleClass="btn-primary"/>
+                            onAction="#handleSubmit" styleClass="btn-primary"/>
                 </HBox>
             </VBox>
         </StackPane>

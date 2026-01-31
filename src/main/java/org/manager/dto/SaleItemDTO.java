@@ -2,6 +2,8 @@ package org.manager.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,5 +15,6 @@ public class SaleItemDTO {
     private String productCode; // ADICIONADO
     private Integer quantity;
     private Double unitPrice;
-    private Double subtotal;    // ADICIONADO
+    private Double subtotal;
+    private BigDecimal taxAmount;// ADICIONADO
 }

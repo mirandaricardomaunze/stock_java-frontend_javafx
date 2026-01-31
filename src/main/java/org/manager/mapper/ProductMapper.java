@@ -4,6 +4,9 @@ import org.manager.dto.ProductRequestDTO;
 import org.manager.dto.ProductResponseDTO;
 import org.manager.model.Product;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ProductMapper {
 
     // ===================== REQUEST → MODEL =====================
@@ -11,7 +14,7 @@ public class ProductMapper {
         if (dto == null) return null;
 
         return Product.builder()
-                .id(null) // id gerado no backend
+                .id(null) // ID gerado no backend
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .sku(dto.getSku())
@@ -22,14 +25,10 @@ public class ProductMapper {
                 .costPrice(dto.getCostPrice())
                 .quantityInStock(dto.getQuantityInStock())
                 .minimumStockLevel(dto.getMinimumStockLevel())
-                .unitOfMeasure(dto.getUnitOfMeasure())
-
-                // Empresariais
-                .lastPurchasePrice(dto.getLastPurchasePrice())
-                .averageCost(dto.getAverageCost())
                 .maximumStockLevel(dto.getMaximumStockLevel())
                 .reorderPoint(dto.getReorderPoint())
-                .isActive(dto.getIsActive())
+                .unitOfMeasure(dto.getUnitOfMeasure())
+                .isActive(dto.getIsActive() != null ? dto.getIsActive() : true) // padrão ativo
 
                 // Logísticos
                 .locationCode(dto.getLocationCode())
@@ -43,7 +42,7 @@ public class ProductMapper {
                 .isTaxIncluded(dto.getIsTaxIncluded())
                 .accountingCode(dto.getAccountingCode())
 
-                // Catálogo
+                // Catálogo / e-commerce
                 .brand(dto.getBrand())
                 .model(dto.getModel())
                 .tags(dto.getTags())
@@ -71,13 +70,9 @@ public class ProductMapper {
         if (dto.getCostPrice() != null) product.setCostPrice(dto.getCostPrice());
         if (dto.getQuantityInStock() != null) product.setQuantityInStock(dto.getQuantityInStock());
         if (dto.getMinimumStockLevel() != null) product.setMinimumStockLevel(dto.getMinimumStockLevel());
-        if (dto.getUnitOfMeasure() != null) product.setUnitOfMeasure(dto.getUnitOfMeasure());
-
-        // Empresariais
-        if (dto.getLastPurchasePrice() != null) product.setLastPurchasePrice(dto.getLastPurchasePrice());
-        if (dto.getAverageCost() != null) product.setAverageCost(dto.getAverageCost());
         if (dto.getMaximumStockLevel() != null) product.setMaximumStockLevel(dto.getMaximumStockLevel());
         if (dto.getReorderPoint() != null) product.setReorderPoint(dto.getReorderPoint());
+        if (dto.getUnitOfMeasure() != null) product.setUnitOfMeasure(dto.getUnitOfMeasure());
         if (dto.getIsActive() != null) product.setIsActive(dto.getIsActive());
 
         // Logísticos
@@ -110,6 +105,8 @@ public class ProductMapper {
         if (product == null) return null;
 
         ProductResponseDTO dto = new ProductResponseDTO();
+
+        // Básico
         dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
@@ -121,13 +118,9 @@ public class ProductMapper {
         dto.setCostPrice(product.getCostPrice());
         dto.setQuantityInStock(product.getQuantityInStock());
         dto.setMinimumStockLevel(product.getMinimumStockLevel());
-        dto.setUnitOfMeasure(product.getUnitOfMeasure());
-
-        // Empresariais
-        dto.setLastPurchasePrice(product.getLastPurchasePrice());
-        dto.setAverageCost(product.getAverageCost());
         dto.setMaximumStockLevel(product.getMaximumStockLevel());
         dto.setReorderPoint(product.getReorderPoint());
+        dto.setUnitOfMeasure(product.getUnitOfMeasure());
         dto.setIsActive(product.getIsActive());
 
         // Logísticos
@@ -142,13 +135,13 @@ public class ProductMapper {
         dto.setIsTaxIncluded(product.getIsTaxIncluded());
         dto.setAccountingCode(product.getAccountingCode());
 
-        // Catálogo
+        // Catálogo / e-commerce
         dto.setBrand(product.getBrand());
         dto.setModel(product.getModel());
         dto.setTags(product.getTags());
         dto.setImageUrl(product.getImageUrl());
 
-        // Relacionamentos (IDs + Nomes)
+        // Relacionamentos
         dto.setCompanyId(product.getCompanyId());
         dto.setCompanyName(product.getCompanyName());
         dto.setWarehouseId(product.getWarehouseId());
@@ -164,11 +157,11 @@ public class ProductMapper {
         dto.setCreatedBy(product.getCreatedBy());
         dto.setUpdatedBy(product.getUpdatedBy());
 
-        // Campos calculados
+        // Campos calculados / avançados
         dto.setFullBoxes(product.getFullBoxes());
         dto.setRemainingItems(product.getRemainingItems());
         dto.setStockDetail(product.getStockDetail());
-        dto.setBelowMinimum(product.isBelowMinimum());
+        dto.setBelowMinimum(product.isBelowMinimum()); // correção
         dto.setProfitMargin(product.getProfitMargin());
         dto.setProfitMarginPercentage(product.getProfitMarginPercentage());
 

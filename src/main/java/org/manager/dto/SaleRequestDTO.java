@@ -18,8 +18,11 @@ public class SaleRequestDTO {
     private BigDecimal discount;
     private BigDecimal amountPaid;
     private Long companyId;
+    private Long warehouseId;
+    private BigDecimal totalTax;
     private List<SaleItemRequestDTO> items;
-
+    private Long userId;
+    private String userName;
     public boolean isValid() {
         return clientName != null && !clientName.isBlank()
                 && paymentMethod != null

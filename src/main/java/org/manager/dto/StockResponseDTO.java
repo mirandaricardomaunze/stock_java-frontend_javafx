@@ -14,5 +14,7 @@ public class StockResponseDTO {
     private Long warehouseId;
     private String warehouseName;
     private Integer quantity;
+    private Integer reservedQuantity;
+    private Integer availableQuantity;
 
 }

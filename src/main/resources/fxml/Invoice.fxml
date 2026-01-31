@@ -128,6 +128,12 @@
                                 <FontAwesomeIconView glyphName="PRINT" styleClass="icon"/>
                             </graphic>
                         </Button>
+                        <Button fx:id="btnCancelInvoice" text="Cancelar Fatura" styleClass="danger-button"
+                                onAction="#cancelSelectedInvoice">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="BAN" styleClass="icon"/>
+                            </graphic>
+                        </Button>
                     </HBox>
                 </VBox>
 

@@ -85,9 +85,10 @@
                             <ColumnConstraints percentWidth="25" halignment="CENTER"/>
                         </columnConstraints>
                         <rowConstraints>
-                            <RowConstraints percentHeight="33" valignment="CENTER"/>
-                            <RowConstraints percentHeight="33" valignment="CENTER"/>
-                            <RowConstraints percentHeight="33" valignment="CENTER"/>
+                            <RowConstraints percentHeight="25" valignment="CENTER"/>
+                            <RowConstraints percentHeight="25" valignment="CENTER"/>
+                            <RowConstraints percentHeight="25" valignment="CENTER"/>
+                            <RowConstraints percentHeight="25" valignment="CENTER"/>
                         </rowConstraints>
 
                         <!-- Linha 1 -->
@@ -236,15 +237,16 @@
                             </VBox>
                         </StackPane>
 
-                        <StackPane styleClass="module-card" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <!-- Linha 3 - Módulos de Gestão -->
+                        <StackPane styleClass="module-card" GridPane.columnIndex="0" GridPane.rowIndex="2">
                             <VBox spacing="15" alignment="CENTER">
-                                <StackPane styleClass="module-icon-container warehouse-icon">
+                                <StackPane styleClass="module-icon-container transfers-icon">
                                     <Circle radius="32" styleClass="icon-background"/>
-                                    <FontAwesomeIconView glyphName="HOME" styleClass="module-icon"/>
+                                    <FontAwesomeIconView glyphName="EXCHANGE" styleClass="module-icon"/>
                                 </StackPane>
                                 <VBox spacing="8" alignment="CENTER">
                                     <Label text="Transferências" styleClass="module-title"/>
-                                    <Label text="Gestão de Transferências" styleClass="module-description"/>
+                                    <Label text="Gestão de transferências" styleClass="module-description"/>
                                 </VBox>
                                 <Button text="Acessar" styleClass="module-button" onAction="#goToTransfer">
                                     <graphic>
@@ -253,11 +255,12 @@
                                 </Button>
                             </VBox>
                         </StackPane>
-                        <StackPane styleClass="module-card" GridPane.columnIndex="3" GridPane.rowIndex="1">
+
+                        <StackPane styleClass="module-card" GridPane.columnIndex="1" GridPane.rowIndex="2">
                             <VBox spacing="15" alignment="CENTER">
-                                <StackPane styleClass="module-icon-container warehouse-icon">
+                                <StackPane styleClass="module-icon-container stock-icon">
                                     <Circle radius="32" styleClass="icon-background"/>
-                                    <FontAwesomeIconView glyphName="HOME" styleClass="module-icon"/>
+                                    <FontAwesomeIconView glyphName="CUBES" styleClass="module-icon"/>
                                 </StackPane>
                                 <VBox spacing="8" alignment="CENTER">
                                     <Label text="Stock" styleClass="module-title"/>
@@ -271,8 +274,7 @@
                             </VBox>
                         </StackPane>
 
-                        <!-- Linha 3 -->
-                        <StackPane styleClass="module-card" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <StackPane styleClass="module-card" GridPane.columnIndex="2" GridPane.rowIndex="2">
                             <VBox spacing="15" alignment="CENTER">
                                 <StackPane styleClass="module-icon-container categories-icon">
                                     <Circle radius="32" styleClass="icon-background"/>
@@ -290,7 +292,7 @@
                             </VBox>
                         </StackPane>
 
-                        <StackPane styleClass="module-card" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <StackPane styleClass="module-card" GridPane.columnIndex="3" GridPane.rowIndex="2">
                             <VBox spacing="15" alignment="CENTER">
                                 <StackPane styleClass="module-icon-container suppliers-icon">
                                     <Circle radius="32" styleClass="icon-background"/>
@@ -308,11 +310,12 @@
                             </VBox>
                         </StackPane>
 
-                        <StackPane styleClass="module-card" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <!-- Linha 4 - Módulos de Controle -->
+                        <StackPane styleClass="module-card" GridPane.columnIndex="0" GridPane.rowIndex="3">
                             <VBox spacing="15" alignment="CENTER">
                                 <StackPane styleClass="module-icon-container movements-icon">
                                     <Circle radius="32" styleClass="icon-background"/>
-                                    <FontAwesomeIconView glyphName="EXCHANGE" styleClass="module-icon"/>
+                                    <FontAwesomeIconView glyphName="RANDOM" styleClass="module-icon"/>
                                 </StackPane>
                                 <VBox spacing="8" alignment="CENTER">
                                     <Label text="Movimentos" styleClass="module-title"/>
@@ -326,7 +329,25 @@
                             </VBox>
                         </StackPane>
 
-                        <StackPane styleClass="module-card" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <StackPane styleClass="module-card" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <VBox spacing="15" alignment="CENTER">
+                                <StackPane styleClass="module-icon-container guides-icon">
+                                    <Circle radius="32" styleClass="icon-background"/>
+                                    <FontAwesomeIconView glyphName="FILE_TEXT_O" styleClass="module-icon"/>
+                                </StackPane>
+                                <VBox spacing="8" alignment="CENTER">
+                                    <Label text="Guias" styleClass="module-title"/>
+                                    <Label text="Gestão de guias/documentos" styleClass="module-description"/>
+                                </VBox>
+                                <Button text="Acessar" styleClass="module-button" >
+                                    <graphic>
+                                        <FontAwesomeIconView glyphName="ARROW_RIGHT" styleClass="button-icon"/>
+                                    </graphic>
+                                </Button>
+                            </VBox>
+                        </StackPane>
+
+                        <StackPane styleClass="module-card" GridPane.columnIndex="2" GridPane.rowIndex="3">
                             <VBox spacing="15" alignment="CENTER">
                                 <StackPane styleClass="module-icon-container reports-icon">
                                     <Circle radius="32" styleClass="icon-background"/>
@@ -337,6 +358,24 @@
                                     <Label text="Relatórios e analytics" styleClass="module-description"/>
                                 </VBox>
                                 <Button text="Acessar" styleClass="module-button" onAction="#loadMainLinks">
+                                    <graphic>
+                                        <FontAwesomeIconView glyphName="ARROW_RIGHT" styleClass="button-icon"/>
+                                    </graphic>
+                                </Button>
+                            </VBox>
+                        </StackPane>
+
+                        <StackPane styleClass="module-card" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                            <VBox spacing="15" alignment="CENTER">
+                                <StackPane styleClass="module-icon-container settings-icon">
+                                    <Circle radius="32" styleClass="icon-background"/>
+                                    <FontAwesomeIconView glyphName="COGS" styleClass="module-icon"/>
+                                </StackPane>
+                                <VBox spacing="8" alignment="CENTER">
+                                    <Label text="Configurações" styleClass="module-title"/>
+                                    <Label text="Configurações do sistema" styleClass="module-description"/>
+                                </VBox>
+                                <Button text="Acessar" styleClass="module-button" >
                                     <graphic>
                                         <FontAwesomeIconView glyphName="ARROW_RIGHT" styleClass="button-icon"/>
                                     </graphic>

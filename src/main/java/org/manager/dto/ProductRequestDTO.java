@@ -13,44 +13,44 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductRequestDTO {
+
+    // ===== Dados básicos =====
     private String name;
     private String description;
     private String sku;
     private String barcode;
     private String referenceNumber;
+
     private Integer boxes;
     private BigDecimal sellingPrice;
     private BigDecimal costPrice;
+
     private Integer quantityInStock;
     private Integer minimumStockLevel;
-    private String unitOfMeasure;
-
-    // Empresariais
-    private BigDecimal lastPurchasePrice;
-    private BigDecimal averageCost;
     private Integer maximumStockLevel;
     private Integer reorderPoint;
-    private Boolean isActive;
 
-    // Logísticos
+    private String unitOfMeasure;
+
+    // ===== Fiscal =====
+    private BigDecimal taxPercentage;
+    private Boolean isTaxIncluded;
+    private String accountingCode;
+    private Boolean isActive = true;
+    // ===== Logística =====
     private String locationCode;
     private Double weight;
     private Double volume;
     private LocalDate expirationDate;
     private String batchNumber;
 
-    // Fiscais
-    private BigDecimal taxPercentage;
-    private Boolean isTaxIncluded;
-    private String accountingCode;
-
-    // Catálogo
+    // ===== Comercial / e-commerce =====
     private String brand;
     private String model;
     private String tags;
     private String imageUrl;
 
-    // Relacionamentos (IDs apenas)
+    // ===== Relacionamentos (IDs apenas) =====
     private Long companyId;
     private Long warehouseId;
     private Long categoryId;

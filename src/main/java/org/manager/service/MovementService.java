@@ -59,6 +59,65 @@ public class MovementService {
             return failed;
         }
     }
+    // ================= GET BY COMPANY =================
+    public CompletableFuture<List<MovementResponseDTO>> fetchByCompanyAsync(Long companyId, String token) {
+        String url = baseUrl + "/company/" + companyId;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Authorization", "Bearer " + token)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    debug("GET BY COMPANY", request.uri().toString(), response.statusCode(), response.body());
+
+                    if (response.statusCode() != 200) {
+                        throw new RuntimeException("Erro ao buscar movimentos da empresa: " + response.body());
+                    }
+
+                    try {
+                        MovementResponseDTO[] list = objectMapper.readValue(response.body(), MovementResponseDTO[].class);
+                        return Arrays.stream(list)
+                                .map(this::convertLabelsToPortuguese)
+                                .toList();
+                    } catch (Exception e) {
+                        throw new RuntimeException("Erro ao converter resposta GET BY COMPANY: " + e.getMessage());
+                    }
+                });
+    }
+
+    // ================= GET BY COMPANY AND DATE =================
+    public CompletableFuture<List<MovementResponseDTO>> fetchByCompanyAndDateAsync(Long companyId, LocalDateTime start, LocalDateTime end, String token) {
+        String url = baseUrl + "/company/" + companyId + "/filter?start=" + start + "&end=" + end;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Authorization", "Bearer " + token)
+                .header("Accept", "application/json")
+                .GET()
+                .build();
+
+        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(response -> {
+                    debug("GET BY COMPANY AND DATE", request.uri().toString(), response.statusCode(), response.body());
+
+                    if (response.statusCode() != 200) {
+                        throw new RuntimeException("Erro ao filtrar movimentos da empresa: " + response.body());
+                    }
+
+                    try {
+                        MovementResponseDTO[] list = objectMapper.readValue(response.body(), MovementResponseDTO[].class);
+                        return Arrays.stream(list)
+                                .map(this::convertLabelsToPortuguese)
+                                .toList();
+                    } catch (Exception e) {
+                        throw new RuntimeException("Erro ao converter resposta GET BY COMPANY AND DATE: " + e.getMessage());
+                    }
+                });
+    }
 
     // ================= LIST ALL =================
     public CompletableFuture<List<MovementResponseDTO>> fetchAllAsync(String token) {

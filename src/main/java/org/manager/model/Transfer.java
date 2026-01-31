@@ -33,5 +33,6 @@ public class Transfer {
     private int quantity;
     private LocalDateTime transferDate;
     private String reference;
+    private Long userId;
     private String userName;
 }

@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="org.manager.controller.SaleController"
@@ -14,108 +14,124 @@
 
     <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
         <content>
-            <StackPane> <!-- Container interno para aplicar padding nas laterais -->
-                <VBox spacing="20">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
+            <VBox spacing="20">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
 
-                    <!-- Header -->
-                    <VBox spacing="5" styleClass="header-section">
-                        <Label text="Gestão de Vendas" styleClass="title-label"/>
-                        <Label text="Controle completo das vendas realizadas" styleClass="subtitle-label"/>
-                    </VBox>
-
-                    <!-- Filtro e resumo -->
-                    <HBox spacing="20" alignment="CENTER_LEFT" styleClass="filter-section">
-                        <VBox spacing="5">
-                            <Label text="FILTRO POR PERÍODO" styleClass="section-label"/>
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <ComboBox fx:id="periodComboBox" prefWidth="180" prefHeight="38" styleClass="form-combo">
-                                    <items>
-                                        <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Último Mês"/>
-                                            <String fx:value="Últimos 3 Meses"/>
-                                            <String fx:value="Últimos 6 Meses"/>
-                                            <String fx:value="Último Ano"/>
-                                        </FXCollections>
-                                    </items>
-                                </ComboBox>
-                                <Button fx:id="applyFilterButton" text="Filtrar" minHeight="38" styleClass="primary-button">
-                                    <graphic>
-                                        <FontAwesomeIconView glyphName="SEARCH" size="14" styleClass="icon-button"/>
-                                    </graphic>
-                                </Button>
-                            </HBox>
-                        </VBox>
-
-                        <Region HBox.hgrow="ALWAYS"/>
-
-                        <VBox styleClass="summary-card">
-                            <padding>
-                                <Insets top="10" right="10" bottom="10" left="10"/>
-                            </padding>
-                            <HBox spacing="10" alignment="CENTER_LEFT">
-                                <FontAwesomeIconView fx:id="summaryIcon" glyphName="LINE_CHART" styleClass="summary-icon"/>
-                                <VBox spacing="2">
-                                    <Label text="TOTAL DE VENDAS" styleClass="summary-label"/>
-                                    <Label fx:id="totalSalesLabel" text="Mzn 0,00" styleClass="summary-value"/>
-                                </VBox>
-                            </HBox>
-                        </VBox>
-                    </HBox>
-
-                    <!-- Pesquisa -->
-                    <HBox spacing="10" alignment="CENTER_LEFT">
-                        <TextField fx:id="searchField" promptText="Pesquisar por cliente ou código..." styleClass="search-field" HBox.hgrow="ALWAYS"/>
-                    </HBox>
-
-                    <!-- Tabela de vendas -->
-                    <VBox spacing="10" styleClass="table-section">
-                        <HBox alignment="CENTER_LEFT" spacing="10">
-                            <Label text="HISTÓRICO DE VENDAS" styleClass="section-label"/>
-                            <Region HBox.hgrow="ALWAYS"/>
-                            <Label fx:id="resultsCount" text="0 vendas encontradas" styleClass="results-label"/>
-                        </HBox>
-
-                        <TableView fx:id="salesTable" styleClass="table-view table-primary" prefHeight="400" minHeight="400">
-                            <columns>
-                                <TableColumn fx:id="clientColumn" text="Cliente" prefWidth="250"/>
-                                <TableColumn fx:id="codeColumn" text="Código " prefWidth="180"/>
-                                <TableColumn fx:id="productColumn" text="Produto" prefWidth="350"/>
-                                <TableColumn fx:id="totalColumn" text="Valor" prefWidth="120"/>
-                                <TableColumn fx:id="statusColumn" text="Status" prefWidth="130"/>
-                                <TableColumn fx:id="dateColumn" text="Data" prefWidth="150"/>
-                            </columns>
-                        </TableView>
-                    </VBox>
-
-                    <!-- Botões de ação -->
-                    <HBox spacing="15" alignment="CENTER_LEFT" styleClass="action-section">
-                        <Button fx:id="newSaleButton" minHeight="38" styleClass="primary-button">
-                            <graphic>
-                                <FontAwesomeIconView glyphName="PLUS" size="14" styleClass="icon-button"/>
-                            </graphic>
-                            <text>Nova venda</text>
-                        </Button>
-                        <Button fx:id="deleteButton" minHeight="38" styleClass="danger-button">
-                            <graphic>
-                                <FontAwesomeIconView glyphName="TRASH" size="14" styleClass="icon-button"/>
-                            </graphic>
-                            <text>Apagar</text>
-                        </Button>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Button fx:id="exportButton" minHeight="38" styleClass="primary-button">
-                            <graphic>
-                                <FontAwesomeIconView glyphName="DOWNLOAD" size="14" styleClass="icon-button"/>
-                            </graphic>
-                            <text>Exportar</text>
-                        </Button>
-                    </HBox>
-
+                <!-- Header -->
+                <VBox spacing="5" styleClass="header-section">
+                    <Label text="Gestão de Vendas" styleClass="title-label"/>
+                    <Label text="Controle completo das vendas realizadas" styleClass="subtitle-label"/>
                 </VBox>
-            </StackPane>
+
+                <!-- Filtro e resumo -->
+                <HBox spacing="20" alignment="CENTER_LEFT" styleClass="filter-section">
+                    <VBox spacing="5">
+                        <Label text="FILTRO POR PERÍODO" styleClass="section-label"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ComboBox fx:id="periodComboBox" prefWidth="180" prefHeight="38" styleClass="form-combo">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Último Mês"/>
+                                        <String fx:value="Últimos 3 Meses"/>
+                                        <String fx:value="Últimos 6 Meses"/>
+                                        <String fx:value="Último Ano"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Button fx:id="applyFilterButton" text="Filtrar" minHeight="38" styleClass="primary-button">
+                                <graphic>
+                                    <FontAwesomeIconView glyphName="SEARCH" size="14" styleClass="icon-button"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </VBox>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <VBox styleClass="summary-card">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <FontAwesomeIconView fx:id="summaryIcon" glyphName="LINE_CHART" styleClass="summary-icon"/>
+                            <VBox spacing="2">
+                                <Label text="TOTAL DE VENDAS" styleClass="summary-label"/>
+                                <Label fx:id="totalSalesLabel" text="Mzn 0,00" styleClass="summary-value"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Pesquisa -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="searchField" promptText="Pesquisar por cliente ou código..." styleClass="search-field" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <!-- Tabela de vendas -->
+                <VBox spacing="10" styleClass="table-section">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="HISTÓRICO DE VENDAS" styleClass="section-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="resultsCount" text="0 vendas encontradas" styleClass="results-label"/>
+                    </HBox>
+
+                    <TableView fx:id="salesTable" styleClass="table-view table-primary" prefHeight="400" minHeight="400">
+                        <columns>
+                            <TableColumn fx:id="clientColumn" text="Cliente" prefWidth="250"/>
+                            <TableColumn fx:id="codeColumn" text="Código " prefWidth="180"/>
+                            <TableColumn fx:id="productColumn" text="Produto" prefWidth="350"/>
+                            <TableColumn fx:id="totalColumn" text="Valor" prefWidth="120"/>
+                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="130"/>
+                            <TableColumn fx:id="dateColumn" text="Data" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Botões de ação e exportação -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="action-section">
+                    <!-- Ações da esquerda -->
+                    <Button fx:id="newSaleButton" minHeight="38" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PLUS" size="14" styleClass="icon-button"/>
+                        </graphic>
+                        <text>Nova venda</text>
+                    </Button>
+                    <Button fx:id="deleteButton" minHeight="38" styleClass="danger-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" size="14" styleClass="icon-button"/>
+                        </graphic>
+                        <text>Apagar</text>
+                    </Button>
+                    <Button fx:id="cancelButton" text="Cancelar Venda" minHeight="38" styleClass="danger-button"
+                            onAction="#cancelSelectedSale">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="BAN" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Botões de exportação à direita -->
+                    <Button fx:id="exportPdfButton" text="PDF" minHeight="38" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="DOWNLOAD" size="14" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="exportHtmlButton" text="HTML" minHeight="38" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="DOWNLOAD" size="14" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="exportExcelButton" text="Excel" minHeight="38" styleClass="primary-button">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="DOWNLOAD" size="14" styleClass="icon-button"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+            </VBox>
         </content>
     </ScrollPane>
-
 </StackPane>

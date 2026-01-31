@@ -17,4 +17,5 @@ public class TranferRequestDTO {
     private Long destinationWarehouseId;
     private Integer quantity;
     private String reference; // opcional
+    private Long userId;
 }

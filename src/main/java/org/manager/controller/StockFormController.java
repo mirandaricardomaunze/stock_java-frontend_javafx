@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.manager.dto.StockDTO;
-import org.manager.dto.StockRequestDTO;
-import org.manager.dto.ProductResponseDTO;
-import org.manager.dto.WarehouseResponseDTO;
+import org.manager.dto.*;
 import org.manager.service.StockService;
 import org.manager.service.ProductService;
 import org.manager.service.WarehouseService;
@@ -29,12 +26,13 @@ public class StockFormController {
     private final WarehouseService warehouseService = new WarehouseService();
 
     private final String token = SessionManager.getToken();
+    private final Long companyId = SessionManager.getCurrentCompanyId();
 
     private final ObservableList<ProductResponseDTO> productsData = FXCollections.observableArrayList();
     private final ObservableList<WarehouseResponseDTO> warehousesData = FXCollections.observableArrayList();
 
     private StockController stockController;
-    private StockDTO editingStock;
+    private StockResponseDTO editingStock;
 
     public void setStockController(StockController controller) {
         this.stockController = controller;
@@ -72,7 +70,7 @@ public class StockFormController {
     }
 
     private void loadWarehouses() {
-        warehouseService.getAllWarehouses(token)
+        warehouseService.getActiveWarehousesByCompany(companyId,token)
                 .thenAccept(list -> Platform.runLater(() -> warehousesData.setAll(list)))
                 .exceptionally(ex -> { ex.printStackTrace(); return null; });
         comboBoxWarehouse.setItems(warehousesData);
@@ -130,14 +128,14 @@ public class StockFormController {
         btnUpdateAndCreate.setText(edit ? "Atualizar" : "Salvar");
     }
 
-    public void populateForm(StockDTO s) {
-        editingStock = s;
-        txtQuantity.setText(String.valueOf(s.getQuantity()));
+    public void populateForm(StockResponseDTO stock) {
+        editingStock = stock;
+        txtQuantity.setText(String.valueOf(stock.getQuantity()));
         comboBoxProduct.getSelectionModel().select(
-                productsData.stream().filter(p -> p.getId().equals(s.getProductId())).findFirst().orElse(null)
+                productsData.stream().filter(p -> p.getId().equals(stock.getProductId())).findFirst().orElse(null)
         );
         comboBoxWarehouse.getSelectionModel().select(
-                warehousesData.stream().filter(w -> w.getId().equals(s.getWarehouseId())).findFirst().orElse(null)
+                warehousesData.stream().filter(w -> w.getId().equals(stock.getWarehouseId())).findFirst().orElse(null)
         );
     }
 

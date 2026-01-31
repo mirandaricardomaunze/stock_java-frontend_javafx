@@ -244,6 +244,40 @@ public class InvoiceController {
     }
 
     @FXML
+    private void cancelSelectedInvoice() {
+        InvoiceDTO selected = invoiceTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            AlertUtil.showInfo("Atenção", "Selecione uma fatura para cancelar.");
+            return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação");
+        alert.setHeaderText("Cancelar fatura");
+        alert.setContentText("Deseja realmente cancelar a fatura " + selected.getInvoiceNumber() + "?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                invoiceService.cancelInvoice(selected.getId(), token)
+                        .thenAccept(invoice -> Platform.runLater(() -> {
+                            // Atualiza a lista de faturas
+                            int index = invoices.indexOf(selected);
+                            if (index >= 0) {
+                                invoices.set(index, invoice);
+                            }
+                            AlertUtil.showInfo("Sucesso", "Fatura cancelada com sucesso!");
+                        }))
+                        .exceptionally(ex -> {
+                            Platform.runLater(() ->
+                                    AlertUtil.showError("Erro", "Falha ao cancelar fatura: " + ex.getMessage()));
+                            return null;
+                        });
+            }
+        });
+    }
+
+
+    @FXML
     private void printInvoice() {
         InvoiceDTO selected = invoiceTable.getSelectionModel().getSelectedItem();
         if (selected == null) {

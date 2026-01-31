@@ -14,8 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponseDTO {
+
+    // ===== Básico =====
     private Long id;
-    // ===================== DADOS BÁSICOS =====================
     private String name;
     private String description;
     private String sku;
@@ -26,54 +27,51 @@ public class ProductResponseDTO {
     private BigDecimal costPrice;
     private Integer quantityInStock;
     private Integer minimumStockLevel;
-    private String unitOfMeasure;
-
-    // ===================== CAMPOS EMPRESARIAIS =====================
-    private BigDecimal lastPurchasePrice;
-    private BigDecimal averageCost;
     private Integer maximumStockLevel;
     private Integer reorderPoint;
+    private String unitOfMeasure;
     private Boolean isActive;
-    // ===================== AUDITORIA =====================
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private String createdBy;
-    private String updatedBy;
-    // ===================== LOGÍSTICOS =====================
+
+    // ===== Logísticos =====
     private String locationCode;
     private Double weight;
     private Double volume;
     private LocalDate expirationDate;
     private String batchNumber;
 
-    // ===================== FISCAIS =====================
+    // ===== Fiscais =====
     private BigDecimal taxPercentage;
     private Boolean isTaxIncluded;
     private String accountingCode;
 
-    // ===================== CATÁLOGO =====================
+    // ===== Catálogo / e-commerce =====
     private String brand;
     private String model;
     private String tags;
     private String imageUrl;
 
-    // ===================== RELACIONAMENTOS =====================
+    // ===== Relacionamentos =====
     private Long companyId;
-    private Long warehouseId;
-    private Long categoryId;
-    private Long supplierId;
-
     private String companyName;
+    private Long warehouseId;
     private String warehouseName;
+    private Long categoryId;
     private String categoryName;
+    private Long supplierId;
     private String supplierName;
 
-    // ===================== MÉTODOS CALCULADOS =====================
+    // ===== Auditoria =====
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String createdBy;
+    private String updatedBy;
+
+    // ===== Campos calculados / avançados =====
     private Integer fullBoxes;
     private Integer remainingItems;
     private String stockDetail;
+    private Boolean belowMinimum;
     private BigDecimal profitMargin;
     private BigDecimal profitMarginPercentage;
-    private Boolean belowMinimum;
 
 }

@@ -49,6 +49,12 @@ public class ProductFormController {
     @FXML private TextField txtTags;
     @FXML private TextField txtImageUrl;
     @FXML private Button btnUpdateAndCreate;
+    @FXML private TextField txtFullBoxes;
+    @FXML private TextField txtRemainingItems;
+    @FXML private TextField txtStockDetail;
+    @FXML private TextField txtProfitMargin;
+    @FXML private TextField txtProfitMarginPercentage;
+
 
     private final ProductService productService = new ProductService();
     private final CategoryService categoryService = new CategoryService();
@@ -58,6 +64,7 @@ public class ProductFormController {
     private final MovementService movementService = new MovementService();
 
     private final String token = SessionManager.getToken();
+    private final Long companyId = SessionManager.getCurrentCompanyId();
     private final Long userId = SessionManager.getCurrentUserId();
     private final String username = SessionManager.getCurrentUser();
 
@@ -124,7 +131,7 @@ public class ProductFormController {
     }
 
     private void loadWarehouses() {
-        warehouseService.getAllWarehouses(token)
+        warehouseService.getActiveWarehousesByCompany(companyId,token)
                 .thenAccept(list -> Platform.runLater(() -> warehousesData.setAll(list)))
                 .exceptionally(ex -> { ex.printStackTrace(); AlertUtil.showError("Erro", "Falha ao carregar armazéns."); return null; });
         comboBoxWarehouse.setItems(warehousesData);
@@ -264,6 +271,11 @@ public class ProductFormController {
         txtCostPrice.setText(toStr(p.getCostPrice()));
         txtQuantity.setText(toStr(p.getQuantityInStock()));
         txtMinStock.setText(toStr(p.getMinimumStockLevel()));
+        txtFullBoxes.setText(String.valueOf(p.getFullBoxes()));
+        txtRemainingItems.setText(String.valueOf(p.getRemainingItems()));
+        txtStockDetail.setText(p.getStockDetail());
+        txtProfitMargin.setText(p.getProfitMargin().toString());
+        txtProfitMarginPercentage.setText(p.getProfitMarginPercentage().toString() + " %");
 
         txtLocationCode.setText(p.getLocationCode());
         txtWeight.setText(toStr(p.getWeight()));

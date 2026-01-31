@@ -27,7 +27,7 @@
                 <!-- Search Bar -->
                 <HBox spacing="15" alignment="CENTER_LEFT" styleClass="search-bar">
                     <TextField fx:id="txtSearch" styleClass="search-field" promptText="Pesquisar produtos..." HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="btnSearch" text="Pesquisar" onAction="#handleSearch" styleClass="search-button">
+                    <Button fx:id="btnSearch" text="Pesquisar"  styleClass="search-button">
                         <graphic>
                             <FontAwesomeIconView glyphName="SEARCH" styleClass="icon"/>
                         </graphic>
@@ -61,21 +61,21 @@
                 <!-- Action Buttons -->
                 <HBox spacing="15" alignment="CENTER_RIGHT">
                     <Button fx:id="createButton" text="Adicionar"
-                            onAction="#handleOpenFormCreateWarehouse"
+                            onAction="#handleOpenCreate"
                             styleClass="primary-button">
                         <graphic>
                             <FontAwesomeIconView glyphName="PLUS" styleClass="icon"/>
                         </graphic>
                     </Button>
                     <Button fx:id="updateButton" text="Atualizar"
-                            onAction="#handleOpenFormUpdateWarehouse"
+                            onAction="#handleOpenEdit"
                             styleClass="success-button">
                         <graphic>
                             <FontAwesomeIconView glyphName="REFRESH" styleClass="icon"/>
                         </graphic>
                     </Button>
                     <Button fx:id="removeButton" text="Remover"
-                            onAction="#handleDeleteWarehouse"
+                            onAction="#handleDelete"
                             styleClass="danger-button">
                         <graphic>
                             <FontAwesomeIconView glyphName="TRASH" styleClass="icon"/>

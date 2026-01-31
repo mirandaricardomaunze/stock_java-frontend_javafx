@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.manager.dto.StockDTO;
 import org.manager.dto.StockRequestDTO;
+import org.manager.dto.StockResponseDTO;
 import org.manager.dto.StockSummaryDTO;
 
 import java.net.URI;
@@ -63,7 +64,7 @@ public class StockService {
     // ============================
     // CREATE / UPDATE
     // ============================
-    public CompletableFuture<StockDTO> createOrUpdateAsync(StockRequestDTO dto, String token) {
+    public CompletableFuture<StockRequestDTO> createOrUpdateAsync(StockRequestDTO dto, String token) {
         try {
             String json = objectMapper.writeValueAsString(dto);
 
@@ -76,11 +77,11 @@ public class StockService {
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
                         checkStatus(response);
-                        return parseJson(response.body(), new TypeReference<StockDTO>() {});
+                        return parseJson(response.body(), new TypeReference<StockRequestDTO>() {});
                     });
 
         } catch (Exception ex) {
-            CompletableFuture<StockDTO> failed = new CompletableFuture<>();
+            CompletableFuture<StockRequestDTO> failed = new CompletableFuture<>();
             failed.completeExceptionally(ex);
             return failed;
         }
@@ -89,7 +90,7 @@ public class StockService {
     // ============================
     // GET ALL STOCK
     // ============================
-    public CompletableFuture<List<StockDTO>> getAllAsync(String token) {
+    public CompletableFuture<List<StockResponseDTO>> getAllAsync(String token) {
         HttpRequest request = withAuth(
                 HttpRequest.newBuilder().uri(URI.create(BASE_URL)), token
         ).GET().build();
@@ -97,14 +98,14 @@ public class StockService {
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     checkStatus(response);
-                    return parseJson(response.body(), new TypeReference<List<StockDTO>>() {});
+                    return parseJson(response.body(), new TypeReference<List<StockResponseDTO>>() {});
                 });
     }
 
     // ============================
     // GET STOCK BY WAREHOUSE
     // ============================
-    public CompletableFuture<List<StockDTO>> getAllByWarehouseAsync(Long warehouseId, String token) {
+    public CompletableFuture<List<StockResponseDTO>> getAllByWarehouseAsync(Long warehouseId, String token) {
         HttpRequest request = withAuth(
                 HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/warehouse/" + warehouseId)), token
         ).GET().build();
@@ -112,14 +113,14 @@ public class StockService {
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     checkStatus(response);
-                    return parseJson(response.body(), new TypeReference<List<StockDTO>>() {});
+                    return parseJson(response.body(), new TypeReference<List<StockResponseDTO>>() {});
                 });
     }
 
     // ============================
     // GET STOCK BY PRODUCT
     // ============================
-    public CompletableFuture<List<StockDTO>> getAllByProductAsync(Long productId, String token) {
+    public CompletableFuture<List<StockResponseDTO>> getAllByProductAsync(Long productId, String token) {
         HttpRequest request = withAuth(
                 HttpRequest.newBuilder().uri(URI.create(BASE_URL + "/product/" + productId)), token
         ).GET().build();
@@ -127,7 +128,7 @@ public class StockService {
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(response -> {
                     checkStatus(response);
-                    return parseJson(response.body(), new TypeReference<List<StockDTO>>() {});
+                    return parseJson(response.body(), new TypeReference<List<StockResponseDTO>>() {});
                 });
     }
 

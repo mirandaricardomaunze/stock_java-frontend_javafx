@@ -27,6 +27,7 @@ public class TransferFormController {
     private final WarehouseService warehouseService = new WarehouseService();
     private final String token = SessionManager.getToken();
     private final Long companyId = SessionManager.getCurrentCompanyId();
+    private final Long userId = SessionManager.getCurrentUserId();
     private TransferController transferController;
     private TransferResponseDTO editingTransfer;
 
@@ -62,7 +63,7 @@ public class TransferFormController {
     }
 
     private void loadWarehouses() {
-        warehouseService.getAllWarehouses(token)
+        warehouseService.getActiveWarehousesByCompany(companyId,token)
                 .thenAccept(list -> Platform.runLater(() -> warehousesData.setAll(list)))
                 .exceptionally(ex -> {
                     Platform.runLater(() -> AlertUtil.showError("Erro", "Falha ao carregar armazéns: " + ex.getMessage()));
@@ -124,7 +125,7 @@ public class TransferFormController {
             dto.setCompanyId(companyId);
 
             if (editingTransfer != null) {
-                transferService.updateAsync(editingTransfer.getId(), dto)
+                transferService.updateAsync(editingTransfer.getId(), dto,token,userId)
                         .thenAccept(t -> Platform.runLater(() -> {
                             AlertUtil.showInfo("Sucesso", "Transferência atualizada!");
                             if (transferController != null) transferController.refreshTable();
@@ -135,7 +136,7 @@ public class TransferFormController {
                             return null;
                         });
             } else {
-                transferService.createAsync(dto)
+                transferService.createAsync(dto,token,userId)
                         .thenAccept(t -> Platform.runLater(() -> {
                             AlertUtil.showInfo("Sucesso", "Transferência criada!");
                             if (transferController != null) transferController.refreshTable();

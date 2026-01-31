@@ -1,5 +1,4 @@
 package org.manager.controller;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,31 +13,32 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.manager.dto.StockDTO;
+import org.manager.dto.StockResponseDTO;
 import org.manager.service.StockService;
 import org.manager.session.SessionManager;
 import org.manager.util.AlertUtil;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class StockController {
 
-    @FXML private TableView<StockDTO> stockTable;
+    @FXML private TableView<StockResponseDTO> stockTable;
 
     // COLUNAS
-    @FXML private TableColumn<StockDTO, Long> colId;
-    @FXML private TableColumn<StockDTO, String> colProduct;
-    @FXML private TableColumn<StockDTO, String> colWarehouse;
-    @FXML private TableColumn<StockDTO, Integer> colQuantity;
+    @FXML private TableColumn<StockResponseDTO, Long> colId;
+    @FXML private TableColumn<StockResponseDTO, String> colProduct;
+    @FXML private TableColumn<StockResponseDTO, String> colWarehouse;
+    @FXML private TableColumn<StockResponseDTO, Integer> colQuantity;
 
     @FXML private TextField txtSearch;
 
     private final StockService stockService = new StockService();
     private final String token = SessionManager.getToken();
-
-    private final ObservableList<StockDTO> allStockData = FXCollections.observableArrayList();
-    private FilteredList<StockDTO> filteredData;
-    private SortedList<StockDTO> sortedData;
+    private static final Logger logger = Logger.getLogger(StockController.class.getName());
+    private final ObservableList<StockResponseDTO> allStockData = FXCollections.observableArrayList();
+    private FilteredList<StockResponseDTO> filteredData;
+    private SortedList<StockResponseDTO> sortedData;
 
     @FXML
     private void initialize() {
@@ -51,25 +51,39 @@ public class StockController {
     // CONFIGURAÇÃO DA TABELA
     // ============================
     private void setupTable() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colProduct.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        colWarehouse.setCellValueFactory(new PropertyValueFactory<>("warehouseName"));
-        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colId.setCellValueFactory(cellData ->
+                new javafx.beans.property.ReadOnlyObjectWrapper<>(cellData.getValue().getId())
+        );
+        colProduct.setCellValueFactory(cellData ->
+                new javafx.beans.property.ReadOnlyStringWrapper(cellData.getValue().getProductName())
+        );
+        colWarehouse.setCellValueFactory(cellData ->
+                new javafx.beans.property.ReadOnlyStringWrapper(cellData.getValue().getWarehouseName())
+        );
+        colQuantity.setCellValueFactory(cellData ->
+                new javafx.beans.property.ReadOnlyObjectWrapper<>(cellData.getValue().getQuantity())
+        );
     }
+
 
     // ============================
     // CARREGAR STOCK
     // ============================
     private void loadStock() {
+        logger.info("Carregando stock do backend...");
         stockService.getAllAsync(token)
-                .thenAccept(list -> Platform.runLater(() -> allStockData.setAll(list)))
+                .thenAccept(list -> Platform.runLater(() -> {
+                    allStockData.setAll(list);
+                    logger.info("Stock carregado com sucesso. Total de itens: " + list.size());
+                    logger.info("Stock carregado com sucesso.  Itens: " + list);
+                }))
                 .exceptionally(ex -> {
                     Platform.runLater(() -> AlertUtil.showError("Erro", "Falha ao carregar stock."));
+                    logger.severe("Erro ao carregar stock: " + ex.getMessage());
                     ex.printStackTrace();
                     return null;
                 });
     }
-
     // ============================
     // PESQUISA
     // ============================
@@ -131,7 +145,7 @@ public class StockController {
     // ============================
     @FXML
     private void updateOpenStockForm() {
-        StockDTO selected = stockTable.getSelectionModel().getSelectedItem();
+        StockResponseDTO selected = stockTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
             AlertUtil.showError("Erro", "Selecione um item de stock.");
             return;
@@ -163,7 +177,7 @@ public class StockController {
     // ============================
     @FXML
     private void handleDeleteStock() {
-        StockDTO selected = stockTable.getSelectionModel().getSelectedItem();
+        StockResponseDTO selected = stockTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
             AlertUtil.showError("Erro", "Selecione um item de stock para remover.");
             return;

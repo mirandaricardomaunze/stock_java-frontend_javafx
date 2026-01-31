@@ -23,9 +23,7 @@
            styleClass="main-container">
 
     <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="scroll-pane">
-
         <VBox spacing="18">
-
             <padding>
                 <Insets top="20" left="20" right="20" bottom="20"/>
             </padding>
@@ -43,8 +41,9 @@
                                    GridPane.rowIndex="0" GridPane.columnIndex="1"
                                    minHeight="38"/>
 
-                        <Label text="Método Pagamento:" GridPane.rowIndex="0"  GridPane.columnIndex="2"/>
-                        <ComboBox fx:id="paymentMethodComboBox"  styleClass="form-combo"
+                        <Label text="Método Pagamento:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <ComboBox fx:id="paymentMethodComboBox"
+                                  styleClass="form-combo"
                                   promptText="Selecione o método"
                                   GridPane.rowIndex="0" GridPane.columnIndex="3"
                                   minHeight="38"/>
@@ -61,10 +60,16 @@
                                    promptText="Montante entregue pelo cliente"
                                    GridPane.rowIndex="1" GridPane.columnIndex="3"
                                    minHeight="38"/>
+
+                        <!-- Linha 2: Armazém -->
+                        <Label text="Armazém:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="warehouseComboBox" styleClass="form-combo"
+                                  promptText="Selecione o armazém"
+                                  GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                  minHeight="38"/>
                     </GridPane>
                 </content>
             </TitledPane>
-
 
             <!-- =================== TABELA DE PRODUTOS =================== -->
             <TitledPane text="Itens da Venda" expanded="true" styleClass="titled-pane">
@@ -78,13 +83,18 @@
                                 <TableColumn fx:id="productColumn" text="Produto" prefWidth="200"/>
                                 <TableColumn fx:id="quantityColumn" text="Quantidade" prefWidth="90"/>
                                 <TableColumn fx:id="priceColumn" text="Preço" prefWidth="100"/>
+                                <TableColumn fx:id="taxColumn" text="IVA" prefWidth="80"/>
                                 <TableColumn fx:id="subtotalColumn" text="Subtotal" prefWidth="120"/>
                             </columns>
                         </TableView>
 
                         <HBox spacing="10">
                             <Label text="Produto:"/>
-                            <ComboBox fx:id="productComboBox" prefWidth="200" value="Seleciona produto" styleClass="form-combo" minHeight="38"/>
+                            <ComboBox fx:id="productComboBox"
+                                      prefWidth="200"
+                                      styleClass="form-combo"
+                                      promptText="Seleciona produto"
+                                      minHeight="38"/>
                             <Label text="Qtd:"/>
                             <TextField fx:id="quantityField" prefWidth="80" styleClass="form-field" minHeight="38"/>
                             <Button fx:id="addItemButton" onAction="#addItem" styleClass="primary-button" minHeight="38">
@@ -126,5 +136,4 @@
 
         </VBox>
     </ScrollPane>
-
 </StackPane>

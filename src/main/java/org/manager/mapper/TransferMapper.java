@@ -33,6 +33,7 @@ public class TransferMapper {
                 .quantity(dto.getQuantity() >= 0 ? dto.getQuantity() : 0)
                 .transferDate(LocalDateTime.now())
                 .reference(dto.getReference() != null ? dto.getReference() : "")
+                .userId(dto.getUserId())
                 .userName(userName != null ? userName : "")
                 .build();
     }
@@ -53,6 +54,7 @@ public class TransferMapper {
         dto.setQuantity(Math.max(transfer.getQuantity(), 0));
         dto.setTransferDate(transfer.getTransferDate());
         dto.setReference(transfer.getReference() != null ? transfer.getReference() : "");
+        dto.setUserId(transfer.getUserId());
         dto.setUser(transfer.getUserName() != null ? transfer.getUserName() : "");
         return dto;
     }

@@ -2,12 +2,11 @@ package org.manager.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import org.manager.dto.MonthlyMovementDTO;
-import org.manager.dto.SaleDTO;
+import org.manager.dto.SaleResponseDTO;
 import org.manager.dto.SaleRequestDTO;
 import org.manager.model.PageResponse;
 import org.manager.util.AlertUtil;
@@ -17,7 +16,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,51 +32,40 @@ public class SaleService {
         this.objectMapper = new ObjectMapper();
     }
 
-    // ----------------- CRIAR VENDA -----------------
-    public CompletableFuture<SaleDTO> createSale(SaleRequestDTO saleRequest, String token) {
+    // ================= CREATE SALE =================
+    public CompletableFuture<SaleResponseDTO> createSale(SaleRequestDTO saleRequest, String token,Long userId) {
         try {
-
             String requestBody = objectMapper.writeValueAsString(saleRequest);
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL))
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer " + token)
+                    .header("userId", String.valueOf(userId))
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
-
-                        System.out.println("🔹 [createSale] Status: " + response.statusCode());
-                        System.out.println("📦 [createSale] Body: " + response.body());
-
                         if (response.statusCode() == 200 || response.statusCode() == 201) {
                             try {
-                                return objectMapper.readValue(response.body(), SaleDTO.class);
+                                return objectMapper.readValue(response.body(), SaleResponseDTO.class);
                             } catch (JsonProcessingException e) {
-                                throw new CompletionException(" Erro ao processar JSON da venda", e);
+                                throw new CompletionException("Erro ao processar JSON da venda", e);
                             }
                         } else {
-                            throw new CompletionException(
-                                    new RuntimeException(" Falha ao criar venda. Código: "
-                                            + response.statusCode() + " - Body: " + response.body())
-                            );
+                            throw new CompletionException(new RuntimeException(
+                                    "Falha ao criar venda. Código: " + response.statusCode() + " - " + response.body()
+                            ));
                         }
                     })
-                    .exceptionally(ex -> {
-                        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-                        AlertUtil.showError("Erro ao criar venda", cause.getMessage());
-                        cause.printStackTrace();
-                        return null;
-                    });
-
+                    .exceptionally(ex -> handleException("Erro ao criar venda", ex));
         } catch (JsonProcessingException e) {
-            throw new CompletionException(" Erro ao serializar venda para JSON", e);
+            throw new CompletionException("Erro ao serializar venda para JSON", e);
         }
     }
 
-    public CompletableFuture<List<SaleDTO>> listSales(String token) {
+    // ================= LIST SALES =================
+    public CompletableFuture<List<SaleResponseDTO>> listSales(String token) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL))
@@ -89,45 +76,29 @@ public class SaleService {
 
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
-                        System.out.println("🔹 [listSales] Status: " + response.statusCode());
-                        System.out.println("📦 [listSales] Body: " + response.body());
-
                         if (response.statusCode() == 200) {
                             try {
                                 JavaType type = objectMapper.getTypeFactory()
-                                        .constructParametricType(PageResponse.class, SaleDTO.class);
-
-                                PageResponse<SaleDTO> page = objectMapper.readValue(response.body(), type);
-
-                                return page.getContent(); // ✅ agora funciona
+                                        .constructParametricType(PageResponse.class, SaleResponseDTO.class);
+                                PageResponse<SaleResponseDTO> page = objectMapper.readValue(response.body(), type);
+                                return page.getContent();
                             } catch (Exception e) {
                                 throw new CompletionException("Erro ao desserializar JSON de vendas", e);
                             }
                         } else {
-                            throw new CompletionException(
-                                    new RuntimeException("Falha ao buscar vendas. Código: " + response.statusCode())
-                            );
+                            throw new CompletionException(new RuntimeException(
+                                    "Falha ao buscar vendas. Código: " + response.statusCode()
+                            ));
                         }
                     })
-                    .exceptionally(ex -> {
-                        Platform.runLater(() -> {
-                            System.out.println("❌ Erro ao carregar vendas: " + ex.getMessage());
-                            AlertUtil.showError("Erro", "Falha ao carregar vendas: " + ex.getMessage());
-                            ex.printStackTrace();
-                        });
-                        return null;
-                    });
-
+                    .exceptionally(ex -> handleExceptionList("Erro ao listar vendas", ex));
         } catch (Exception e) {
             throw new CompletionException("Erro ao listar vendas", e);
         }
     }
 
-
-
-
-    // ----------------- BUSCAR VENDA POR ID -----------------
-    public CompletableFuture<SaleDTO> getSaleById(Long id, String token) {
+    // ================= GET SALE BY ID =================
+    public CompletableFuture<SaleResponseDTO> getSaleById(Long id, String token) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL + "/" + id))
@@ -138,35 +109,55 @@ public class SaleService {
 
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
-
-                        System.out.println("🔹 [getSaleById] Status: " + response.statusCode());
-                        System.out.println("📦 [getSaleById] Body: " + response.body());
-
                         if (response.statusCode() == 200) {
                             try {
-                                return objectMapper.readValue(response.body(), SaleDTO.class);
+                                return objectMapper.readValue(response.body(), SaleResponseDTO.class);
                             } catch (JsonProcessingException e) {
                                 throw new CompletionException("Erro ao processar JSON da venda", e);
                             }
                         } else {
-                            throw new CompletionException(
-                                    new RuntimeException(" Falha ao buscar venda. Código: " + response.statusCode())
-                            );
+                            throw new CompletionException(new RuntimeException(
+                                    "Falha ao buscar venda. Código: " + response.statusCode()
+                            ));
                         }
                     })
-                    .exceptionally(ex -> {
-                        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-                        AlertUtil.showError("Erro ao buscar venda", cause.getMessage());
-                        cause.printStackTrace();
-                        return null;
-                    });
-
+                    .exceptionally(ex -> handleException("Erro ao buscar venda", ex));
         } catch (Exception e) {
-            throw new CompletionException("❌ Erro ao buscar venda por ID", e);
+            throw new CompletionException("Erro ao buscar venda por ID", e);
         }
     }
 
-    // ----------------- DELETAR VENDA -----------------
+    // ================= CANCEL SALE =================
+    public CompletableFuture<SaleResponseDTO> cancelSale(Long id, String token) {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(BASE_URL + "/" + id + "/cancel"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Bearer " + token)
+                    .method("PATCH", HttpRequest.BodyPublishers.noBody())
+                    .build();
+
+            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(response -> {
+                        if (response.statusCode() == 200) {
+                            try {
+                                return objectMapper.readValue(response.body(), SaleResponseDTO.class);
+                            } catch (JsonProcessingException e) {
+                                throw new CompletionException("Erro ao processar JSON da venda cancelada", e);
+                            }
+                        } else {
+                            throw new CompletionException(new RuntimeException(
+                                    "Falha ao cancelar venda. Código: " + response.statusCode() + " - " + response.body()
+                            ));
+                        }
+                    })
+                    .exceptionally(ex -> handleException("Erro ao cancelar venda", ex));
+        } catch (Exception e) {
+            throw new CompletionException("Erro ao cancelar venda", e);
+        }
+    }
+
+    // ================= DELETE SALE =================
     public CompletableFuture<Void> deleteSale(Long id, String token) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -178,31 +169,24 @@ public class SaleService {
 
             return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenAccept(response -> {
-
-                        System.out.println("🔹 [deleteSale] Status: " + response.statusCode());
-                        System.out.println("📦 [deleteSale] Body: " + response.body());
-
                         if (response.statusCode() != 200 && response.statusCode() != 204) {
                             throw new CompletionException(new RuntimeException(
-                                    "❌ Falha ao deletar venda. Código: " + response.statusCode()
+                                    "Falha ao deletar venda. Código: " + response.statusCode()
                             ));
                         }
                     })
                     .exceptionally(ex -> {
-                        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-                        AlertUtil.showError("Erro ao deletar venda", cause.getMessage());
-                        cause.printStackTrace();
+                        handleException("Erro ao deletar venda", ex);
                         return null;
                     });
-
         } catch (Exception e) {
-            throw new CompletionException("❌ Erro ao deletar venda", e);
+            throw new CompletionException("Erro ao deletar venda", e);
         }
     }
 
+    // ================= TOTAL SALES =================
     public CompletableFuture<BigDecimal> getTotalSales(String period, String token) {
         String url = BASE_URL + "/total?period=" + period;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
@@ -211,36 +195,12 @@ public class SaleService {
                 .build();
 
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
-
-                    if (response.statusCode() != 200) {
-                        throw new CompletionException(new RuntimeException(
-                                "Erro ao buscar total de vendas. Código: " + response.statusCode()));
-                    }
-
-                    String body = response.body().trim();
-                    try {
-                        return new BigDecimal(body); // 👈 O CERTO
-                    } catch (Exception e) {
-                        throw new CompletionException(
-                                new RuntimeException("Valor inválido retornado pelo servidor: " + body));
-                    }
-                })
-                .exceptionally(ex -> {
-                    Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-
-                    Platform.runLater(() -> {
-                        AlertUtil.showError("Erro ao buscar total de vendas", cause.getMessage());
-                    });
-
-                    return BigDecimal.ZERO;
-                });
+                .thenApply(response -> parseBigDecimalResponse(response, "total de vendas"));
     }
 
-    // ----------------- BUSCAR LUCRO -----------------
+    // ================= PROFIT =================
     public CompletableFuture<BigDecimal> getProfit(String period, String token) {
         String url = BASE_URL + "/profit?period=" + period;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
@@ -249,35 +209,12 @@ public class SaleService {
                 .build();
 
         return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(response -> {
-
-                    if (response.statusCode() != 200) {
-                        throw new CompletionException(new RuntimeException(
-                                "Erro ao buscar lucro. Código: " + response.statusCode()));
-                    }
-
-                    String body = response.body().trim();
-                    try {
-                        return new BigDecimal(body); // converte String para BigDecimal
-                    } catch (Exception e) {
-                        throw new CompletionException(
-                                new RuntimeException("Valor inválido retornado pelo servidor: " + body));
-                    }
-                })
-                .exceptionally(ex -> {
-                    Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-
-                    Platform.runLater(() -> {
-                        AlertUtil.showError("Erro ao buscar lucro", cause.getMessage());
-                    });
-
-                    return BigDecimal.ZERO; // retorna 0 em caso de erro
-                });
+                .thenApply(response -> parseBigDecimalResponse(response, "lucro"));
     }
-    // ================== MOVIMENTAÇÃO MENSAL ==================
+
+    // ================= MONTHLY MOVEMENT =================
     public CompletableFuture<List<MonthlyMovementDTO>> getMonthlyMovement(Long companyId, String period, String token) {
         String url = BASE_URL + "/movement?companyId=" + companyId + "&period=" + period;
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
@@ -292,7 +229,6 @@ public class SaleService {
                                 "Erro ao buscar movimentação. Código: " + response.statusCode()
                         ));
                     }
-
                     try {
                         return objectMapper.readValue(response.body(), new TypeReference<List<MonthlyMovementDTO>>() {});
                     } catch (Exception e) {
@@ -303,13 +239,95 @@ public class SaleService {
                 })
                 .exceptionally(ex -> {
                     Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
-                    System.out.println("Erro ao buscar movimentação"+ cause.getMessage());
+                    Platform.runLater(() -> AlertUtil.showError("Erro ao buscar movimentação", cause.getMessage()));
                     cause.printStackTrace();
-                    return Collections.emptyList(); // retorna lista vazia em vez de null
+                    return Collections.emptyList();
                 });
     }
 
+    // ================= EXPORT METHODS =================
+    public CompletableFuture<byte[]> exportSaleToPdf(Long saleId, String token) {
+        return exportSaleReport(saleId, "pdf", token);
+    }
 
+    public CompletableFuture<byte[]> exportSaleToHtml(Long saleId, String token) {
+        return exportSaleReport(saleId, "html", token);
+    }
+
+    public CompletableFuture<byte[]> exportSaleToExcel(Long saleId, String token) {
+        return exportSaleReport(saleId, "xlsx", token);
+    }
+
+    private CompletableFuture<byte[]> exportSaleReport(Long saleId, String format, String token) {
+        if (saleId == null || saleId <= 0) {
+            Platform.runLater(() -> AlertUtil.showError("Erro ao exportar venda", "ID da venda inválido"));
+            return CompletableFuture.failedFuture(new IllegalArgumentException("ID da venda inválido"));
+        }
+
+        try {
+            String url;
+            switch (format.toLowerCase()) {
+                case "pdf": url = BASE_URL + "/" + saleId + "/report/pdf"; break;
+                case "html": url = BASE_URL + "/" + saleId + "/report/html"; break;
+                case "xlsx":
+                case "excel": url = BASE_URL + "/" + saleId + "/report/excel"; break;
+                default: throw new IllegalArgumentException("Formato de exportação inválido: " + format);
+            }
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Authorization", "Bearer " + token)
+                    .GET()
+                    .build();
+
+            return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofByteArray())
+                    .thenApply(response -> {
+                        if (response.statusCode() == 200) return response.body();
+                        else {
+                            String message = new String(response.body());
+                            throw new CompletionException(new RuntimeException(
+                                    "Falha ao exportar venda para " + format +
+                                            ". Código: " + response.statusCode() +
+                                            ". Mensagem: " + message
+                            ));
+                        }
+                    })
+                    .exceptionally(ex -> handleExportException(ex));
+        } catch (Exception e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private byte[] handleExportException(Throwable ex) {
+        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+        Platform.runLater(() -> AlertUtil.showError("Erro ao exportar venda", cause.getMessage()));
+        cause.printStackTrace();
+        throw new CompletionException(cause);
+    }
+
+    // ================= HELPER METHODS =================
+    private SaleResponseDTO handleException(String title, Throwable ex) {
+        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+        Platform.runLater(() -> AlertUtil.showError(title, cause.getMessage()));
+        cause.printStackTrace();
+        return null;
+    }
+
+    private List<SaleResponseDTO> handleExceptionList(String title, Throwable ex) {
+        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+        Platform.runLater(() -> AlertUtil.showError(title, cause.getMessage()));
+        cause.printStackTrace();
+        return Collections.emptyList();
+    }
+
+    private BigDecimal parseBigDecimalResponse(HttpResponse<String> response, String type) {
+        if (response.statusCode() != 200) {
+            throw new CompletionException(new RuntimeException("Erro ao buscar " + type + ". Código: " + response.statusCode()));
+        }
+        try {
+            return new BigDecimal(response.body().trim());
+        } catch (Exception e) {
+            throw new CompletionException(new RuntimeException("Valor inválido retornado pelo servidor: " + response.body()));
+        }
+    }
 }
-
-

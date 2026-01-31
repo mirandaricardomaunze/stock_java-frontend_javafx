@@ -1,279 +1,346 @@
-/* =========================
-   ESTILOS BASE MODERNOS
-   ========================= */
-.root {
-    -fx-background-color: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
-}
+/* mainlinks.css - Estilo Profissional para Sistema de Gestão */
 
+/* ===== ESTILOS GERAIS ===== */
 .main-container {
-    -fx-padding: 40px 50px 50px 50px;
+    -fx-padding: 30px 40px;
     -fx-background-color: transparent;
 }
 
-/* =========================
-   CABEÇALHO ELEGANTE
-   ========================= */
 .header-section {
-    -fx-padding: 0 0 20px 0;
+    -fx-padding: 25px 30px;
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0, 0, 4);
+}
+
+/* ===== LOGO E CABEÇALHO ===== */
+.logo-container {
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.15), 10, 0, 0, 3);
 }
 
 .logo-background {
     -fx-fill: linear-gradient(to bottom right, #3b82f6, #1d4ed8);
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.4), 20, 0, 0, 8);
+    -fx-stroke: #3b82f6;
+    -fx-stroke-width: 1;
+    -fx-stroke-type: inside;
 }
 
 .logo-icon {
     -fx-fill: white;
-    -fx-font-size: 28px;
+    -glyph-size: 28px;
 }
 
 .header-title {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 36px;
-    -fx-font-weight: 800;
-    -fx-text-fill: #1976d2;
+    -fx-font-family: "Segoe UI", "Inter", "SF Pro Display", sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to right, #1e293b, #334155);
 }
 
 .header-subtitle {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 14px;
     -fx-text-fill: #64748b;
     -fx-font-weight: 500;
-    -fx-letter-spacing: 0.5px;
 }
 
+/* ===== DATA E HORA ===== */
 .datetime-container {
-    -fx-background-color: rgba(255, 255, 255, 0.9);
-    -fx-background-radius: 16px;
-    -fx-padding: 20px 25px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 15, 0, 0, 5);
-    -fx-border-color: rgba(255, 255, 255, 0.5);
-    -fx-border-width: 1px;
+    -fx-padding: 12px 20px;
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 12px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 12px;
 }
 
 .datetime-icon-container, .time-icon-container {
-    -fx-background-color: #3b82f6;
-    -fx-background-radius: 10px;
     -fx-padding: 8px;
-    -fx-min-width: 20px;
-    -fx-min-height: 20px;
-    -fx-max-width: 20px;
-    -fx-max-height: 20px;
+    -fx-background-color: #e0f2fe;
+    -fx-background-radius: 10px;
 }
 
 .datetime-icon, .time-icon {
-    -fx-fill: white;
-    -fx-font-size: 12px;
+    -fx-fill: #0ea5e9;
+    -glyph-size: 14px;
 }
 
-.date-display {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 14px;
-    -fx-text-fill: #475569;
+.date-display, .time-display {
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 16px;
     -fx-font-weight: 600;
+    -fx-text-fill: #334155;
 }
 
-.time-display {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 18px;
-    -fx-text-fill: #3b82f6;
-    -fx-font-weight: bold;
-}
-
+/* ===== BARRA DE STATUS ===== */
 .status-bar {
-    -fx-background-color: rgba(255, 255, 255, 0.8);
-    -fx-background-radius: 12px;
     -fx-padding: 15px 20px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 3);
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 12px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 12px;
+}
+
+.status-item {
+    -fx-padding: 5px 0;
+}
+
+.status-indicator {
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 4, 0, 0, 1);
 }
 
 .status-text {
-    -fx-font-family: "Segoe UI", "System";
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
     -fx-font-size: 13px;
-    -fx-text-fill: #475569;
     -fx-font-weight: 500;
+    -fx-text-fill: #475569;
 }
 
-/* =========================
-   SEÇÕES MODERNAS
-   ========================= */
+/* ===== SEÇÕES E TÍTULOS ===== */
 .section-header {
-    -fx-padding: 0 0 15px 0;
+    -fx-padding: 0 0 10px 0;
 }
 
 .accent-bar {
-    -fx-fill: linear-gradient(to bottom, #3b82f6, #1d4ed8);
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.3), 5, 0, 0, 2);
+    -fx-fill: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    -fx-arc-width: 10;
+    -fx-arc-height: 10;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.3), 4, 0, 0, 1);
 }
 
 .section-icon {
-    -fx-fill: #1e293b;
-    -fx-font-size: 20px;
+    -fx-fill: #3b82f6;
+    -glyph-size: 16px;
 }
 
 .section-title {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 28px;
-    -fx-font-weight: 700;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
     -fx-text-fill: #1e293b;
 }
 
-/* =========================
-   MÓDULOS MODERNOS
-   ========================= */
-.modules-grid {
-    -fx-hgap: 25px;
-    -fx-vgap: 25px;
+/* ===== CARDS DOS MÓDULOS ===== */
+.modules-section {
+    -fx-padding: 30px;
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0, 0, 4);
 }
 
 .module-card {
-    -fx-background-color: rgba(255, 255, 255, 0.95);
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.08), 15, 0, 0, 5);
-    -fx-border-color: transparent;
+    -fx-padding: 25px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 14px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 14px;
     -fx-cursor: hand;
-    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 6, 0, 0, 1);
 }
 
 .module-card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 25, 0, 0, 8);
-    -fx-translate-y: -6px;
-    -fx-background-color: white;
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.15), 12, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+/* ÍCONES dos módulos */
+.module-icon-container {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0, 0, 2);
 }
 
 .icon-background {
-    -fx-fill: linear-gradient(to bottom right, #3b82f6, #1d4ed8);
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);
+    -fx-fill: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+    -fx-stroke: #cbd5e1;
+    -fx-stroke-width: 1;
 }
 
 .module-icon {
-    -fx-fill: white;
-    -fx-font-size: 28px;
+    -glyph-size: 22px;
+    -fx-fill: #475569;
 }
 
-/* Cores específicas para cada módulo com gradientes */
-.dashboard-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #667eea, #764ba2); }
-.operational-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #f093fb, #f5576c); }
-.sales-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #4facfe, #00f2fe); }
-.products-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #43e97b, #38f9d7); }
-.invoices-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #fa709a, #fee140); }
-.clients-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #a8edea, #fed6e3); }
-.company-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #cd9cf2, #f6f3ff); }
-.warehouse-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #ff9a9e, #fecfef); }
-.categories-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #ffecd2, #fcb69f); }
-.suppliers-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #a1c4fd, #c2e9fb); }
-.movements-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #d4fc79, #96e6a1); }
-.reports-icon .icon-background { -fx-fill: linear-gradient(to bottom right, #f6d365, #fda085); }
-
-.module-card:hover .icon-background {
-    -fx-fill: linear-gradient(to bottom right, #3b82f6, #1d4ed8);
+/* Cores específicas para cada tipo de módulo */
+.dashboard-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #dbeafe, #93c5fd);
 }
 
+.operational-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #f0f9ff, #7dd3fc);
+}
+
+.sales-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #fef3c7, #fbbf24);
+}
+
+.products-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #dcfce7, #86efac);
+}
+
+.invoices-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #ede9fe, #c4b5fd);
+}
+
+.clients-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #ffe4e6, #fda4af);
+}
+
+.company-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #e0f2fe, #38bdf8);
+}
+
+.warehouse-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #fce7f3, #f9a8d4);
+}
+
+.categories-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #fef3c7, #fbbf24);
+}
+
+.suppliers-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #d1fae5, #34d399);
+}
+
+.movements-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #e0e7ff, #a5b4fc);
+}
+
+.reports-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #fef3c7, #fbbf24);
+}
+
+/* Textos dos módulos */
 .module-title {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 20px;
-    -fx-font-weight: 700;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
     -fx-text-fill: #1e293b;
     -fx-text-alignment: center;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
 }
 
 .module-description {
-    -fx-font-family: "Segoe UI", "System";
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
     -fx-font-size: 13px;
     -fx-text-fill: #64748b;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
-    -fx-max-width: 140px;
+    -fx-alignment: center;
+    -fx-max-width: 200;
 }
 
+/* ===== BOTÕES ===== */
 .module-button {
-    -fx-background-color: linear-gradient(to right, #3b82f6, #1d4ed8);
-    -fx-text-fill: white;
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
     -fx-font-size: 14px;
-    -fx-padding: 12px 25px;
-    -fx-background-radius: 25px;
-    -fx-border-radius: 25px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #3b82f6;
+    -fx-background-color: #eff6ff;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 16px;
+    -fx-border-color: #dbeafe;
+    -fx-border-width: 1;
+    -fx-border-radius: 8px;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.4), 8, 0, 0, 3);
+    -fx-content-display: right;
+    -fx-graphic-text-gap: 8px;
 }
 
 .module-button:hover {
-    -fx-background-color: linear-gradient(to right, #2563eb, #1e40af);
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.6), 12, 0, 0, 5);
-    -fx-translate-y: -2px;
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1d4ed8;
+    -fx-border-color: #93c5fd;
+    -fx-translate-y: -1;
 }
 
 .module-button:pressed {
-    -fx-background-color: #1d4ed8;
-    -fx-translate-y: 0px;
+    -fx-background-color: #bfdbfe;
+    -fx-translate-y: 0;
 }
 
 .button-icon {
-    -fx-fill: white;
-    -fx-font-size: 12px;
+    -fx-fill: #3b82f6;
+    -glyph-size: 12px;
 }
 
-/* =========================
-   AÇÕES RÁPIDAS MODERNAS
-   ========================= */
+.module-button:hover .button-icon {
+    -fx-fill: #1d4ed8;
+}
+
+/* ===== AÇÕES RÁPIDAS ===== */
+.quick-actions-section {
+    -fx-padding: 30px;
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 15, 0, 0, 4);
+}
+
 .quick-actions-container {
-    -fx-spacing: 30px;
-    -fx-alignment: center;
+    -fx-padding: 15px;
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 14px;
 }
 
 .quick-action-item {
-    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-background-radius: 12px;
+}
+
+.quick-action-item:hover {
+    -fx-background-color: #f1f5f9;
 }
 
 .quick-action-button {
     -fx-background-color: white;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 4);
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-min-width: 60px;
+    -fx-min-height: 60px;
+    -fx-max-width: 60px;
+    -fx-max-height: 60px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1;
+    -fx-border-radius: 12px;
     -fx-cursor: hand;
-    -fx-padding: 0;
-    -fx-min-width: 70px;
-    -fx-min-height: 70px;
-    -fx-max-width: 70px;
-    -fx-max-height: 70px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 4, 0, 0, 1);
 }
 
 .quick-action-button:hover {
-    -fx-background-color: #3b82f6;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.3), 15, 0, 0, 6);
-    -fx-translate-y: -3px;
+    -fx-background-color: #f1f5f9;
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.15), 8, 0, 0, 2);
+    -fx-translate-y: -2;
 }
 
 .quick-action-icon-container {
-    -fx-padding: 0;
+    -fx-padding: 10px;
 }
 
 .action-button-icon {
-    -fx-fill: #3b82f6;
-    -fx-font-size: 24px;
+    -glyph-size: 18px;
+    -fx-fill: #475569;
 }
 
 .quick-action-button:hover .action-button-icon {
-    -fx-fill: white;
+    -fx-fill: #3b82f6;
 }
 
 .quick-action-label {
-    -fx-font-family: "Segoe UI", "System";
-    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
     -fx-text-fill: #475569;
-    -fx-font-weight: 600;
     -fx-text-alignment: center;
+    -fx-alignment: center;
 }
 
-/* =========================
-   SCROLL PANE
-   ========================= */
+/* ===== SCROLLPANE ===== */
 .scroll-pane {
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
 }
 
 .scroll-pane .viewport {
@@ -282,13 +349,66 @@
 
 .scroll-pane .scroll-bar:vertical {
     -fx-background-color: transparent;
+    -fx-background-radius: 0;
 }
 
 .scroll-pane .scroll-bar:vertical .track {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
 }
 
 .scroll-pane .scroll-bar:vertical .thumb {
     -fx-background-color: #cbd5e1;
     -fx-background-radius: 4px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+/* ===== ESTADOS DE FOCO E DISABLED ===== */
+.module-button:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 2;
+    -fx-background-color: #eff6ff;
+}
+
+.module-button:disabled {
+    -fx-opacity: 0.5;
+    -fx-cursor: default;
+}
+
+.module-button:disabled:hover {
+    -fx-background-color: #eff6ff;
+    -fx-border-color: #dbeafe;
+    -fx-translate-y: 0;
+}
+
+/* Remove as transições que podem causar problemas */
+.module-card, .module-button, .quick-action-button {
+    -fx-transition: none;
+}
+
+/* Estilos para os novos módulos */
+.transfers-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #e0e7ff, #a5b4fc);
+}
+
+.stock-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #ddd6fe, #a78bfa);
+}
+
+.guides-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #fef3c7, #fbbf24);
+}
+
+.settings-icon .icon-background {
+    -fx-fill: linear-gradient(to bottom right, #f3f4f6, #9ca3af);
 }

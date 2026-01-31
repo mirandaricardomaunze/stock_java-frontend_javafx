@@ -1,9 +1,8 @@
 /* ===========================
-   🎨 Tema principal
+   🎨 CONTAINER PRINCIPAL
    =========================== */
 .main-container {
     -fx-background-color: #f4f6f8;
-    -fx-padding: 0;
 }
 
 .scroll-pane {
@@ -11,117 +10,132 @@
     -fx-border-color: transparent;
 }
 
-.scroll-pane .viewport {
+.scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
 
 /* ===========================
-   🏷️ Cabeçalho
-   =========================== */
-.title-label {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #1976d2;
-}
-
-.subtitle-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #555555;
-}
-
-.section-label {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #222222;
-}
-
-/* ===========================
-   🔍 Campo de pesquisa & TextField
-   =========================== */
-.form-field, .search-field {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1.5px;
-    -fx-border-radius: 8;
-    -fx-padding: 6 12;
-    -fx-font-size: 13px;
-}
-
-.form-field:focused, .search-field:focused {
-    -fx-border-color: #1976d2;
-    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
-}
-
-/* ===========================
-   📦 ComboBox
-   =========================== */
-.form-combo {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 1.5px;
-    -fx-border-radius: 8;
-    -fx-padding: 0 5;
-    -fx-font-size: 13px;
-}
-
-.form-combo:focused {
-    -fx-border-color: #1976d2;
-    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6, 0, 0, 2);
-}
-
-/* ===========================
-   🧾 Botões
-   =========================== */
-.primary-button {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-background-color: #1976d2;
-    -fx-background-radius: 8;
-    -fx-padding: 0 12;
-}
-
-.primary-button:hover {
-    -fx-background-color: #1565c0;
-}
-
-.danger-button {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-background-color: #d32f2f;
-    -fx-background-radius: 8;
-    -fx-padding: 0 12;
-}
-
-.danger-button:hover {
-    -fx-background-color: #b71c1c;
-}
-
-.icon-button {
-    -fx-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 0 6 0 0;
-}
-
-/* ===========================
-   📊 Cards e TitledPane
+   🏷️ TITLED PANE (SEÇÕES)
    =========================== */
 .titled-pane {
-    -fx-background-color: white;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-padding: 4;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 6,0,0,2);
 }
 
 .titled-pane > .title {
     -fx-background-color: #1976d2;
-    -fx-text-fill: white;
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-padding: 14px 20px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-background-radius: 10 10 0 0;
+    -fx-text-fill: white;
 }
 
-🗂️ Tabela
+.titled-pane > .title:hover {
+    -fx-background-color: #1565c0;
+}
+
+.titled-pane > .content {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+/* ===========================
+   🧾 FORMULÁRIOS E CAMPOS
+   =========================== */
+.form-field,
+.form-textarea {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+    -fx-prompt-text-fill: #777777;
+    -fx-pref-height: 38px;
+}
+
+.form-field:focused,
+.form-textarea:focused {
+    -fx-border-color: #1976d2;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6,0,0,2);
+}
+
+/* ===========================
+   🔹 COMBOBOX TRANSPARENTE MODERNO
+   =========================== */
+.form-combo {
+    -fx-background-color: transparent;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 8;
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+    -fx-padding: 0 10 0 10;
+    -fx-pref-height: 38px;
+}
+
+.form-combo:focused {
+    -fx-border-color: #1976d2;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.25), 6,0,0,2);
+}
+
+/* Campo interno e placeholder */
+.form-combo .combo-box-base {
+    -fx-background-color: transparent;
+    -fx-text-fill: #222222;
+}
+
+.form-combo .combo-box-base .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #222222;
+    -fx-prompt-text-fill: #777777;
+}
+
+/* Botão da seta */
+.form-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.form-combo .arrow-button .arrow {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 4;
+}
+
+/* Dropdown */
+.form-combo .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6,0,0,2);
+}
+
+.form-combo .list-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #222222;
+    -fx-padding: 8px 12px;
+}
+
+.form-combo .list-cell:hover {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #1976d2;
+}
+
+.form-combo .list-cell:selected {
+    -fx-background-color: #1976d2;
+    -fx-text-fill: white;
+}
+
+/* ===========================
+   📋 TABELA
    =========================== */
 .table-view {
     -fx-background-color: #ffffff;
@@ -132,7 +146,7 @@
     -fx-font-size: 13px;
 }
 
-.table-view.table-primary .column-header-background {
+.table-view .column-header-background {
     -fx-background-color: #1976d2;
     -fx-background-radius: 10 10 0 0;
     -fx-padding: 4px;
@@ -179,14 +193,87 @@
     -fx-background-radius: 8;
 }
 
-/* Ícones dos botões */
-.icon-button {
-    -fx-fill: white;       /* Cor branca para os ícones */
-    -fx-font-size: 14px;
-    -fx-padding: 0 6 0 0;
+/* ===========================
+   🧭 BOTÕES
+   =========================== */
+.primary-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
 }
 
-/* Caso queira aplicar a todos os FontAwesomeIconView dentro de botões */
-.button > .font-awesome-icon {
+.primary-button:hover { -fx-background-color: #1565c0; }
+.primary-button:pressed { -fx-background-color: #0d47a1; }
+
+.success-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #2e7d32;
+    -fx-background-radius: 8;
+    -fx-padding: 10 18;
+}
+
+.success-button:hover { -fx-background-color: derive(#2e7d32, -10%); }
+
+.danger-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #d32f2f;
+    -fx-background-radius: 8;
+    -fx-padding: 10 18;
+}
+
+.danger-button:hover { -fx-background-color: derive(#d32f2f, -10%); }
+
+.warning-button {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #222222;
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 8;
+    -fx-padding: 10 18;
+}
+
+.warning-button:hover { -fx-background-color: #d5d5d5; }
+
+/* ===========================
+   🔧 SCROLLBAR MODERNA
+   =========================== */
+.scroll-bar .thumb {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 8;
+}
+
+/* ===========================
+   ✨ ÍCONES
+   =========================== */
+.icon-button {
     -fx-fill: white;
+    -fx-font-size: 15px;
+    -fx-padding: 0 8 0 0;
+}
+
+.button > FontAwesomeIconView {
+    -fx-fill: white;
+}
+
+/* ===========================
+   ⚡ DESABILITADO
+   =========================== */
+.form-field:disabled,
+.form-combo:disabled,
+.button:disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
 }

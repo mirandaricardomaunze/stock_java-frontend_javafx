@@ -20,8 +20,8 @@
 
                 <!-- Header -->
                 <VBox spacing="15" styleClass="header-section">
-                    <Label  text="Gestão de armazéns" styleClass="title-label"/>
-                    <Label text="Gerencie seus armazéns de forma eficiente" styleClass="subtitle-label"/>
+                    <Label  text="Gestão de categorias" styleClass="title-label"/>
+                    <Label text="Gerencie suas categorias de forma eficiente" styleClass="subtitle-label"/>
                 </VBox>
 
                 <!-- Search Bar -->

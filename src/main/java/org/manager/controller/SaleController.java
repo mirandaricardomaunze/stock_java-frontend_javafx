@@ -1,6 +1,5 @@
 package org.manager.controller;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,48 +12,58 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.manager.dto.SaleDTO;
+import org.manager.dto.SaleResponseDTO;
 import org.manager.service.SaleService;
 import org.manager.session.SessionManager;
 import org.manager.util.AlertUtil;
-import org.manager.util.FormatUtil;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 public class SaleController {
 
-    @FXML private TableView<SaleDTO> salesTable;
-    @FXML private TableColumn<SaleDTO, String> clientColumn;
-    @FXML private TableColumn<SaleDTO,String>  codeColumn;
-    @FXML private TableColumn<SaleDTO,String>  productColumn;
-    @FXML private TableColumn<SaleDTO, String> totalColumn;
-    @FXML private TableColumn<SaleDTO, String> statusColumn;
-    @FXML private TableColumn<SaleDTO, String> dateColumn;
+    @FXML private TableView<SaleResponseDTO> salesTable;
+    @FXML private TableColumn<SaleResponseDTO, String> clientColumn;
+    @FXML private TableColumn<SaleResponseDTO, String> codeColumn;
+    @FXML private TableColumn<SaleResponseDTO, String> productColumn;
+    @FXML private TableColumn<SaleResponseDTO, String> totalColumn;
+    @FXML private TableColumn<SaleResponseDTO, String> statusColumn;
+    @FXML private TableColumn<SaleResponseDTO, String> dateColumn;
     @FXML private ComboBox<String> periodComboBox;
     @FXML private TextField searchField;
     @FXML private Label totalSalesLabel;
     @FXML private Label resultsCount;
     @FXML private Button deleteButton;
     @FXML private Button newSaleButton;
+    @FXML private Button cancelButton;
+    @FXML private Button exportPdfButton;
+    @FXML private Button exportHtmlButton;
+    @FXML private Button exportExcelButton;
 
     private final SaleService saleService = new SaleService();
-    private final ObservableList<SaleDTO> salesList = FXCollections.observableArrayList();
-    private FilteredList<SaleDTO> filteredSales;
+    private final ObservableList<SaleResponseDTO> salesList = FXCollections.observableArrayList();
+    private FilteredList<SaleResponseDTO> filteredSales;
     private final String token = SessionManager.getToken();
-    private static final DateTimeFormatter DISPLAY_FORMAT =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
+    private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @FXML
     public void initialize() {
         setupTable();
-        periodComboBox.getSelectionModel().select("Último Mês");
+
+        periodComboBox.setItems(FXCollections.observableArrayList(
+                "Último Mês", "Últimos 3 Meses", "Últimos 6 Meses", "Último Ano"
+        ));
+        periodComboBox.getSelectionModel().selectFirst();
+
         filteredSales = new FilteredList<>(salesList, s -> true);
         salesTable.setItems(filteredSales);
 
@@ -64,55 +73,54 @@ public class SaleController {
         periodComboBox.setOnAction(event -> loadTotalSales());
         deleteButton.setOnAction(event -> deleteSelectedSale());
         newSaleButton.setOnAction(event -> openNewSaleForm());
+        cancelButton.setOnAction(event -> cancelSelectedSale());
 
-        // Pesquisa em tempo real
+        exportPdfButton.setOnAction(event -> exportSelectedSale("pdf"));
+        exportHtmlButton.setOnAction(event -> exportSelectedSale("html"));
+        exportExcelButton.setOnAction(event -> exportSelectedSale("xlsx"));
+
         searchField.textProperty().addListener((obs, oldText, newText) -> filterSales(newText));
     }
 
     private void setupTable() {
         clientColumn.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getClientName()));
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("pt", "MZ"));
         totalColumn.setCellValueFactory(c -> new SimpleStringProperty(
-                c.getValue().getTotalAmount() != null ? String.format("Mzn %,d", c.getValue().getTotalAmount().longValue()) : "Mzn 0"));
+                c.getValue().getTotalAmount() != null ? formatter.format(c.getValue().getTotalAmount()) : formatter.format(0)
+        ));
         statusColumn.setCellValueFactory(c -> new SimpleStringProperty(
-                c.getValue().getStatus() != null ? c.getValue().getStatus() : ""));
+                c.getValue().getStatus() != null ? c.getValue().getStatus() : ""
+        ));
         dateColumn.setCellValueFactory(c -> {
             String rawDate = c.getValue().getSaleDate();
-
-            if (rawDate == null || rawDate.isBlank()) {
-                return new SimpleStringProperty("");
-            }
-
+            if (rawDate == null || rawDate.isBlank()) return new SimpleStringProperty("");
             try {
-                LocalDateTime dateTime = LocalDateTime.parse(rawDate);
+                LocalDateTime dateTime = LocalDateTime.parse(rawDate, DateTimeFormatter.ISO_DATE_TIME);
                 return new SimpleStringProperty(dateTime.format(DISPLAY_FORMAT));
-            } catch (Exception e) {
-                return new SimpleStringProperty(rawDate); // mostra original se falhar
+            } catch (DateTimeParseException e) {
+                return new SimpleStringProperty(rawDate);
             }
         });
-
         productColumn.setCellValueFactory(c -> {
             if (c.getValue().getItems() != null && !c.getValue().getItems().isEmpty()) {
-                return new SimpleStringProperty(
-                        c.getValue().getItems().getFirst().getProductName()
-                );
+                return new SimpleStringProperty(c.getValue().getItems().get(0).getProductName());
             }
             return new SimpleStringProperty("");
         });
-        codeColumn.setCellValueFactory(c->{
-            if (c.getValue().getItems()!=null && !c.getValue().getItems().isEmpty()){
-                return new SimpleStringProperty(c.getValue().getItems().getFirst().getProductCode());
+        codeColumn.setCellValueFactory(c -> {
+            if (c.getValue().getItems() != null && !c.getValue().getItems().isEmpty()) {
+                return new SimpleStringProperty(c.getValue().getItems().get(0).getProductCode());
             }
             return new SimpleStringProperty("");
         });
     }
 
-    // -------------------- CARREGAR VENDAS --------------------
     private void loadSales() {
         saleService.listSales(token)
                 .thenAccept(sales -> Platform.runLater(() -> {
                     if (sales == null || sales.isEmpty()) {
-                        AlertUtil.showInfo("Vendas", "Nenhuma venda encontrada.");
                         salesList.clear();
+                        AlertUtil.showInfo("Vendas", "Nenhuma venda encontrada.");
                     } else {
                         salesList.setAll(sales);
                         updateResultsCount();
@@ -128,69 +136,63 @@ public class SaleController {
                 });
     }
 
-
     private void loadTotalSales() {
-        Object selected = periodComboBox.getValue();
-        // Converter para string segura
-        String period = (selected == null) ? "" : selected.toString().trim();
-        // Mapear opções do ComboBox → valores internos da API
-        switch (period) {
-            case "Último Mês":
-                period = "month";
-                break;
-
-            case "Últimos 3 Meses":
-                period = "3months";
-                break;
-
-            case "Últimos 6 Meses":
-                period = "6months";
-                break;
-
-            case "Último Ano":
-                period = "year";
-                break;
-
-            default:
-                period = "month"; // fallback
-                break;
-        }
-
+        String period = mapPeriod(periodComboBox.getValue());
         saleService.getTotalSales(period, token)
                 .thenAccept(total -> Platform.runLater(() -> {
-
-                    NumberFormat formatter = NumberFormat.getInstance(new Locale("pt", "MZ"));
-                    formatter.setMinimumFractionDigits(2);
-                    formatter.setMaximumFractionDigits(2);
-
-                    totalSalesLabel.setText("Mzn " + formatter.format(total));
-                    System.out.println("Total de vendas: " + total);
+                    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("pt", "MZ"));
+                    totalSalesLabel.setText(formatter.format(total));
                 }))
                 .exceptionally(ex -> {
-                    Platform.runLater(() -> totalSalesLabel.setText("Mzn 0.00"));
+                    Platform.runLater(() -> totalSalesLabel.setText("Mzn 0,00"));
                     return null;
                 });
     }
 
+    private String mapPeriod(String period) {
+        if (period == null) return "month";
+        switch (period) {
+            case "Último Mês": return "month";
+            case "Últimos 3 Meses": return "3months";
+            case "Últimos 6 Meses": return "6months";
+            case "Último Ano": return "year";
+            default: return "month";
+        }
+    }
 
-    // -------------------- DELETAR VENDA --------------------
+    private void filterSales(String query) {
+        if (query == null || query.isBlank()) {
+            filteredSales.setPredicate(s -> true);
+        } else {
+            String lowerCase = query.toLowerCase();
+            filteredSales.setPredicate(sale ->
+                    sale.getClientName().toLowerCase().contains(lowerCase) ||
+                            (sale.getSaleCode() != null && sale.getSaleCode().toLowerCase().contains(lowerCase))
+            );
+        }
+        updateResultsCount();
+    }
+
+    private void updateResultsCount() {
+        resultsCount.setText(filteredSales.size() + " vendas encontradas");
+    }
+
     private void deleteSelectedSale() {
-        SaleDTO selected = salesTable.getSelectionModel().getSelectedItem();
+        SaleResponseDTO selected = salesTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
             AlertUtil.showInfo("Seleção necessária", "Por favor, selecione uma venda para deletar.");
             return;
         }
-
         boolean confirmed = AlertUtil.showConfirmation("Confirmar exclusão",
                 "Deseja realmente deletar a venda: " + selected.getSaleCode() + "?");
         if (!confirmed) return;
 
         saleService.deleteSale(selected.getId(), token)
                 .thenRun(() -> Platform.runLater(() -> {
-                    AlertUtil.showInfo("Sucesso", "Venda deletada com sucesso!");
                     salesList.remove(selected);
                     updateResultsCount();
                     loadTotalSales();
+                    AlertUtil.showInfo("Sucesso", "Venda deletada com sucesso!");
                 }))
                 .exceptionally(ex -> {
                     Platform.runLater(() -> {
@@ -202,7 +204,39 @@ public class SaleController {
                 });
     }
 
-    // -------------------- ABRIR FORMULÁRIO DE NOVA VENDA --------------------
+    @FXML
+    private void cancelSelectedSale() {
+        SaleResponseDTO selected = salesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            AlertUtil.showInfo("Atenção", "Selecione uma venda para cancelar.");
+            return;
+        }
+
+        boolean confirmed = AlertUtil.showConfirmation("Confirmação de cancelamento",
+                "Deseja realmente cancelar a venda " + selected.getSaleCode() + "?");
+        if (!confirmed) return;
+
+        saleService.cancelSale(selected.getId(), token)
+                .thenAccept(updatedSale -> Platform.runLater(() -> {
+                    if (updatedSale != null) {
+                        int index = salesList.indexOf(selected);
+                        if (index >= 0) salesList.set(index, updatedSale);
+                        AlertUtil.showInfo("Sucesso", "Venda cancelada com sucesso!");
+                        loadTotalSales();
+                    } else {
+                        AlertUtil.showError("Erro", "Não foi possível cancelar a venda.");
+                    }
+                }))
+                .exceptionally(ex -> {
+                    Platform.runLater(() -> {
+                        Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+                        AlertUtil.showError("Erro", "Falha ao cancelar venda: " + cause.getMessage());
+                        cause.printStackTrace();
+                    });
+                    return null;
+                });
+    }
+
     private void openNewSaleForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SaleForm.fxml"));
@@ -223,21 +257,69 @@ public class SaleController {
         }
     }
 
-    // -------------------- FILTRAR PESQUISA --------------------
-    private void filterSales(String query) {
-        if (query == null || query.isBlank()) {
-            filteredSales.setPredicate(s -> true);
-        } else {
-            String lowerCase = query.toLowerCase();
-            filteredSales.setPredicate(sale ->
-                    sale.getClientName().toLowerCase().contains(lowerCase) ||
-                            (sale.getSaleCode() != null && sale.getSaleCode().toLowerCase().contains(lowerCase))
-            );
+    // ================= EXPORT METHODS =================
+    private void exportSelectedSale(String format) {
+        SaleResponseDTO selected = salesTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            AlertUtil.showInfo("Atenção", "Selecione uma venda para exportar.");
+            return;
         }
-        updateResultsCount();
+
+        CompletableFuture<byte[]> exportFuture;
+
+        switch (format.toLowerCase()) {
+            case "pdf":
+                exportFuture = saleService.exportSaleToPdf(selected.getId(), token);
+                break;
+            case "html":
+                exportFuture = saleService.exportSaleToHtml(selected.getId(), token);
+                break;
+            case "xlsx":
+            case "excel":
+                exportFuture = saleService.exportSaleToExcel(selected.getId(), token);
+                break;
+            default:
+                AlertUtil.showError("Erro", "Formato de exportação não suportado: " + format);
+                return;
+        }
+
+        exportFuture.thenAccept(bytes -> {
+            if (bytes == null || bytes.length == 0) {
+                Platform.runLater(() -> AlertUtil.showError("Erro", "O servidor retornou um arquivo vazio."));
+                return;
+            }
+            Platform.runLater(() -> saveFileToDownloads(bytes, format, selected.getId().toString()));
+        }).exceptionally(ex -> {
+            Platform.runLater(() -> {
+                Throwable cause = ex.getCause() != null ? ex.getCause() : ex;
+                AlertUtil.showError("Erro", "Falha ao exportar venda: " + cause.getMessage());
+                cause.printStackTrace();
+            });
+            return null;
+        });
     }
 
-    private void updateResultsCount() {
-        resultsCount.setText(filteredSales.size() + " vendas encontradas");
+    // Salva automaticamente na pasta Downloads
+    private void saveFileToDownloads(byte[] data, String format, String saleCode) {
+        new Thread(() -> {
+            try {
+                String userHome = System.getProperty("user.home");
+                File downloadsFolder = new File(userHome, "Downloads");
+                if (!downloadsFolder.exists()) downloadsFolder.mkdirs();
+                Date now = new Date();
+                File file = new File(downloadsFolder, "Venda_"+now.getSeconds()+ saleCode + "." + format);
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                    fos.write(data);
+                }
+
+                Platform.runLater(() ->
+                        AlertUtil.showInfo("Sucesso", "Arquivo exportado com sucesso em: " + file.getAbsolutePath())
+                );
+            } catch (IOException e) {
+                Platform.runLater(() ->
+                        AlertUtil.showError("Erro", "Falha ao salvar arquivo: " + e.getMessage())
+                );
+            }
+        }).start();
     }
 }
